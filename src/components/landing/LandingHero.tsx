@@ -587,16 +587,45 @@ export const LandingHero: React.FC<LandingHeroProps> = ({
           Từ bản vẽ thô đến bảng khối lượng hoàn chỉnh, nhanh chóng và dễ dàng.
         </p>
 
-        {/* 6 Steps Circular Pipeline with connecting arrows */}
+        {/* 6 Steps Circular Pipeline with connecting energy beam */}
         <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-6 relative">
           
+          {/* Tia sáng / Luồng năng lượng kết nối 6 bước (Desktop: xuyên suốt từ bước 01 đến 06) */}
+          <div className="hidden lg:block absolute top-8 left-[8.33%] right-[8.33%] h-[2px] -translate-y-1/2 pointer-events-none z-0">
+            {/* Đường ray ánh sáng nền */}
+            <div className="w-full h-full bg-gradient-to-r from-sky-500/20 via-sky-400/60 to-sky-500/20 shadow-[0_0_10px_rgba(14,165,233,0.5)]" />
+            
+            {/* Tia sáng laser chuyển động tuần hoàn nối các bước */}
+            <motion.div
+              className="absolute top-0 bottom-0 w-36 bg-gradient-to-r from-transparent via-[#38bdf8] to-transparent shadow-[0_0_16px_#38bdf8,0_0_8px_#bae6fd]"
+              animate={{
+                left: ['-15%', '110%'],
+              }}
+              transition={{
+                repeat: Infinity,
+                duration: 2.6,
+                ease: "easeInOut",
+              }}
+            />
+          </div>
+
+          {/* Tia sáng kết nối dành cho Tablet (Hàng 1: bước 01 đến 03) */}
+          <div className="hidden md:block lg:hidden absolute top-8 left-[16.66%] right-[16.66%] h-[2px] -translate-y-1/2 pointer-events-none z-0">
+            <div className="w-full h-full bg-gradient-to-r from-sky-500/20 via-sky-400/60 to-sky-500/20 shadow-[0_0_8px_rgba(14,165,233,0.4)]" />
+            <motion.div
+              className="absolute top-0 bottom-0 w-28 bg-gradient-to-r from-transparent via-[#38bdf8] to-transparent shadow-[0_0_14px_#38bdf8]"
+              animate={{ left: ['-15%', '110%'] }}
+              transition={{ repeat: Infinity, duration: 2.2, ease: "easeInOut" }}
+            />
+          </div>
+
           {/* Step 1: Tải lên bản vẽ */}
-          <div className="flex flex-col items-center text-center group">
+          <div className="flex flex-col items-center text-center group relative z-10">
             <div className="relative mb-4">
-              <div className="w-16 h-16 rounded-full bg-[#101726] border-2 border-sky-400 flex items-center justify-center text-[#38bdf8] shadow-[0_0_20px_rgba(14,165,233,0.3)] group-hover:scale-105 transition-transform">
+              <div className="w-16 h-16 rounded-full bg-[#080d18] border-2 border-sky-400 flex items-center justify-center text-[#38bdf8] shadow-[0_0_20px_rgba(14,165,233,0.35)] group-hover:scale-105 group-hover:border-white transition-all">
                 <Upload className="w-6 h-6" />
               </div>
-              <span className="absolute -bottom-2.5 left-1/2 -translate-x-1/2 bg-gradient-to-r from-[#0284c7] to-[#38bdf8] text-white text-[10px] font-extrabold px-2 py-0.5 rounded-full font-mono">
+              <span className="absolute -bottom-2.5 left-1/2 -translate-x-1/2 bg-gradient-to-r from-[#0284c7] to-[#38bdf8] text-white text-[10px] font-extrabold px-2 py-0.5 rounded-full font-mono shadow-sm">
                 01
               </span>
             </div>
@@ -605,12 +634,12 @@ export const LandingHero: React.FC<LandingHeroProps> = ({
           </div>
 
           {/* Step 2: Cắt vùng bản vẽ */}
-          <div className="flex flex-col items-center text-center group">
+          <div className="flex flex-col items-center text-center group relative z-10">
             <div className="relative mb-4">
-              <div className="w-16 h-16 rounded-full bg-[#101726] border-2 border-sky-400 flex items-center justify-center text-[#38bdf8] shadow-[0_0_20px_rgba(14,165,233,0.3)] group-hover:scale-105 transition-transform">
+              <div className="w-16 h-16 rounded-full bg-[#080d18] border-2 border-sky-400 flex items-center justify-center text-[#38bdf8] shadow-[0_0_20px_rgba(14,165,233,0.35)] group-hover:scale-105 group-hover:border-white transition-all">
                 <Crop className="w-6 h-6" />
               </div>
-              <span className="absolute -bottom-2.5 left-1/2 -translate-x-1/2 bg-gradient-to-r from-[#0284c7] to-[#38bdf8] text-white text-[10px] font-extrabold px-2 py-0.5 rounded-full font-mono">
+              <span className="absolute -bottom-2.5 left-1/2 -translate-x-1/2 bg-gradient-to-r from-[#0284c7] to-[#38bdf8] text-white text-[10px] font-extrabold px-2 py-0.5 rounded-full font-mono shadow-sm">
                 02
               </span>
             </div>
@@ -619,12 +648,12 @@ export const LandingHero: React.FC<LandingHeroProps> = ({
           </div>
 
           {/* Step 3: Thiết lập tỷ lệ */}
-          <div className="flex flex-col items-center text-center group">
+          <div className="flex flex-col items-center text-center group relative z-10">
             <div className="relative mb-4">
-              <div className="w-16 h-16 rounded-full bg-[#101726] border-2 border-sky-400 flex items-center justify-center text-[#38bdf8] shadow-[0_0_20px_rgba(14,165,233,0.3)] group-hover:scale-105 transition-transform">
+              <div className="w-16 h-16 rounded-full bg-[#080d18] border-2 border-sky-400 flex items-center justify-center text-[#38bdf8] shadow-[0_0_20px_rgba(14,165,233,0.35)] group-hover:scale-105 group-hover:border-white transition-all">
                 <Ruler className="w-6 h-6" />
               </div>
-              <span className="absolute -bottom-2.5 left-1/2 -translate-x-1/2 bg-gradient-to-r from-[#0284c7] to-[#38bdf8] text-white text-[10px] font-extrabold px-2 py-0.5 rounded-full font-mono">
+              <span className="absolute -bottom-2.5 left-1/2 -translate-x-1/2 bg-gradient-to-r from-[#0284c7] to-[#38bdf8] text-white text-[10px] font-extrabold px-2 py-0.5 rounded-full font-mono shadow-sm">
                 03
               </span>
             </div>
@@ -633,12 +662,12 @@ export const LandingHero: React.FC<LandingHeroProps> = ({
           </div>
 
           {/* Step 4: AI phân tích */}
-          <div className="flex flex-col items-center text-center group">
+          <div className="flex flex-col items-center text-center group relative z-10">
             <div className="relative mb-4">
-              <div className="w-16 h-16 rounded-full bg-[#101726] border-2 border-sky-400 flex items-center justify-center text-[#38bdf8] shadow-[0_0_20px_rgba(14,165,233,0.3)] group-hover:scale-105 transition-transform">
+              <div className="w-16 h-16 rounded-full bg-[#080d18] border-2 border-sky-400 flex items-center justify-center text-[#38bdf8] shadow-[0_0_20px_rgba(14,165,233,0.35)] group-hover:scale-105 group-hover:border-white transition-all">
                 <Bot className="w-6 h-6" />
               </div>
-              <span className="absolute -bottom-2.5 left-1/2 -translate-x-1/2 bg-gradient-to-r from-[#0284c7] to-[#38bdf8] text-white text-[10px] font-extrabold px-2 py-0.5 rounded-full font-mono">
+              <span className="absolute -bottom-2.5 left-1/2 -translate-x-1/2 bg-gradient-to-r from-[#0284c7] to-[#38bdf8] text-white text-[10px] font-extrabold px-2 py-0.5 rounded-full font-mono shadow-sm">
                 04
               </span>
             </div>
@@ -647,12 +676,12 @@ export const LandingHero: React.FC<LandingHeroProps> = ({
           </div>
 
           {/* Step 5: Kiểm tra & chỉnh sửa */}
-          <div className="flex flex-col items-center text-center group">
+          <div className="flex flex-col items-center text-center group relative z-10">
             <div className="relative mb-4">
-              <div className="w-16 h-16 rounded-full bg-[#101726] border-2 border-sky-400 flex items-center justify-center text-[#38bdf8] shadow-[0_0_20px_rgba(14,165,233,0.3)] group-hover:scale-105 transition-transform">
+              <div className="w-16 h-16 rounded-full bg-[#080d18] border-2 border-sky-400 flex items-center justify-center text-[#38bdf8] shadow-[0_0_20px_rgba(14,165,233,0.35)] group-hover:scale-105 group-hover:border-white transition-all">
                 <Check className="w-6 h-6 stroke-[3]" />
               </div>
-              <span className="absolute -bottom-2.5 left-1/2 -translate-x-1/2 bg-gradient-to-r from-[#0284c7] to-[#38bdf8] text-white text-[10px] font-extrabold px-2 py-0.5 rounded-full font-mono">
+              <span className="absolute -bottom-2.5 left-1/2 -translate-x-1/2 bg-gradient-to-r from-[#0284c7] to-[#38bdf8] text-white text-[10px] font-extrabold px-2 py-0.5 rounded-full font-mono shadow-sm">
                 05
               </span>
             </div>
@@ -661,12 +690,12 @@ export const LandingHero: React.FC<LandingHeroProps> = ({
           </div>
 
           {/* Step 6: Xuất kết quả */}
-          <div className="flex flex-col items-center text-center group">
+          <div className="flex flex-col items-center text-center group relative z-10">
             <div className="relative mb-4">
-              <div className="w-16 h-16 rounded-full bg-[#101726] border-2 border-sky-400 flex items-center justify-center text-[#38bdf8] shadow-[0_0_20px_rgba(14,165,233,0.3)] group-hover:scale-105 transition-transform">
+              <div className="w-16 h-16 rounded-full bg-[#080d18] border-2 border-sky-400 flex items-center justify-center text-[#38bdf8] shadow-[0_0_20px_rgba(14,165,233,0.35)] group-hover:scale-105 group-hover:border-white transition-all">
                 <Download className="w-6 h-6" />
               </div>
-              <span className="absolute -bottom-2.5 left-1/2 -translate-x-1/2 bg-gradient-to-r from-[#0284c7] to-[#38bdf8] text-white text-[10px] font-extrabold px-2 py-0.5 rounded-full font-mono">
+              <span className="absolute -bottom-2.5 left-1/2 -translate-x-1/2 bg-gradient-to-r from-[#0284c7] to-[#38bdf8] text-white text-[10px] font-extrabold px-2 py-0.5 rounded-full font-mono shadow-sm">
                 06
               </span>
             </div>
