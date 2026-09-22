@@ -590,16 +590,16 @@ export const LandingHero: React.FC<LandingHeroProps> = ({
         {/* 6 Steps Circular Pipeline with connecting energy beam */}
         <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-6 relative">
           
-          {/* Tia sáng / Luồng năng lượng kết nối 6 bước (Desktop: xuyên suốt từ bước 01 đến 06) */}
-          <div className="hidden lg:block absolute top-8 left-[8.33%] right-[8.33%] h-[2px] -translate-y-1/2 pointer-events-none z-0">
+          {/* Tia sáng / Luồng năng lượng kết nối 6 bước (Desktop: kết nối chuẩn xác từ sau bước 01 đến trước bước 06) */}
+          <div className="hidden lg:block absolute top-8 left-[calc(100%/12+20px)] right-[calc(100%/12+20px)] h-[2px] -translate-y-1/2 pointer-events-none z-0 overflow-hidden">
             {/* Đường ray ánh sáng nền */}
             <div className="w-full h-full bg-gradient-to-r from-sky-500/20 via-sky-400/60 to-sky-500/20 shadow-[0_0_10px_rgba(14,165,233,0.5)]" />
             
-            {/* Tia sáng laser chuyển động tuần hoàn nối các bước */}
+            {/* Tia sáng laser tuần hoàn bị chặn trong phạm vi (không lố ra ngoài bước 01 và 06) */}
             <motion.div
-              className="absolute top-0 bottom-0 w-36 bg-gradient-to-r from-transparent via-[#38bdf8] to-transparent shadow-[0_0_16px_#38bdf8,0_0_8px_#bae6fd]"
+              className="absolute top-0 bottom-0 w-32 bg-gradient-to-r from-transparent via-[#38bdf8] to-transparent shadow-[0_0_16px_#38bdf8,0_0_8px_#bae6fd]"
               animate={{
-                left: ['-15%', '110%'],
+                x: ['-100%', '750%'],
               }}
               transition={{
                 repeat: Infinity,
@@ -609,12 +609,12 @@ export const LandingHero: React.FC<LandingHeroProps> = ({
             />
           </div>
 
-          {/* Tia sáng kết nối dành cho Tablet (Hàng 1: bước 01 đến 03) */}
-          <div className="hidden md:block lg:hidden absolute top-8 left-[16.66%] right-[16.66%] h-[2px] -translate-y-1/2 pointer-events-none z-0">
+          {/* Tia sáng kết nối dành cho Tablet (Hàng 1: bước 01 đến 03, giới hạn chuẩn) */}
+          <div className="hidden md:block lg:hidden absolute top-8 left-[calc(100%/6+20px)] right-[calc(100%/6+20px)] h-[2px] -translate-y-1/2 pointer-events-none z-0 overflow-hidden">
             <div className="w-full h-full bg-gradient-to-r from-sky-500/20 via-sky-400/60 to-sky-500/20 shadow-[0_0_8px_rgba(14,165,233,0.4)]" />
             <motion.div
-              className="absolute top-0 bottom-0 w-28 bg-gradient-to-r from-transparent via-[#38bdf8] to-transparent shadow-[0_0_14px_#38bdf8]"
-              animate={{ left: ['-15%', '110%'] }}
+              className="absolute top-0 bottom-0 w-24 bg-gradient-to-r from-transparent via-[#38bdf8] to-transparent shadow-[0_0_14px_#38bdf8]"
+              animate={{ x: ['-100%', '400%'] }}
               transition={{ repeat: Infinity, duration: 2.2, ease: "easeInOut" }}
             />
           </div>
