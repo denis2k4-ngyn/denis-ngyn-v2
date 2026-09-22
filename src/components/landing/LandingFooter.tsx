@@ -35,7 +35,7 @@ export const LandingFooter: React.FC<LandingFooterProps> = ({
   };
 
   return (
-    <div className="bg-[#050811] text-white font-sans relative overflow-hidden">
+    <div className="bg-transparent text-white font-sans relative overflow-hidden">
       
       {/* ═══════════════════════════════════════════════════════════════
           REDESIGNED SECTION: SẴN SÀNG BÓC TÁCH (HERO CTA REDESIGN)
@@ -93,9 +93,9 @@ export const LandingFooter: React.FC<LandingFooterProps> = ({
 
 
       {/* ═══════════════════════════════════════════════════════════════
-          FOOTER MAIN: 4 COLUMNS MATCHING SPEC & SCREENSHOT
+          FOOTER MAIN: 4 COLUMNS MATCHING SPEC & SCREENSHOT (No grid, solid dark)
       ═══════════════════════════════════════════════════════════════ */}
-      <footer className="border-t border-sky-500/15 pt-14 pb-10 text-white/60 text-xs font-sans">
+      <footer className="relative z-10 bg-[#040711] border-t border-sky-500/20 pt-14 pb-10 text-white/60 text-xs font-sans">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-8 lg:gap-10 pb-12 border-b border-white/10">

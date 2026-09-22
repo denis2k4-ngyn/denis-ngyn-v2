@@ -53,28 +53,13 @@ export const LandingHero: React.FC<LandingHeroProps> = ({
   };
 
   return (
-    <div className="w-full min-h-screen bg-[#080d18] text-white selection:bg-[#0ea5e9] selection:text-white overflow-x-hidden">
+    <div className="w-full min-h-screen bg-transparent text-white selection:bg-[#0ea5e9] selection:text-white overflow-x-hidden">
       
       {/* ═══════════════════════════════════════════════════════════════
           SECTION 1: HERO (Phân tích bản vẽ mặt bằng ngay lập tức bằng AI)
           THEME: TECH COBALT & REFLECTIVE CYAN (Matching New Blue Chibi)
       ═══════════════════════════════════════════════════════════════ */}
       <section id="hero" className="relative w-full pt-8 sm:pt-14 pb-16 overflow-hidden">
-        {/* Lưới mảnh màu xanh công nghệ tạo bằng CSS linear-gradient */}
-        <div 
-          className="absolute inset-0 pointer-events-none z-0"
-          style={{
-            backgroundImage: `
-              linear-gradient(to right, rgba(14, 165, 233, 0.25) 1px, transparent 1px),
-              linear-gradient(to bottom, rgba(14, 165, 233, 0.25) 1px, transparent 1px)
-            `,
-            backgroundSize: '48px 48px',
-            backgroundPosition: 'center center',
-            maskImage: 'linear-gradient(to bottom, black 85%, transparent 100%)',
-            WebkitMaskImage: 'linear-gradient(to bottom, black 85%, transparent 100%)'
-          }}
-        />
-
         <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
           

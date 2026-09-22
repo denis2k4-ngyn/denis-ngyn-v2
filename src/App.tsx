@@ -298,20 +298,34 @@ export function App() {
   // ─────────────────────────────────────────────────────────────────
   if (viewMode === 'landing') {
     return (
-      <div className="min-h-screen bg-[#080d18] text-white font-sans selection:bg-[#f59e0b] selection:text-[#080d18]">
-        <LandingHeader
-          onGetStarted={handleGetStarted}
-          onExploreDemo={handleExploreDemo}
-          onLogin={handleLogin}
+      <div className="min-h-screen bg-[#080d18] text-white font-sans selection:bg-[#0ea5e9] selection:text-white relative">
+        {/* Lưới kỹ thuật CAD / Blueprint đồng bộ toàn bộ Landing Page (độ mờ dịu mắt) */}
+        <div 
+          className="fixed inset-0 pointer-events-none z-0"
+          style={{
+            backgroundImage: `
+              linear-gradient(to right, rgba(14, 165, 233, 0.11) 1px, transparent 1px),
+              linear-gradient(to bottom, rgba(14, 165, 233, 0.11) 1px, transparent 1px)
+            `,
+            backgroundSize: '48px 48px',
+            backgroundPosition: 'center center',
+          }}
         />
-        <LandingHero
-          onGetStarted={handleGetStarted}
-          onExploreDemo={handleExploreDemo}
-        />
-        <LandingFooter
-          onGetStarted={handleGetStarted}
-          onExploreDemo={handleExploreDemo}
-        />
+        <div className="relative z-10">
+          <LandingHeader
+            onGetStarted={handleGetStarted}
+            onExploreDemo={handleExploreDemo}
+            onLogin={handleLogin}
+          />
+          <LandingHero
+            onGetStarted={handleGetStarted}
+            onExploreDemo={handleExploreDemo}
+          />
+          <LandingFooter
+            onGetStarted={handleGetStarted}
+            onExploreDemo={handleExploreDemo}
+          />
+        </div>
       </div>
     );
   }
