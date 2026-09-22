@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { motion } from 'motion/react';
 import { 
   Play, 
@@ -33,12 +33,49 @@ interface LandingHeroProps {
 export const LandingHero: React.FC<LandingHeroProps> = ({
   onGetStarted,
 }) => {
-  // Preview Section state
-  const [activeTab, setActiveTab] = useState<'raw' | 'ai'>('ai');
+  // Live AI Scanning Simulation state (Hướng 3: Live AI Scanning Radar)
+  const [scanProgress, setScanProgress] = useState<number>(0);
   // Video Modal State
   const [showVideoModal, setShowVideoModal] = useState(false);
   // Bottom Showcase Demo active tab
   const [demoSidebarTab, setDemoSidebarTab] = useState<'overview' | 'plans' | 'takeoff' | 'reports' | 'download'>('overview');
+
+  // Chu kỳ quét Laser tự động lặp lại mượt mà
+  useEffect(() => {
+    let animationFrameId: number;
+    let lastTime = performance.now();
+    let state: 'scanning' | 'paused' = 'scanning';
+    let pauseStartTime = 0;
+
+    const animate = (time: number) => {
+      const delta = time - lastTime;
+      lastTime = time;
+
+      if (state === 'scanning') {
+        setScanProgress((prev) => {
+          // Quét toàn bộ bản vẽ từ trên xuống dưới trong khoảng 4.2 giây
+          const next = prev + (delta / 4200) * 100;
+          if (next >= 100) {
+            state = 'paused';
+            pauseStartTime = time;
+            return 100;
+          }
+          return next;
+        });
+      } else if (state === 'paused') {
+        // Dừng 3.5 giây ở trạng thái hoàn tất 100% để người xem đọc kết quả
+        if (time - pauseStartTime > 3500) {
+          state = 'scanning';
+          setScanProgress(0);
+        }
+      }
+
+      animationFrameId = requestAnimationFrame(animate);
+    };
+
+    animationFrameId = requestAnimationFrame(animate);
+    return () => cancelAnimationFrame(animationFrameId);
+  }, []);
 
   const handleDownloadSampleExcel = () => {
     // Simulated instant sample BOQ export download
@@ -181,286 +218,391 @@ export const LandingHero: React.FC<LandingHeroProps> = ({
 
 
       {/* ═══════════════════════════════════════════════════════════════
-          SECTION 2: XEM TRƯỚC KẾT QUẢ PHÂN TÍCH (Interactive Takeoff Preview)
+          SECTION 2: XEM TRƯỚC KẾT QUẢ PHÂN TÍCH (Live AI Scanning Radar)
       ═══════════════════════════════════════════════════════════════ */}
       <section id="preview" className="py-10 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
         <div className="rounded-2xl sm:rounded-3xl bg-[#0b1220] border border-sky-500/30 hover:border-sky-400/50 p-4 sm:p-6 lg:p-7 shadow-[0_20px_60px_rgba(0,0,0,0.6)] transition-all">
           
-          {/* Card Header: ⌂ XEM TRƯỚC KẾT QUẢ PHÂN TÍCH · ENGENIX AI · ● Đang xử lý hoàn tất */}
+          {/* Card Header: ⌂ XEM TRƯỚC KẾT QUẢ PHÂN TÍCH · ENGENIX AI · ● Đang quét / Đã hoàn tất */}
           <div className="flex flex-wrap items-center justify-between gap-3 pb-5 mb-5 border-b border-sky-500/15">
             <div className="flex items-center gap-2.5">
               <div className="w-6 h-6 rounded bg-sky-500/20 text-[#38bdf8] flex items-center justify-center">
                 <Home className="w-3.5 h-3.5" />
               </div>
               <h2 className="text-xs sm:text-sm font-bold text-white tracking-wider uppercase font-sans">
-                XEM TRƯỚC KẾT QUẢ PHÂN TÍCH
+                XEM TRƯỚC KẾT QUẢ PHÂN TÍCH (AI SCANNING)
               </h2>
             </div>
 
             <div className="flex items-center gap-3 text-xs">
               <span className="font-semibold text-white/90">ENGENIX AI</span>
               <span className="inline-flex items-center gap-1.5 text-sky-400 font-medium">
-                <span className="w-2 h-2 rounded-full bg-[#0ea5e9] animate-pulse" />
-                <span>Đang xử lý hoàn tất</span>
+                <span className={`w-2 h-2 rounded-full ${scanProgress >= 95 ? 'bg-emerald-400' : 'bg-[#0ea5e9] animate-pulse'}`} />
+                <span>{scanProgress >= 95 ? 'Đã hoàn tất phân tích' : 'Đang quét bản vẽ thời gian thực'}</span>
               </span>
             </div>
           </div>
 
-          {/* Top Floor Plan Switcher: [Bản vẽ gốc] | [Kết quả phân tích (AI)] */}
-          <div className="flex items-center gap-2 mb-5">
-            <button
-              onClick={() => setActiveTab('raw')}
-              className={`px-4 sm:px-5 py-2 rounded-xl text-xs sm:text-sm font-semibold transition-all cursor-pointer ${
-                activeTab === 'raw'
-                  ? 'bg-white/10 text-white border border-white/20'
-                  : 'bg-white/5 text-white/60 hover:text-white'
-              }`}
-            >
-              Bản vẽ gốc
-            </button>
-            <button
-              onClick={() => setActiveTab('ai')}
-              className={`px-4 sm:px-5 py-2 rounded-xl text-xs sm:text-sm font-bold transition-all cursor-pointer ${
-                activeTab === 'ai'
-                  ? 'bg-gradient-to-r from-[#0284c7] via-[#0ea5e9] to-[#38bdf8] text-white shadow-md shadow-sky-500/30'
-                  : 'bg-white/5 text-white/60 hover:text-white'
-              }`}
-            >
-              Kết quả phân tích (AI)
-            </button>
+          {/* Top Control & Status Bar (Trạng thái quét & tiến trình động) */}
+          <div className="flex flex-wrap items-center justify-between gap-3 mb-5">
+            <div className="flex items-center gap-2 px-3 py-1.5 rounded-xl bg-sky-950/40 border border-sky-500/30 text-xs font-mono">
+              <span className={`w-2 h-2 rounded-full ${scanProgress >= 95 ? 'bg-emerald-400' : 'bg-[#38bdf8] animate-ping'}`} />
+              <span className={scanProgress >= 95 ? 'text-emerald-300 font-bold' : 'text-sky-300 font-semibold'}>
+                {scanProgress >= 95 ? 'ĐÃ PHÂN TÍCH HOÀN TẤT (100%)' : `TIA LASER AI ĐANG QUÉT (${Math.round(scanProgress)}%)`}
+              </span>
+            </div>
+
+            {/* Live Progress Bar */}
+            <div className="flex items-center gap-3 text-xs font-mono text-white/70">
+              <span className="hidden sm:inline text-white/50">Tiến độ bóc tách:</span>
+              <div className="w-28 sm:w-36 h-2 rounded-full bg-slate-800 border border-sky-500/20 overflow-hidden">
+                <div 
+                  className="h-full bg-gradient-to-r from-[#0284c7] via-[#0ea5e9] to-[#38bdf8] transition-all duration-75"
+                  style={{ width: `${scanProgress}%` }}
+                />
+              </div>
+              <span className="w-10 text-right font-bold text-sky-400">{Math.round(scanProgress)}%</span>
+            </div>
           </div>
 
-          {/* Main Grid: CAD Floor Plan (Left) + Result Info Card (Right) */}
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-center">
-            
-            {/* Left 8 Cols: Architectural Floor Plan Viewport */}
-            <div className="lg:col-span-8 relative rounded-2xl bg-[#060a14] border border-sky-500/20 p-4 min-h-[320px] sm:min-h-[380px] flex flex-col justify-between overflow-hidden shadow-inner">
-              
-              {/* Drafting grid background */}
-              <div className="absolute inset-0 bg-[linear-gradient(to_right,#0c192d_1px,transparent_1px),linear-gradient(to_bottom,#0c192d_1px,transparent_1px)] bg-[size:16px_16px] opacity-70" />
+          {/* Main Grid: CAD Floor Plan Viewport (Left) + Result Info Card (Right) */}
+          {(() => {
+            // Tính toán ngưỡng kích hoạt từng phòng khi tia Laser quét qua
+            const isOuterScanned = scanProgress >= 15;
+            const isLivingRoomScanned = scanProgress >= 28;
+            const isKitchenScanned = scanProgress >= 36;
+            const isBed1Scanned = scanProgress >= 62;
+            const isBed2Scanned = scanProgress >= 70;
+            const isWcScanned = scanProgress >= 78;
 
-              <div className="relative z-10 flex-1 flex flex-col md:flex-row items-center justify-between gap-6">
+            // Số liệu tăng dần theo tiến độ quét của tia laser
+            const currentFloorArea = 
+              scanProgress < 18 ? "0.0" :
+              scanProgress >= 88 ? "85.2" :
+              ((scanProgress - 18) / 70 * 85.2).toFixed(1);
+
+            const currentWallLength = 
+              scanProgress < 15 ? "0.0" :
+              scanProgress >= 88 ? "120.5" :
+              ((scanProgress - 15) / 73 * 120.5).toFixed(1);
+
+            const currentDoorCount = 
+              scanProgress < 28 ? 0 :
+              scanProgress < 48 ? 2 :
+              scanProgress < 65 ? 4 :
+              scanProgress < 82 ? 6 : 8;
+
+            const currentFixturesCount = 
+              scanProgress < 78 ? 0 :
+              scanProgress >= 88 ? 12 :
+              Math.floor(((scanProgress - 78) / 10) * 12);
+
+            return (
+              <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-center">
                 
-                {/* SVG CAD Architectural Blueprint */}
-                <div className="w-full md:w-[68%] h-[260px] sm:h-[300px] flex items-center justify-center">
-                  <svg viewBox="0 0 400 300" className="w-full h-full max-h-[300px] select-none">
-                    
-                    {/* Dimension lines */}
-                    <line x1="20" y1="20" x2="380" y2="20" stroke="#122b48" strokeWidth="1" strokeDasharray="3 3" />
-                    <line x1="20" y1="280" x2="380" y2="280" stroke="#122b48" strokeWidth="1" strokeDasharray="3 3" />
-                    <line x1="20" y1="20" x2="20" y2="280" stroke="#122b48" strokeWidth="1" strokeDasharray="3 3" />
-                    <line x1="380" y1="20" x2="380" y2="280" stroke="#122b48" strokeWidth="1" strokeDasharray="3 3" />
-
-                    {/* Outer Boundary Wall (Tech Cyan in AI mode) */}
-                    <rect 
-                      x="40" y="40" width="320" height="220" 
-                      fill="none" 
-                      stroke={activeTab === 'ai' ? '#38bdf8' : '#cbd5e1'} 
-                      strokeWidth={activeTab === 'ai' ? '3' : '2'} 
-                    />
-
-                    {/* Room 1: Phòng Khách */}
-                    <rect 
-                      x="45" y="45" width="170" height="110" 
-                      fill={activeTab === 'ai' ? 'rgba(14,165,233,0.22)' : 'none'} 
-                      stroke={activeTab === 'ai' ? '#0ea5e9' : '#64748b'} 
-                      strokeWidth="1.5" 
-                    />
-                    <text x="130" y="95" fill={activeTab === 'ai' ? '#e0f2fe' : '#94a3b8'} fontSize="11" fontWeight="bold" textAnchor="middle">
-                      Phòng Khách
-                    </text>
-                    <text x="130" y="112" fill={activeTab === 'ai' ? '#38bdf8' : '#64748b'} fontSize="9" textAnchor="middle">
-                      28.5 m²
-                    </text>
-
-                    {/* Room 2: Bếp & Ăn */}
-                    <rect 
-                      x="220" y="45" width="135" height="110" 
-                      fill={activeTab === 'ai' ? 'rgba(14,165,233,0.22)' : 'none'} 
-                      stroke={activeTab === 'ai' ? '#0ea5e9' : '#64748b'} 
-                      strokeWidth="1.5" 
-                    />
-                    <text x="287" y="95" fill={activeTab === 'ai' ? '#e0f2fe' : '#94a3b8'} fontSize="11" fontWeight="bold" textAnchor="middle">
-                      Bếp & Ăn
-                    </text>
-                    <text x="287" y="112" fill={activeTab === 'ai' ? '#38bdf8' : '#64748b'} fontSize="9" textAnchor="middle">
-                      21.2 m²
-                    </text>
-
-                    {/* Room 3: Phòng Ngủ 1 */}
-                    <rect 
-                      x="45" y="160" width="140" height="95" 
-                      fill={activeTab === 'ai' ? 'rgba(14,165,233,0.22)' : 'none'} 
-                      stroke={activeTab === 'ai' ? '#0ea5e9' : '#64748b'} 
-                      strokeWidth="1.5" 
-                    />
-                    <text x="115" y="205" fill={activeTab === 'ai' ? '#e0f2fe' : '#94a3b8'} fontSize="11" fontWeight="bold" textAnchor="middle">
-                      Phòng Ngủ 1
-                    </text>
-                    <text x="115" y="222" fill={activeTab === 'ai' ? '#38bdf8' : '#64748b'} fontSize="9" textAnchor="middle">
-                      18.0 m²
-                    </text>
-
-                    {/* Room 4: Phòng Ngủ 2 */}
-                    <rect 
-                      x="190" y="160" width="110" height="95" 
-                      fill={activeTab === 'ai' ? 'rgba(14,165,233,0.22)' : 'none'} 
-                      stroke={activeTab === 'ai' ? '#0ea5e9' : '#64748b'} 
-                      strokeWidth="1.5" 
-                    />
-                    <text x="245" y="205" fill={activeTab === 'ai' ? '#e0f2fe' : '#94a3b8'} fontSize="11" fontWeight="bold" textAnchor="middle">
-                      Phòng Ngủ 2
-                    </text>
-                    <text x="245" y="222" fill={activeTab === 'ai' ? '#38bdf8' : '#64748b'} fontSize="9" textAnchor="middle">
-                      12.5 m²
-                    </text>
-
-                    {/* Room 5: WC Vệ Sinh */}
-                    <rect 
-                      x="305" y="160" width="50" height="95" 
-                      fill={activeTab === 'ai' ? 'rgba(56,189,248,0.25)' : 'none'} 
-                      stroke={activeTab === 'ai' ? '#38bdf8' : '#64748b'} 
-                      strokeWidth="1.5" 
-                    />
-                    <text x="330" y="205" fill={activeTab === 'ai' ? '#bae6fd' : '#94a3b8'} fontSize="10" fontWeight="bold" textAnchor="middle">
-                      WC
-                    </text>
-                    <text x="330" y="220" fill={activeTab === 'ai' ? '#7dd3fc' : '#64748b'} fontSize="8" textAnchor="middle">
-                      5.0 m²
-                    </text>
-
-                    {/* Doors (Tech Blue & Cyan indicators) */}
-                    {activeTab === 'ai' ? (
-                      <>
-                        {/* Door 1 (Main Entrance) */}
-                        <rect x="110" y="38" width="30" height="6" fill="#38bdf8" rx="1" />
-                        <path d="M 110 44 A 28 28 0 0 1 138 72" fill="none" stroke="#38bdf8" strokeWidth="1.5" strokeDasharray="2 2" />
-                        
-                        {/* Door 2 */}
-                        <rect x="217" y="90" width="6" height="24" fill="#38bdf8" rx="1" />
-                        {/* Door 3 */}
-                        <rect x="187" y="180" width="6" height="20" fill="#38bdf8" rx="1" />
-                        {/* Door 4 */}
-                        <rect x="302" y="180" width="6" height="20" fill="#38bdf8" rx="1" />
-                        
-                        {/* 4 Windows (Reflective Cyan indicators) */}
-                        <rect x="70" y="37" width="30" height="4" fill="#7dd3fc" />
-                        <rect x="250" y="37" width="35" height="4" fill="#7dd3fc" />
-                        <rect x="70" y="259" width="30" height="4" fill="#7dd3fc" />
-                        <rect x="220" y="259" width="30" height="4" fill="#7dd3fc" />
-
-                        {/* Sanitary Fixtures (Tech Blue markers) */}
-                        <circle cx="325" cy="180" r="4.5" fill="#0284c7" />
-                        <circle cx="335" cy="180" r="3.5" fill="#0ea5e9" />
-                        <rect x="315" y="225" width="22" height="14" rx="2" fill="none" stroke="#0284c7" strokeWidth="1.5" />
-                      </>
-                    ) : (
-                      <>
-                        <path d="M 110 44 A 28 28 0 0 1 138 72" fill="none" stroke="#94a3b8" strokeWidth="1" />
-                        <line x1="110" y1="44" x2="110" y2="72" stroke="#94a3b8" strokeWidth="1.5" />
-                      </>
-                    )}
-                  </svg>
-                </div>
-
-                {/* Right Mini Legend in Tech Blue Palette */}
-                <div className="w-full md:w-[32%] flex flex-col gap-2.5 p-3.5 rounded-xl bg-[#0c1628] border border-sky-500/20 font-mono text-xs">
-                  <div className="flex items-center gap-2">
-                    <span className="w-3 h-3 rounded-sm bg-[#38bdf8] shrink-0" />
-                    <span className="text-white/90">Tường (120.5 m)</span>
-                  </div>
-                  <div className="flex items-center gap-2">
-                    <span className="w-3 h-3 rounded-sm bg-[#0ea5e9] shrink-0" />
-                    <span className="text-white/90">Sàn (85.2 m²)</span>
-                  </div>
-                  <div className="flex items-center gap-2">
-                    <span className="w-3 h-3 rounded-sm bg-[#0284c7] shrink-0" />
-                    <span className="text-white/90">Cửa (8 bộ)</span>
-                  </div>
-                  <div className="flex items-center gap-2">
-                    <span className="w-3 h-3 rounded-sm bg-[#2563eb] shrink-0" />
-                    <span className="text-white/90">Thiết bị (12)</span>
-                  </div>
-                </div>
-
-              </div>
-            </div>
-
-            {/* Right 4 Cols: THÔNG TIN KẾT QUẢ Panel */}
-            <div className="lg:col-span-4 rounded-2xl bg-[#0b1220] border border-sky-500/20 p-5 flex flex-col justify-between shadow-lg">
-              
-              <div>
-                <h3 className="text-xs font-bold text-sky-200/90 uppercase tracking-wider mb-4 pb-2 border-b border-sky-500/20 flex items-center justify-between">
-                  <span>THÔNG TIN KẾT QUẢ</span>
-                  <span className="text-[10px] text-sky-400/80 font-mono">ENGENIX AI</span>
-                </h3>
-
-                <div className="flex flex-col gap-3.5 text-xs sm:text-sm font-sans">
+                {/* Left 8 Cols: Architectural Floor Plan Viewport with Live Laser */}
+                <div className="lg:col-span-8 relative rounded-2xl bg-[#060a14] border border-sky-500/20 p-4 min-h-[340px] sm:min-h-[390px] flex flex-col justify-between overflow-hidden shadow-inner">
                   
-                  {/* Tổng diện tích sàn: 85.2 m² */}
-                  <div className="flex items-center justify-between py-1 border-b border-white/5">
-                    <div className="flex items-center gap-2 text-white/70">
-                      <Layers className="w-4 h-4 text-[#38bdf8]" />
-                      <span>Tổng diện tích sàn</span>
+                  {/* Drafting grid background */}
+                  <div className="absolute inset-0 bg-[linear-gradient(to_right,#0c192d_1px,transparent_1px),linear-gradient(to_bottom,#0c192d_1px,transparent_1px)] bg-[size:16px_16px] opacity-70" />
+
+                  {/* Tia Laser Quét AI thời gian thực (Live Laser Beam & Radar Trail) */}
+                  {scanProgress > 0 && scanProgress < 100 && (
+                    <div 
+                      className="absolute left-0 right-0 h-[2px] bg-[#38bdf8] pointer-events-none z-30 shadow-[0_0_14px_#38bdf8,0_0_28px_#0ea5e9]"
+                      style={{ top: `${scanProgress}%` }}
+                    >
+                      {/* Vệt quét mờ radar tỏa lên trên */}
+                      <div className="absolute bottom-0 left-0 right-0 h-16 bg-gradient-to-t from-sky-400/20 via-sky-500/5 to-transparent pointer-events-none" />
+                      
+                      {/* Huy hiệu năng lượng trung tâm Laser */}
+                      <div className="absolute left-1/2 -top-3 -translate-x-1/2 flex items-center gap-1 px-2.5 py-0.5 rounded-full bg-[#0284c7] border border-sky-300 text-[10px] text-white font-mono font-bold shadow-[0_0_12px_#38bdf8] tracking-wider whitespace-nowrap">
+                        <Zap className="w-2.5 h-2.5 text-yellow-300 fill-yellow-300 animate-pulse" />
+                        <span>AI SCANNING</span>
+                      </div>
                     </div>
-                    <span className="font-bold text-white font-mono text-sm sm:text-base">85.2 m²</span>
+                  )}
+
+                  <div className="relative z-10 flex-1 flex flex-col md:flex-row items-center justify-between gap-6">
+                    
+                    {/* SVG CAD Architectural Blueprint */}
+                    <div className="w-full md:w-[68%] h-[270px] sm:h-[310px] flex items-center justify-center">
+                      <svg viewBox="0 0 400 300" className="w-full h-full max-h-[310px] select-none">
+                        
+                        {/* Dimension lines */}
+                        <line x1="20" y1="20" x2="380" y2="20" stroke="#122b48" strokeWidth="1" strokeDasharray="3 3" />
+                        <line x1="20" y1="280" x2="380" y2="280" stroke="#122b48" strokeWidth="1" strokeDasharray="3 3" />
+                        <line x1="20" y1="20" x2="20" y2="280" stroke="#122b48" strokeWidth="1" strokeDasharray="3 3" />
+                        <line x1="380" y1="20" x2="380" y2="280" stroke="#122b48" strokeWidth="1" strokeDasharray="3 3" />
+
+                        {/* Outer Boundary Wall (Chuyển sang màu Tech Cyan khi Laser quét qua) */}
+                        <rect 
+                          x="40" y="40" width="320" height="220" 
+                          fill="none" 
+                          stroke={isOuterScanned ? '#38bdf8' : '#334155'} 
+                          strokeWidth={isOuterScanned ? '2.5' : '1.5'}
+                          className="transition-colors duration-300"
+                        />
+
+                        {/* Room 1: Phòng Khách (Hiện tên & m2 khi Laser quét qua >= 28%) */}
+                        <rect 
+                          x="45" y="45" width="170" height="110" 
+                          fill={isLivingRoomScanned ? 'rgba(14,165,233,0.22)' : 'none'} 
+                          stroke={isLivingRoomScanned ? '#0ea5e9' : '#334155'} 
+                          strokeWidth={isLivingRoomScanned ? '2' : '1.5'}
+                          className="transition-all duration-300"
+                        />
+                        {isLivingRoomScanned && (
+                          <g className="transition-opacity duration-300">
+                            <text x="130" y="95" fill="#e0f2fe" fontSize="11" fontWeight="bold" textAnchor="middle">
+                              Phòng Khách
+                            </text>
+                            <text x="130" y="112" fill="#38bdf8" fontSize="9" fontWeight="bold" textAnchor="middle">
+                              28.5 m²
+                            </text>
+                          </g>
+                        )}
+
+                        {/* Room 2: Bếp & Ăn (Hiện tên & m2 khi Laser quét qua >= 36%) */}
+                        <rect 
+                          x="220" y="45" width="135" height="110" 
+                          fill={isKitchenScanned ? 'rgba(14,165,233,0.22)' : 'none'} 
+                          stroke={isKitchenScanned ? '#0ea5e9' : '#334155'} 
+                          strokeWidth={isKitchenScanned ? '2' : '1.5'}
+                          className="transition-all duration-300"
+                        />
+                        {isKitchenScanned && (
+                          <g className="transition-opacity duration-300">
+                            <text x="287" y="95" fill="#e0f2fe" fontSize="11" fontWeight="bold" textAnchor="middle">
+                              Bếp & Ăn
+                            </text>
+                            <text x="287" y="112" fill="#38bdf8" fontSize="9" fontWeight="bold" textAnchor="middle">
+                              21.2 m²
+                            </text>
+                          </g>
+                        )}
+
+                        {/* Room 3: Phòng Ngủ 1 (Hiện tên & m2 khi Laser quét qua >= 62%) */}
+                        <rect 
+                          x="45" y="160" width="140" height="95" 
+                          fill={isBed1Scanned ? 'rgba(14,165,233,0.22)' : 'none'} 
+                          stroke={isBed1Scanned ? '#0ea5e9' : '#334155'} 
+                          strokeWidth={isBed1Scanned ? '2' : '1.5'}
+                          className="transition-all duration-300"
+                        />
+                        {isBed1Scanned && (
+                          <g className="transition-opacity duration-300">
+                            <text x="115" y="205" fill="#e0f2fe" fontSize="11" fontWeight="bold" textAnchor="middle">
+                              Phòng Ngủ 1
+                            </text>
+                            <text x="115" y="222" fill="#38bdf8" fontSize="9" fontWeight="bold" textAnchor="middle">
+                              18.0 m²
+                            </text>
+                          </g>
+                        )}
+
+                        {/* Room 4: Phòng Ngủ 2 (Hiện tên & m2 khi Laser quét qua >= 70%) */}
+                        <rect 
+                          x="190" y="160" width="110" height="95" 
+                          fill={isBed2Scanned ? 'rgba(14,165,233,0.22)' : 'none'} 
+                          stroke={isBed2Scanned ? '#0ea5e9' : '#334155'} 
+                          strokeWidth={isBed2Scanned ? '2' : '1.5'}
+                          className="transition-all duration-300"
+                        />
+                        {isBed2Scanned && (
+                          <g className="transition-opacity duration-300">
+                            <text x="245" y="205" fill="#e0f2fe" fontSize="11" fontWeight="bold" textAnchor="middle">
+                              Phòng Ngủ 2
+                            </text>
+                            <text x="245" y="222" fill="#38bdf8" fontSize="9" fontWeight="bold" textAnchor="middle">
+                              12.5 m²
+                            </text>
+                          </g>
+                        )}
+
+                        {/* Room 5: WC Vệ Sinh (Hiện tên & m2 khi Laser quét qua >= 78%) */}
+                        <rect 
+                          x="305" y="160" width="50" height="95" 
+                          fill={isWcScanned ? 'rgba(56,189,248,0.25)' : 'none'} 
+                          stroke={isWcScanned ? '#38bdf8' : '#334155'} 
+                          strokeWidth={isWcScanned ? '2' : '1.5'}
+                          className="transition-all duration-300"
+                        />
+                        {isWcScanned && (
+                          <g className="transition-opacity duration-300">
+                            <text x="330" y="205" fill="#bae6fd" fontSize="10" fontWeight="bold" textAnchor="middle">
+                              WC
+                            </text>
+                            <text x="330" y="220" fill="#7dd3fc" fontSize="8" fontWeight="bold" textAnchor="middle">
+                              5.0 m²
+                            </text>
+                          </g>
+                        )}
+
+                        {/* Doors & Windows: sáng dần theo vị trí quét */}
+                        {/* Door 1 (Main Entrance) */}
+                        {isLivingRoomScanned ? (
+                          <>
+                            <rect x="110" y="38" width="30" height="6" fill="#38bdf8" rx="1" />
+                            <path d="M 110 44 A 28 28 0 0 1 138 72" fill="none" stroke="#38bdf8" strokeWidth="1.5" strokeDasharray="2 2" />
+                          </>
+                        ) : (
+                          <>
+                            <line x1="110" y1="44" x2="110" y2="72" stroke="#475569" strokeWidth="1" />
+                            <path d="M 110 44 A 28 28 0 0 1 138 72" fill="none" stroke="#334155" strokeWidth="1" />
+                          </>
+                        )}
+
+                        {/* Door 2 (Bếp) */}
+                        <rect x="217" y="90" width="6" height="24" fill={isKitchenScanned ? '#38bdf8' : '#334155'} rx="1" />
+                        
+                        {/* Door 3 (Phòng Ngủ 1) */}
+                        <rect x="187" y="180" width="6" height="20" fill={isBed1Scanned ? '#38bdf8' : '#334155'} rx="1" />
+                        
+                        {/* Door 4 (WC) */}
+                        <rect x="302" y="180" width="6" height="20" fill={isWcScanned ? '#38bdf8' : '#334155'} rx="1" />
+                        
+                        {/* 4 Windows */}
+                        <rect x="70" y="37" width="30" height="4" fill={isLivingRoomScanned ? '#7dd3fc' : '#334155'} />
+                        <rect x="250" y="37" width="35" height="4" fill={isKitchenScanned ? '#7dd3fc' : '#334155'} />
+                        <rect x="70" y="259" width="30" height="4" fill={isBed1Scanned ? '#7dd3fc' : '#334155'} />
+                        <rect x="220" y="259" width="30" height="4" fill={isBed2Scanned ? '#7dd3fc' : '#334155'} />
+
+                        {/* Sanitary Fixtures (Chỉ hiện khi quét tới WC) */}
+                        {isWcScanned && (
+                          <g className="transition-opacity duration-300">
+                            <circle cx="325" cy="180" r="4.5" fill="#0284c7" />
+                            <circle cx="335" cy="180" r="3.5" fill="#0ea5e9" />
+                            <rect x="315" y="225" width="22" height="14" rx="2" fill="none" stroke="#0284c7" strokeWidth="1.5" />
+                          </g>
+                        )}
+                      </svg>
+                    </div>
+
+                    {/* Right Mini Legend: Cập nhật động theo vị trí quét */}
+                    <div className="w-full md:w-[32%] flex flex-col gap-2.5 p-3.5 rounded-xl bg-[#0c1628] border border-sky-500/20 font-mono text-xs">
+                      <div className="flex items-center justify-between">
+                        <div className="flex items-center gap-2">
+                          <span className={`w-3 h-3 rounded-sm transition-colors duration-200 ${isOuterScanned ? 'bg-[#38bdf8] shadow-[0_0_8px_#38bdf8]' : 'bg-slate-700'}`} />
+                          <span className="text-white/90">Tường</span>
+                        </div>
+                        <span className="text-sky-300 font-bold">{currentWallLength} m</span>
+                      </div>
+                      
+                      <div className="flex items-center justify-between">
+                        <div className="flex items-center gap-2">
+                          <span className={`w-3 h-3 rounded-sm transition-colors duration-200 ${isLivingRoomScanned ? 'bg-[#0ea5e9] shadow-[0_0_8px_#0ea5e9]' : 'bg-slate-700'}`} />
+                          <span className="text-white/90">Sàn</span>
+                        </div>
+                        <span className="text-sky-300 font-bold">{currentFloorArea} m²</span>
+                      </div>
+                      
+                      <div className="flex items-center justify-between">
+                        <div className="flex items-center gap-2">
+                          <span className={`w-3 h-3 rounded-sm transition-colors duration-200 ${currentDoorCount > 0 ? 'bg-[#0284c7] shadow-[0_0_8px_#0284c7]' : 'bg-slate-700'}`} />
+                          <span className="text-white/90">Cửa</span>
+                        </div>
+                        <span className="text-sky-300 font-bold">{currentDoorCount} bộ</span>
+                      </div>
+                      
+                      <div className="flex items-center justify-between">
+                        <div className="flex items-center gap-2">
+                          <span className={`w-3 h-3 rounded-sm transition-colors duration-200 ${currentFixturesCount > 0 ? 'bg-[#2563eb] shadow-[0_0_8px_#2563eb]' : 'bg-slate-700'}`} />
+                          <span className="text-white/90">Thiết bị</span>
+                        </div>
+                        <span className="text-sky-300 font-bold">{currentFixturesCount}</span>
+                      </div>
+                    </div>
+
+                  </div>
+                </div>
+
+                {/* Right 4 Cols: THÔNG TIN KẾT QUẢ Panel (Số liệu nhảy động theo chỗ quét) */}
+                <div className="lg:col-span-4 rounded-2xl bg-[#0b1220] border border-sky-500/20 p-5 flex flex-col justify-between shadow-lg">
+                  
+                  <div>
+                    <h3 className="text-xs font-bold text-sky-200/90 uppercase tracking-wider mb-4 pb-2 border-b border-sky-500/20 flex items-center justify-between">
+                      <span>THÔNG TIN KẾT QUẢ</span>
+                      <span className="text-[10px] text-sky-400/80 font-mono">
+                        {scanProgress >= 95 ? '✓ HOÀN TẤT' : '● SCANNING...'}
+                      </span>
+                    </h3>
+
+                    <div className="flex flex-col gap-3.5 text-xs sm:text-sm font-sans">
+                      
+                      {/* Tổng diện tích sàn: Tăng dần theo quét */}
+                      <div className="flex items-center justify-between py-1 border-b border-white/5">
+                        <div className="flex items-center gap-2 text-white/70">
+                          <Layers className="w-4 h-4 text-[#38bdf8]" />
+                          <span>Tổng diện tích sàn</span>
+                        </div>
+                        <span className="font-bold text-white font-mono text-sm sm:text-base">
+                          {currentFloorArea} m²
+                        </span>
+                      </div>
+
+                      {/* Chiều dài tường: Tăng dần theo quét */}
+                      <div className="flex items-center justify-between py-1 border-b border-white/5">
+                        <div className="flex items-center gap-2 text-white/70">
+                          <Ruler className="w-4 h-4 text-[#0ea5e9]" />
+                          <span>Chiều dài tường</span>
+                        </div>
+                        <span className="font-bold text-white font-mono text-sm sm:text-base">
+                          {currentWallLength} m
+                        </span>
+                      </div>
+
+                      {/* Số lượng cửa: Tăng dần theo quét */}
+                      <div className="flex items-center justify-between py-1 border-b border-white/5">
+                        <div className="flex items-center gap-2 text-white/70">
+                          <Home className="w-4 h-4 text-[#0284c7]" />
+                          <span>Số lượng cửa</span>
+                        </div>
+                        <span className="font-bold text-white font-mono text-sm sm:text-base">
+                          {currentDoorCount} bộ
+                        </span>
+                      </div>
+
+                      {/* Thiết bị vệ sinh: Tăng dần khi quét tới WC */}
+                      <div className="flex items-center justify-between py-1 border-b border-white/5">
+                        <div className="flex items-center gap-2 text-white/70">
+                          <CheckCircle2 className="w-4 h-4 text-[#2563eb]" />
+                          <span>Thiết bị vệ sinh</span>
+                        </div>
+                        <span className="font-bold text-white font-mono text-sm sm:text-base">
+                          {currentFixturesCount}
+                        </span>
+                      </div>
+
+                      {/* Loại bản vẽ */}
+                      <div className="flex items-center justify-between py-1 border-b border-white/5">
+                        <div className="flex items-center gap-2 text-white/70">
+                          <FileCheck className="w-4 h-4 text-[#38bdf8]" />
+                          <span>Loại bản vẽ</span>
+                        </div>
+                        <span className="font-semibold text-white/95">Nhà ở dân dụng</span>
+                      </div>
+
+                    </div>
                   </div>
 
-                  {/* Chiều dài tường: 120.5 m */}
-                  <div className="flex items-center justify-between py-1 border-b border-white/5">
-                    <div className="flex items-center gap-2 text-white/70">
-                      <Ruler className="w-4 h-4 text-[#0ea5e9]" />
-                      <span>Chiều dài tường</span>
-                    </div>
-                    <span className="font-bold text-white font-mono text-sm sm:text-base">120.5 m</span>
-                  </div>
-
-                  {/* Số lượng cửa: 8 bộ */}
-                  <div className="flex items-center justify-between py-1 border-b border-white/5">
-                    <div className="flex items-center gap-2 text-white/70">
-                      <Home className="w-4 h-4 text-[#0284c7]" />
-                      <span>Số lượng cửa</span>
-                    </div>
-                    <span className="font-bold text-white font-mono text-sm sm:text-base">8 bộ</span>
-                  </div>
-
-                  {/* Thiết bị vệ sinh: 12 */}
-                  <div className="flex items-center justify-between py-1 border-b border-white/5">
-                    <div className="flex items-center gap-2 text-white/70">
-                      <CheckCircle2 className="w-4 h-4 text-[#2563eb]" />
-                      <span>Thiết bị vệ sinh</span>
-                    </div>
-                    <span className="font-bold text-white font-mono text-sm sm:text-base">12</span>
-                  </div>
-
-                  {/* Loại bản vẽ: Nhà ở dân dụng */}
-                  <div className="flex items-center justify-between py-1 border-b border-white/5">
-                    <div className="flex items-center gap-2 text-white/70">
-                      <FileCheck className="w-4 h-4 text-[#38bdf8]" />
-                      <span>Loại bản vẽ</span>
-                    </div>
-                    <span className="font-semibold text-white/95">Nhà ở dân dụng</span>
-                  </div>
+                  {/* Big Tech Blue Button: Tải báo cáo mẫu (Excel) ⤓ */}
+                  <button
+                    onClick={handleDownloadSampleExcel}
+                    className="w-full mt-6 py-3 px-4 rounded-xl bg-gradient-to-r from-[#0284c7] via-[#0ea5e9] to-[#38bdf8] hover:brightness-110 text-white font-bold text-xs sm:text-sm flex items-center justify-center gap-2 shadow-[0_4px_18px_rgba(14,165,233,0.38)] transition-all cursor-pointer"
+                  >
+                    <span>Tải báo cáo mẫu (Excel)</span>
+                    <Download className="w-4 h-4 stroke-[2.5]" />
+                  </button>
 
                 </div>
+
               </div>
-
-              {/* Big Tech Blue Button: Tải báo cáo mẫu (Excel) ⤓ */}
-              <button
-                onClick={handleDownloadSampleExcel}
-                className="w-full mt-6 py-3 px-4 rounded-xl bg-gradient-to-r from-[#0284c7] via-[#0ea5e9] to-[#38bdf8] hover:brightness-110 text-white font-bold text-xs sm:text-sm flex items-center justify-center gap-2 shadow-[0_4px_18px_rgba(14,165,233,0.38)] transition-all cursor-pointer"
-              >
-                <span>Tải báo cáo mẫu (Excel)</span>
-                <Download className="w-4 h-4 stroke-[2.5]" />
-              </button>
-
-            </div>
-
-          </div>
+            );
+          })()}
 
         </div>
       </section>
-
 
       {/* ═══════════════════════════════════════════════════════════════
           SECTION 3: TÍNH NĂNG NỔI BẬT (Mọi thứ bạn cần trong một nền tảng)
