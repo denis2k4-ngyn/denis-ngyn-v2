@@ -12,7 +12,14 @@ export const LandingHeader: React.FC<LandingHeaderProps> = ({
   onLogin,
 }) => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  const [activeNav, setActiveNav] = useState('Blog');
+  const [activeNav, setActiveNav] = useState('Sản phẩm');
+
+  const navItems = [
+    { name: 'Sản phẩm', href: '#hero' },
+    { name: 'Xem trước', href: '#preview' },
+    { name: 'Tính năng', href: '#features' },
+    { name: 'Cách hoạt động', href: '#how-it-works' },
+  ];
 
   return (
     <header className="sticky top-0 z-50 w-full bg-[#080d18]/95 backdrop-blur-xl border-b border-sky-500/15 transition-all">
@@ -48,59 +55,25 @@ export const LandingHeader: React.FC<LandingHeaderProps> = ({
         </div>
 
         {/* Central Navigation Links with Tech Cyan hover indicators */}
-        <nav className="hidden lg:flex items-center gap-6 xl:gap-7 text-sm font-medium text-white/80">
-          <a
-            href="#hero"
-            onClick={() => setActiveNav('Sản phẩm')}
-            className={`transition-colors hover:text-[#38bdf8] ${activeNav === 'Sản phẩm' ? 'text-[#38bdf8] font-semibold' : 'text-white/70'}`}
-          >
-            Sản phẩm
-          </a>
-          <a
-            href="#features"
-            onClick={() => setActiveNav('Tính năng')}
-            className={`transition-colors hover:text-[#38bdf8] ${activeNav === 'Tính năng' ? 'text-[#38bdf8] font-semibold' : 'text-white/70'}`}
-          >
-            Tính năng
-          </a>
-          <a
-            href="#how-it-works"
-            onClick={() => setActiveNav('Cách hoạt động')}
-            className={`transition-colors hover:text-[#38bdf8] ${activeNav === 'Cách hoạt động' ? 'text-[#38bdf8] font-semibold' : 'text-white/70'}`}
-          >
-            Cách hoạt động
-          </a>
-          <a
-            href="#pricing"
-            onClick={() => setActiveNav('Bảng giá')}
-            className={`transition-colors hover:text-[#38bdf8] ${activeNav === 'Bảng giá' ? 'text-[#38bdf8] font-semibold' : 'text-white/70'}`}
-          >
-            Bảng giá
-          </a>
-          <a
-            href="#clients"
-            onClick={() => setActiveNav('Khách hàng')}
-            className={`transition-colors hover:text-[#38bdf8] ${activeNav === 'Khách hàng' ? 'text-[#38bdf8] font-semibold' : 'text-white/70'}`}
-          >
-            Khách hàng
-          </a>
-          <a
-            href="#blog"
-            onClick={() => setActiveNav('Blog')}
-            className={`relative py-1 transition-colors hover:text-[#38bdf8] ${activeNav === 'Blog' ? 'text-white font-semibold' : 'text-white/70'}`}
-          >
-            <span>Blog</span>
-            {activeNav === 'Blog' && (
-              <span className="absolute bottom-0 left-0 right-0 h-0.5 bg-gradient-to-r from-[#0284c7] to-[#38bdf8] rounded-full shadow-[0_0_8px_rgba(14,165,233,0.8)]" />
-            )}
-          </a>
-          <a
-            href="#contact"
-            onClick={() => setActiveNav('Liên hệ')}
-            className={`transition-colors hover:text-[#38bdf8] ${activeNav === 'Liên hệ' ? 'text-[#38bdf8] font-semibold' : 'text-white/70'}`}
-          >
-            Liên hệ
-          </a>
+        <nav className="hidden lg:flex items-center gap-6 xl:gap-8 text-sm font-medium">
+          {navItems.map((item) => {
+            const isActive = activeNav === item.name;
+            return (
+              <a
+                key={item.name}
+                href={item.href}
+                onClick={() => setActiveNav(item.name)}
+                className={`relative py-1.5 transition-colors hover:text-[#38bdf8] ${
+                  isActive ? 'text-white font-semibold' : 'text-white/70'
+                }`}
+              >
+                <span>{item.name}</span>
+                {isActive && (
+                  <span className="absolute bottom-0 left-0 right-0 h-0.5 bg-gradient-to-r from-[#0284c7] to-[#38bdf8] rounded-full shadow-[0_0_8px_rgba(14,165,233,0.8)]" />
+                )}
+              </a>
+            );
+          })}
         </nav>
 
         {/* Right Actions: Language VN + User [P] Phát Đức + Primary Blue Button */}
@@ -174,13 +147,6 @@ export const LandingHeader: React.FC<LandingHeaderProps> = ({
             className="py-2 px-3 rounded-lg hover:bg-sky-500/10 hover:text-[#38bdf8] font-medium"
           >
             Quy trình hoạt động
-          </a>
-          <a 
-            href="#clients" 
-            onClick={() => setMobileMenuOpen(false)}
-            className="py-2 px-3 rounded-lg hover:bg-sky-500/10 hover:text-[#38bdf8] font-medium"
-          >
-            Khách hàng
           </a>
           <div className="pt-3 border-t border-white/10 flex flex-col gap-2">
             <button

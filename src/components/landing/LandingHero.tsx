@@ -693,65 +693,7 @@ export const LandingHero: React.FC<LandingHeroProps> = ({
       </section>
 
 
-      {/* ═══════════════════════════════════════════════════════════════
-          SECTION 5: ĐƯỢC HÀNG NGHÌN KỸ SƯ VÀ DOANH NGHIỆP TIN DÙNG
-      ═══════════════════════════════════════════════════════════════ */}
-      <section id="clients" className="py-12 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto border-t border-sky-500/15 text-center">
-        
-        {/* Eyebrow Pill */}
-        <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-[#0c1628] border border-sky-500/40 text-[#38bdf8] text-xs font-bold uppercase tracking-wider mb-8">
-          ĐƯỢC HÀNG NGHÌN KỸ SƯ VÀ DOANH NGHIỆP TIN DÙNG
-        </div>
 
-        {/* Brand Logos: Coteccons, Hoa Binh, Ricons, Central, Vinhomes, Samsung */}
-        <div className="flex flex-wrap items-center justify-center gap-8 sm:gap-12 lg:gap-14 text-white/70">
-          
-          {/* COTECCONS */}
-          <div className="flex items-center gap-2 hover:text-[#38bdf8] transition-colors cursor-pointer">
-            <div className="w-7 h-7 rounded-full bg-white/10 flex items-center justify-center text-[#38bdf8] font-black text-sm">
-              C
-            </div>
-            <span className="font-extrabold tracking-wider text-base font-sans">COTECCONS</span>
-          </div>
-
-          {/* HOA BINH */}
-          <div className="flex items-center gap-2 hover:text-[#38bdf8] transition-colors cursor-pointer">
-            <div className="w-7 h-7 rounded-full bg-white/10 flex items-center justify-center text-[#0ea5e9] font-bold text-xs">
-              HB
-            </div>
-            <span className="font-black tracking-widest text-base font-sans">HOABINH</span>
-          </div>
-
-          {/* RICONS */}
-          <div className="flex items-center gap-2 hover:text-[#38bdf8] transition-colors cursor-pointer">
-            <span className="font-black text-lg tracking-tight font-sans text-sky-200">Ricons</span>
-          </div>
-
-          {/* CENTRAL */}
-          <div className="flex items-center gap-2 hover:text-[#38bdf8] transition-colors cursor-pointer">
-            <div className="w-6 h-6 rounded-full border-2 border-sky-400/60 flex items-center justify-center text-[10px] font-black text-sky-400">
-              C
-            </div>
-            <span className="font-extrabold text-base tracking-widest font-sans">CENTRAL</span>
-          </div>
-
-          {/* VINHOMES */}
-          <div className="flex items-center gap-2 hover:text-[#38bdf8] transition-colors cursor-pointer">
-            <span className="font-serif font-bold text-base tracking-wider">VINHOMES</span>
-          </div>
-
-          {/* SAMSUNG */}
-          <div className="flex items-center gap-2 hover:text-[#38bdf8] transition-colors cursor-pointer">
-            <span className="font-black text-base tracking-widest font-sans">SAMSUNG</span>
-          </div>
-
-          {/* And more label */}
-          <div className="text-xs text-sky-200/50 font-medium">
-            Và hơn 1.000+ doanh nghiệp khác
-          </div>
-
-        </div>
-      </section>
 
 
       {/* ═══════════════════════════════════════════════════════════════
@@ -816,10 +758,10 @@ export const LandingHero: React.FC<LandingHeroProps> = ({
               </button>
 
               <a
-                href="#pricing"
+                href="#preview"
                 className="inline-flex items-center gap-2 px-5 py-3.5 rounded-xl bg-white/5 hover:bg-sky-500/10 border border-white/20 hover:border-sky-400 text-white font-medium text-sm transition-colors cursor-pointer"
               >
-                <span>Xem bảng giá</span>
+                <span>Xem bản vẽ mẫu</span>
                 <ChevronRight className="w-4 h-4" />
               </a>
             </div>
