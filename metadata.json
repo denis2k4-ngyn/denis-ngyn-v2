@@ -1,0 +1,8 @@
+{
+  "name": "ENGENIX - Nền tảng bóc tách khối lượng AI",
+  "description": "Phân tích bản vẽ mặt bằng ngay lập tức bằng AI. Bóc tách khối lượng tự động từ bản vẽ PDF chỉ trong 30 giây với ENGENIX AI.",
+  "requestFramePermissions": [],
+  "majorCapabilities": [
+    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
+  ]
+}
