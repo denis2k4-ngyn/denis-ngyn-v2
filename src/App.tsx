@@ -32,7 +32,7 @@ import { CheckCircle2, RotateCcw, X, GitBranch } from 'lucide-react';
 
 export function App() {
   // Navigation Mode: 'landing' (Public Storytelling) or 'app' (Authenticated Workspace)
-  const [viewMode, setViewMode] = useState<'landing' | 'app'>('app');
+  const [viewMode, setViewMode] = useState<'landing' | 'app'>('landing');
 
   // Application Workspace Tab (matches redesigned user workflow)
   const [currentTab, setCurrentTab] = useState<WorkspaceTab>('create-project');
