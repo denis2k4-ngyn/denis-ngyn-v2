@@ -10,7 +10,7 @@ interface EngineerMascotProps {
 export const EngineerMascot: React.FC<EngineerMascotProps> = ({
   className = '',
 }) => {
-  const [imageSrc, setImageSrc] = useState<string>('/mauxanhtech.png');
+  const [imageSrc, setImageSrc] = useState<string>('/nogbtech.png');
   const [imageLoaded, setImageLoaded] = useState<boolean>(false);
   const [imageError, setImageError] = useState<boolean>(false);
   const [isDragOver, setIsDragOver] = useState<boolean>(false);
@@ -18,10 +18,12 @@ export const EngineerMascot: React.FC<EngineerMascotProps> = ({
 
   useEffect(() => {
     const saved = localStorage.getItem('ai_paint_mascot_img');
-    if (saved) {
+    if (saved && saved.startsWith('data:image')) {
       setImageSrc(saved);
       setImageLoaded(true);
       setImageError(false);
+    } else {
+      setImageSrc('/nogbtech.png');
     }
   }, []);
 
@@ -178,8 +180,8 @@ export const EngineerMascot: React.FC<EngineerMascotProps> = ({
                 setImageError(false);
               }}
               onError={() => {
-                if (imageSrc !== '/khoanhtay.png') {
-                  setImageSrc('/khoanhtay.png');
+                if (imageSrc !== '/nogbtech.png') {
+                  setImageSrc('/nogbtech.png');
                 } else {
                   setImageError(true);
                 }
@@ -229,7 +231,7 @@ export const EngineerMascot: React.FC<EngineerMascotProps> = ({
             <div className="w-full bg-[#0c1628] border border-sky-500/40 hover:border-sky-400 rounded-2xl p-3 flex flex-col items-center gap-1.5 transition-all">
               <div className="inline-flex items-center gap-1.5 text-xs font-bold text-sky-300">
                 <Upload className="w-3.5 h-3.5 text-sky-300 animate-pulse" />
-                <span>Nạp ảnh mauxanhtech.png</span>
+                <span>Nạp ảnh nogbtech.png</span>
               </div>
               <span className="text-[10px] text-white/70 text-center leading-tight">
                 Nhấp hoặc kéo thả file ảnh từ máy vào đây!
