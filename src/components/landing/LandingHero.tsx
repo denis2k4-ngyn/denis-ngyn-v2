@@ -1135,7 +1135,7 @@ export const LandingHero: React.FC<LandingHeroProps> = ({
             {/* Video Player */}
             <div className="relative aspect-video bg-black flex items-center justify-center">
               <video
-                src="/video.mp4"
+                src="/videoENGENIX.mp4"
                 controls
                 autoPlay
                 className="w-full h-full object-contain"
