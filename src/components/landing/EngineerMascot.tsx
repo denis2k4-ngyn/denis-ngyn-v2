@@ -107,7 +107,7 @@ export const EngineerMascot: React.FC<EngineerMascotProps> = ({
       {/* ─────────────────────────────────────────────────────────────
           TECHNICAL HUD METADATA (ARCHITECTURAL SPECIFICATION CARD)
           Crisp, unboxed technical typography with standard separators (·, |, /)
-          Staggered floating animation alongside character
+          Staggered floating animation alongside character - responsive safe positioning
       ───────────────────────────────────────────────────────────── */}
       <motion.div 
         initial={{ opacity: 0, x: 20 }}
@@ -121,7 +121,7 @@ export const EngineerMascot: React.FC<EngineerMascotProps> = ({
           x: { duration: 0.6, delay: 0.25 },
           y: { repeat: Infinity, duration: 4.8, ease: 'easeInOut', delay: 0.6 }
         }}
-        className="absolute right-0 sm:-right-8 top-24 sm:top-28 z-20 pointer-events-none bg-[#0a1222]/95 border border-sky-400/40 p-3 rounded-xl backdrop-blur-md shadow-[0_12px_32px_rgba(0,0,0,0.7)] text-left font-mono"
+        className="absolute right-0 sm:-right-6 md:-right-8 top-20 sm:top-24 md:top-28 z-20 pointer-events-none bg-[#0a1222]/95 border border-sky-400/40 p-2.5 sm:p-3 rounded-xl backdrop-blur-md shadow-[0_12px_32px_rgba(0,0,0,0.7)] text-left font-mono max-w-[160px] sm:max-w-none"
       >
         <div className="flex items-center gap-2 text-[10px] text-sky-400 font-bold uppercase tracking-wider pb-1.5 border-b border-sky-500/20">
           <span className="w-1.5 h-1.5 bg-sky-400 animate-pulse" />
