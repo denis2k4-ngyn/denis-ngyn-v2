@@ -176,7 +176,7 @@ export const EngineerMascot: React.FC<EngineerMascotProps> = ({
         animate={{ y: [0, -14, 0] }}
         transition={{ repeat: Infinity, duration: 4.2, ease: 'easeInOut' }}
         whileHover={{ scale: 1.025, transition: { duration: 0.25 } }}
-        className={`relative group cursor-pointer transition-all duration-300 -translate-x-3.5 sm:translate-x-0 ${
+        className={`relative group cursor-pointer transition-all duration-300 -translate-x-6 sm:translate-x-0 ${
           isDragOver ? 'scale-105 ring-4 ring-sky-400 rounded-3xl' : ''
         }`}
         onClick={() => fileInputRef.current?.click()}
