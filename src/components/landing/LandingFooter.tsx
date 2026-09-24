@@ -52,26 +52,33 @@ export const LandingFooter: React.FC<LandingFooterProps> = ({
 
         <div className="relative z-10 max-w-4xl mx-auto">
           
-          {/* Main Title: Elegant Serif with Italic Gradient Highlight */}
-          <h2 className="text-3xl sm:text-5xl lg:text-6xl font-serif text-white tracking-tight leading-[1.18]">
-            Sẵn sàng chuyển đổi quy trình
-            <span className="block font-serif italic text-transparent bg-clip-text bg-gradient-to-r from-[#bae6fd] via-[#38bdf8] to-[#0284c7] mt-1 sm:mt-2 font-normal">
-              bóc tách sơn chuyên nghiệp?
+          {/* Eyebrow Kicker: Modern Engineering Metadata */}
+          <div className="flex flex-wrap items-center justify-center gap-x-2 gap-y-1 text-[11px] sm:text-xs font-mono font-bold tracking-wider text-sky-400 uppercase mb-4 sm:mb-5">
+            <span className="shrink-0">TIẾT KIỆM 90% THỜI GIAN</span>
+            <span aria-hidden="true" className="text-white/30">·</span>
+            <span className="shrink-0">ĐỘ CHUẨN XÁC 95%+</span>
+          </div>
+
+          {/* Main Title: Modern Tech Sans-Serif with Cyan Gradient Highlight */}
+          <h2 className="text-2xl sm:text-4xl lg:text-5xl font-extrabold text-white tracking-tight leading-[1.2]">
+            Sẵn sàng chuyển đổi quy trình<br className="hidden sm:inline" />{' '}
+            <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#bae6fd] via-[#38bdf8] to-[#0284c7]">
+              bóc tách khối lượng tự động?
             </span>
           </h2>
 
           {/* Subtitle */}
-          <p className="mt-5 sm:mt-6 text-sm sm:text-base md:text-lg text-white/70 max-w-2xl mx-auto leading-relaxed font-normal">
+          <p className="mt-4 sm:mt-5 text-sm sm:text-base md:text-lg text-white/70 max-w-2xl mx-auto leading-relaxed">
             Nạp bản vẽ DXF dự án của bạn ngay hôm nay để trải nghiệm tốc độ bóc tách 2 giờ thay vì 14 ngày.
           </p>
 
-          {/* Centered CTA Buttons */}
-          <div className="mt-9 sm:mt-11 flex flex-wrap items-center justify-center gap-4 sm:gap-5">
+          {/* Centered Dual CTA Buttons */}
+          <div className="mt-8 sm:mt-10 flex flex-col sm:flex-row items-stretch sm:items-center justify-center gap-3.5 sm:gap-5 max-w-lg sm:max-w-none mx-auto">
             
             {/* Primary Action Button */}
             <button
               onClick={onGetStarted}
-              className="inline-flex items-center justify-center gap-2.5 px-7 sm:px-8 py-3.5 sm:py-4 rounded-2xl bg-gradient-to-r from-[#0284c7] via-[#0ea5e9] to-[#38bdf8] hover:brightness-110 active:scale-98 text-white font-bold text-sm sm:text-base shadow-[0_4px_24px_rgba(14,165,233,0.4)] hover:shadow-[0_8px_32px_rgba(14,165,233,0.6)] transition-all cursor-pointer"
+              className="w-full sm:w-auto inline-flex items-center justify-center gap-2.5 px-7 sm:px-8 py-3.5 sm:py-4 rounded-xl bg-gradient-to-r from-[#0284c7] via-[#0ea5e9] to-[#38bdf8] hover:brightness-110 active:scale-98 text-white font-bold text-sm sm:text-base shadow-[0_4px_24px_rgba(14,165,233,0.4)] hover:shadow-[0_8px_32px_rgba(14,165,233,0.6)] transition-all cursor-pointer"
             >
               <span>Nạp bản vẽ DXF ngay</span>
               <ArrowRight className="w-4 h-4 stroke-[2.5]" />
@@ -80,7 +87,7 @@ export const LandingFooter: React.FC<LandingFooterProps> = ({
             {/* Secondary Action Button */}
             <button
               onClick={handleDemoClick}
-              className="inline-flex items-center justify-center gap-2.5 px-6 sm:px-7 py-3.5 sm:py-4 rounded-2xl bg-[#0b1324]/90 hover:bg-sky-500/15 border border-sky-500/30 hover:border-sky-400 text-white font-medium text-sm sm:text-base transition-all cursor-pointer shadow-sm backdrop-blur-sm"
+              className="w-full sm:w-auto inline-flex items-center justify-center gap-2.5 px-6 sm:px-7 py-3.5 sm:py-4 rounded-xl bg-[#0b1324]/90 hover:bg-sky-500/15 border border-sky-500/30 hover:border-sky-400 text-white font-medium text-sm sm:text-base transition-all cursor-pointer shadow-sm backdrop-blur-sm"
             >
               <Compass className="w-4 h-4 text-[#38bdf8]" />
               <span>Khám phá Dự án mẫu Sunrise Tower</span>

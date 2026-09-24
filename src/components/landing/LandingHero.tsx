@@ -110,17 +110,17 @@ export const LandingHero: React.FC<LandingHeroProps> = ({
             <motion.div 
               initial={{ opacity: 0, y: -8 }}
               animate={{ opacity: 1, y: 0 }}
-              className="flex items-center gap-2 text-xs font-mono tracking-widest text-sky-400 uppercase mb-4"
+              className="flex flex-wrap items-center gap-x-2 gap-y-1 text-[10px] sm:text-xs font-mono tracking-wider text-sky-400 uppercase mb-3 sm:mb-4"
             >
-              <span className="relative flex h-2 w-2 mr-0.5">
+              <span className="relative flex h-2 w-2 mr-0.5 shrink-0">
                 <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-sky-400 opacity-75" />
                 <span className="relative inline-flex rounded-full h-2 w-2 bg-sky-500" />
               </span>
-              <span className="font-bold">ENGENIX AI</span>
+              <span className="font-bold shrink-0">ENGENIX AI</span>
               <span aria-hidden="true" className="text-white/30">·</span>
-              <span>BÓC TÁCH MẶT BẰNG</span>
+              <span className="shrink-0">BÓC TÁCH MẶT BẰNG</span>
               <span aria-hidden="true" className="text-white/30">·</span>
-              <span className="text-sky-300/80">CHUẨN VECTOR CAD</span>
+              <span className="text-sky-300/80 shrink-0">CHUẨN VECTOR CAD</span>
             </motion.div>
 
             {/* Main Headline with Tech Blue & Cyan Gradient text */}
@@ -183,25 +183,25 @@ export const LandingHero: React.FC<LandingHeroProps> = ({
               initial={{ opacity: 0, y: 15 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.4 }}
-              className="flex items-center gap-6 sm:gap-8 pt-6 border-t border-white/10 w-full max-w-xl text-xs font-mono"
+              className="grid grid-cols-3 gap-2 sm:flex sm:items-center sm:gap-8 pt-5 sm:pt-6 border-t border-white/10 w-full max-w-xl text-xs font-mono"
             >
-              <div>
+              <div className="text-left">
                 <div className="text-xl sm:text-2xl font-bold text-white font-mono tabular-nums leading-none">30s</div>
-                <div className="text-white/50 text-[11px] mt-1 font-sans">Thời gian xử lý</div>
+                <div className="text-white/50 text-[10px] sm:text-[11px] mt-1 font-sans">Thời gian xử lý</div>
               </div>
 
-              <div className="h-8 w-px bg-white/10" aria-hidden="true" />
+              <div className="hidden sm:block h-8 w-px bg-white/10" aria-hidden="true" />
 
-              <div>
+              <div className="text-left border-l border-white/10 pl-2 sm:border-0 sm:pl-0">
                 <div className="text-xl sm:text-2xl font-bold text-sky-400 font-mono tabular-nums leading-none">95%+</div>
-                <div className="text-white/50 text-[11px] mt-1 font-sans">Độ chuẩn xác</div>
+                <div className="text-white/50 text-[10px] sm:text-[11px] mt-1 font-sans">Độ chuẩn xác</div>
               </div>
 
-              <div className="h-8 w-px bg-white/10" aria-hidden="true" />
+              <div className="hidden sm:block h-8 w-px bg-white/10" aria-hidden="true" />
 
-              <div>
+              <div className="text-left border-l border-white/10 pl-2 sm:border-0 sm:pl-0">
                 <div className="text-xl sm:text-2xl font-bold text-white font-mono tabular-nums leading-none">10.000+</div>
-                <div className="text-white/50 text-[11px] mt-1 font-sans">Bản vẽ xử lý</div>
+                <div className="text-white/50 text-[10px] sm:text-[11px] mt-1 font-sans">Bản vẽ xử lý</div>
               </div>
             </motion.div>
 
@@ -623,7 +623,7 @@ export const LandingHero: React.FC<LandingHeroProps> = ({
       {/* ═══════════════════════════════════════════════════════════════
           SECTION 3: TÍNH NĂNG NỔI BẬT (Mọi thứ bạn cần trong một nền tảng)
       ═══════════════════════════════════════════════════════════════ */}
-      <section id="features" className="py-16 sm:py-20 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto text-center">
+      <section id="features" className="py-12 sm:py-20 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto text-center">
         
         {/* Eyebrow Kicker, Title & Subtitle with Viewport Entrance */}
         <motion.div 
@@ -632,7 +632,7 @@ export const LandingHero: React.FC<LandingHeroProps> = ({
           viewport={{ once: true, amount: 0.2 }}
           transition={{ duration: 0.55 }}
         >
-          <div className="flex items-center justify-center gap-2 text-xs font-mono font-bold tracking-widest text-sky-400 uppercase mb-3">
+          <div className="flex flex-wrap items-center justify-center gap-x-2 gap-y-1 text-[10px] sm:text-xs font-mono font-bold tracking-wider text-sky-400 uppercase mb-3">
             <span>TÍNH NĂNG NỔI BẬT</span>
             <span aria-hidden="true" className="text-white/30">·</span>
             <span>NỀN TẢNG THỐNG NHẤT</span>
@@ -644,13 +644,13 @@ export const LandingHero: React.FC<LandingHeroProps> = ({
           </h2>
 
           {/* Subtitle */}
-          <p className="text-sm sm:text-base text-white/70 max-w-3xl mx-auto mb-12">
+          <p className="text-sm sm:text-base text-white/70 max-w-3xl mx-auto mb-8 sm:mb-12">
             Từ bóc tách tự động đến xuất file chuyên nghiệp, ENGENIX hỗ trợ toàn bộ quy trình phân tích bản vẽ.
           </p>
         </motion.div>
 
         {/* 6 Features Grid with Staggered Entrance & Micro-interactions */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 text-left">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 text-left">
           
           {/* Card 1: AI bóc tách tự động */}
           <motion.div 
@@ -659,10 +659,10 @@ export const LandingHero: React.FC<LandingHeroProps> = ({
             viewport={{ once: true, amount: 0.2 }}
             transition={{ duration: 0.45, delay: 0.05 }}
             whileHover={{ y: -6, transition: { duration: 0.2 } }}
-            className="rounded-2xl bg-[#0c1322] border border-sky-500/20 hover:border-sky-400/60 p-6 flex flex-col gap-3 transition-all group hover:bg-[#0f172a] shadow-lg hover:shadow-[0_12px_30px_rgba(14,165,233,0.15)]"
+            className="rounded-xl sm:rounded-2xl bg-[#0c1322] border border-sky-500/20 hover:border-sky-400/60 p-4 sm:p-6 flex flex-col gap-2.5 sm:gap-3 transition-all group hover:bg-[#0f172a] shadow-lg hover:shadow-[0_12px_30px_rgba(14,165,233,0.15)]"
           >
-            <div className="w-12 h-12 rounded-xl bg-sky-500/15 border border-sky-400/35 flex items-center justify-center text-[#38bdf8] group-hover:scale-110 group-hover:rotate-3 transition-transform">
-              <Bot className="w-6 h-6" />
+            <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-xl bg-sky-500/15 border border-sky-400/35 flex items-center justify-center text-[#38bdf8] group-hover:scale-110 group-hover:rotate-3 transition-transform">
+              <Bot className="w-5 h-5 sm:w-6 sm:h-6" />
             </div>
             <h3 className="text-base sm:text-lg font-bold text-white mt-1">
               AI bóc tách tự động
@@ -679,10 +679,10 @@ export const LandingHero: React.FC<LandingHeroProps> = ({
             viewport={{ once: true, amount: 0.2 }}
             transition={{ duration: 0.45, delay: 0.1 }}
             whileHover={{ y: -6, transition: { duration: 0.2 } }}
-            className="rounded-2xl bg-[#0c1322] border border-sky-500/20 hover:border-sky-400/60 p-6 flex flex-col gap-3 transition-all group hover:bg-[#0f172a] shadow-lg hover:shadow-[0_12px_30px_rgba(14,165,233,0.15)]"
+            className="rounded-xl sm:rounded-2xl bg-[#0c1322] border border-sky-500/20 hover:border-sky-400/60 p-4 sm:p-6 flex flex-col gap-2.5 sm:gap-3 transition-all group hover:bg-[#0f172a] shadow-lg hover:shadow-[0_12px_30px_rgba(14,165,233,0.15)]"
           >
-            <div className="w-12 h-12 rounded-xl bg-cyan-500/15 border border-cyan-400/35 flex items-center justify-center text-[#0ea5e9] group-hover:scale-110 group-hover:rotate-3 transition-transform">
-              <Edit3 className="w-6 h-6" />
+            <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-xl bg-cyan-500/15 border border-cyan-400/35 flex items-center justify-center text-[#0ea5e9] group-hover:scale-110 group-hover:rotate-3 transition-transform">
+              <Edit3 className="w-5 h-5 sm:w-6 sm:h-6" />
             </div>
             <h3 className="text-base sm:text-lg font-bold text-white mt-1">
               Chỉnh sửa thủ công
@@ -699,10 +699,10 @@ export const LandingHero: React.FC<LandingHeroProps> = ({
             viewport={{ once: true, amount: 0.2 }}
             transition={{ duration: 0.45, delay: 0.15 }}
             whileHover={{ y: -6, transition: { duration: 0.2 } }}
-            className="rounded-2xl bg-[#0c1322] border border-sky-500/20 hover:border-sky-400/60 p-6 flex flex-col gap-3 transition-all group hover:bg-[#0f172a] shadow-lg hover:shadow-[0_12px_30px_rgba(14,165,233,0.15)]"
+            className="rounded-xl sm:rounded-2xl bg-[#0c1322] border border-sky-500/20 hover:border-sky-400/60 p-4 sm:p-6 flex flex-col gap-2.5 sm:gap-3 transition-all group hover:bg-[#0f172a] shadow-lg hover:shadow-[0_12px_30px_rgba(14,165,233,0.15)]"
           >
-            <div className="w-12 h-12 rounded-xl bg-blue-500/15 border border-blue-400/35 flex items-center justify-center text-[#60a5fa] group-hover:scale-110 group-hover:rotate-3 transition-transform">
-              <FileSpreadsheet className="w-6 h-6" />
+            <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-xl bg-blue-500/15 border border-blue-400/35 flex items-center justify-center text-[#60a5fa] group-hover:scale-110 group-hover:rotate-3 transition-transform">
+              <FileSpreadsheet className="w-5 h-5 sm:w-6 sm:h-6" />
             </div>
             <h3 className="text-base sm:text-lg font-bold text-white mt-1">
               Xuất file Excel
@@ -719,10 +719,10 @@ export const LandingHero: React.FC<LandingHeroProps> = ({
             viewport={{ once: true, amount: 0.2 }}
             transition={{ duration: 0.45, delay: 0.2 }}
             whileHover={{ y: -6, transition: { duration: 0.2 } }}
-            className="rounded-2xl bg-[#0c1322] border border-sky-500/20 hover:border-sky-400/60 p-6 flex flex-col gap-3 transition-all group hover:bg-[#0f172a] shadow-lg hover:shadow-[0_12px_30px_rgba(14,165,233,0.15)]"
+            className="rounded-xl sm:rounded-2xl bg-[#0c1322] border border-sky-500/20 hover:border-sky-400/60 p-4 sm:p-6 flex flex-col gap-2.5 sm:gap-3 transition-all group hover:bg-[#0f172a] shadow-lg hover:shadow-[0_12px_30px_rgba(14,165,233,0.15)]"
           >
-            <div className="w-12 h-12 rounded-xl bg-sky-500/15 border border-sky-400/35 flex items-center justify-center text-[#38bdf8] group-hover:scale-110 group-hover:rotate-3 transition-transform">
-              <FileText className="w-6 h-6" />
+            <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-xl bg-sky-500/15 border border-sky-400/35 flex items-center justify-center text-[#38bdf8] group-hover:scale-110 group-hover:rotate-3 transition-transform">
+              <FileText className="w-5 h-5 sm:w-6 sm:h-6" />
             </div>
             <h3 className="text-base sm:text-lg font-bold text-white mt-1">
               PDF có chú thích
@@ -739,10 +739,10 @@ export const LandingHero: React.FC<LandingHeroProps> = ({
             viewport={{ once: true, amount: 0.2 }}
             transition={{ duration: 0.45, delay: 0.25 }}
             whileHover={{ y: -6, transition: { duration: 0.2 } }}
-            className="rounded-2xl bg-[#0c1322] border border-sky-500/20 hover:border-sky-400/60 p-6 flex flex-col gap-3 transition-all group hover:bg-[#0f172a] shadow-lg hover:shadow-[0_12px_30px_rgba(14,165,233,0.15)]"
+            className="rounded-xl sm:rounded-2xl bg-[#0c1322] border border-sky-500/20 hover:border-sky-400/60 p-4 sm:p-6 flex flex-col gap-2.5 sm:gap-3 transition-all group hover:bg-[#0f172a] shadow-lg hover:shadow-[0_12px_30px_rgba(14,165,233,0.15)]"
           >
-            <div className="w-12 h-12 rounded-xl bg-cyan-500/15 border border-cyan-400/35 flex items-center justify-center text-[#0ea5e9] group-hover:scale-110 group-hover:rotate-3 transition-transform">
-              <FileCode className="w-6 h-6" />
+            <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-xl bg-cyan-500/15 border border-cyan-400/35 flex items-center justify-center text-[#0ea5e9] group-hover:scale-110 group-hover:rotate-3 transition-transform">
+              <FileCode className="w-5 h-5 sm:w-6 sm:h-6" />
             </div>
             <h3 className="text-base sm:text-lg font-bold text-white mt-1">
               Hỗ trợ DWG/DXF
@@ -759,10 +759,10 @@ export const LandingHero: React.FC<LandingHeroProps> = ({
             viewport={{ once: true, amount: 0.2 }}
             transition={{ duration: 0.45, delay: 0.3 }}
             whileHover={{ y: -6, transition: { duration: 0.2 } }}
-            className="rounded-2xl bg-[#0c1322] border border-sky-500/20 hover:border-sky-400/60 p-6 flex flex-col gap-3 transition-all group hover:bg-[#0f172a] shadow-lg hover:shadow-[0_12px_30px_rgba(14,165,233,0.15)]"
+            className="rounded-xl sm:rounded-2xl bg-[#0c1322] border border-sky-500/20 hover:border-sky-400/60 p-4 sm:p-6 flex flex-col gap-2.5 sm:gap-3 transition-all group hover:bg-[#0f172a] shadow-lg hover:shadow-[0_12px_30px_rgba(14,165,233,0.15)]"
           >
-            <div className="w-12 h-12 rounded-xl bg-blue-500/15 border border-blue-400/35 flex items-center justify-center text-[#38bdf8] group-hover:scale-110 group-hover:rotate-3 transition-transform">
-              <Zap className="w-6 h-6" />
+            <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-xl bg-blue-500/15 border border-blue-400/35 flex items-center justify-center text-[#38bdf8] group-hover:scale-110 group-hover:rotate-3 transition-transform">
+              <Zap className="w-5 h-5 sm:w-6 sm:h-6" />
             </div>
             <h3 className="text-base sm:text-lg font-bold text-white mt-1">
               Kết quả siêu nhanh
@@ -788,7 +788,7 @@ export const LandingHero: React.FC<LandingHeroProps> = ({
           viewport={{ once: true, amount: 0.2 }}
           transition={{ duration: 0.55 }}
         >
-          <div className="flex items-center justify-center gap-2 text-xs font-mono font-bold tracking-widest text-sky-400 uppercase mb-3">
+          <div className="flex flex-wrap items-center justify-center gap-x-2 gap-y-1 text-[10px] sm:text-xs font-mono font-bold tracking-wider text-sky-400 uppercase mb-3">
             <span>QUY TRÌNH KỸ THUẬT</span>
             <span aria-hidden="true" className="text-white/30">·</span>
             <span>6 BƯỚC KHÉP KÍN</span>
@@ -986,10 +986,10 @@ export const LandingHero: React.FC<LandingHeroProps> = ({
           >
             
             {/* Eyebrow Kicker: Unboxed quiet typography with standard separators */}
-            <div className="flex items-center gap-2 text-xs font-mono font-bold tracking-widest text-sky-400 uppercase mb-4">
-              <span>DỮ LIỆU CHÍNH XÁC</span>
+            <div className="flex flex-wrap items-center gap-x-2 gap-y-1 text-[10px] sm:text-xs font-mono font-bold tracking-wider text-sky-400 uppercase mb-3 sm:mb-4">
+              <span className="shrink-0">DỮ LIỆU CHÍNH XÁC</span>
               <span aria-hidden="true" className="text-white/30">·</span>
-              <span>RA QUYẾT ĐỊNH KỸ THUẬT</span>
+              <span className="shrink-0">RA QUYẾT ĐỊNH KỸ THUẬT</span>
             </div>
 
             {/* Title */}
@@ -1005,8 +1005,8 @@ export const LandingHero: React.FC<LandingHeroProps> = ({
               ENGENIX không chỉ giúp bạn bóc tách khối lượng, mà còn cung cấp cái nhìn tổng quan, trực quan về toàn bộ dự án. Tiết kiệm thời gian, tối ưu chi phí và nâng cao hiệu quả làm việc.
             </p>
 
-            {/* 3 Check List Items with Tech Blue Badges */}
-            <div className="flex flex-col gap-3 mb-8 w-full">
+            {/* 3 Value Prop Spec Badges in a Balanced Glass Container */}
+            <div className="w-full bg-[#0c1424]/70 border border-sky-500/25 rounded-2xl p-3.5 sm:p-4 mb-6 sm:mb-8 shadow-[0_8px_24px_rgba(0,0,0,0.4)] backdrop-blur-sm space-y-2.5">
               <div className="flex items-center gap-3">
                 <div className="w-5 h-5 rounded-full bg-sky-500/20 border border-sky-400 flex items-center justify-center text-[#38bdf8] shrink-0 font-black">
                   <Check className="w-3 h-3 stroke-[3.5]" />
@@ -1014,12 +1014,16 @@ export const LandingHero: React.FC<LandingHeroProps> = ({
                 <span className="text-xs sm:text-sm text-white/90 font-medium">Dữ liệu minh bạch, dễ dàng chia sẻ</span>
               </div>
 
+              <div className="h-px bg-white/5 w-full" />
+
               <div className="flex items-center gap-3">
                 <div className="w-5 h-5 rounded-full bg-sky-500/20 border border-sky-400 flex items-center justify-center text-[#38bdf8] shrink-0 font-black">
                   <Check className="w-3 h-3 stroke-[3.5]" />
                 </div>
                 <span className="text-xs sm:text-sm text-white/90 font-medium">Giảm thiểu sai sót trong dự toán</span>
               </div>
+
+              <div className="h-px bg-white/5 w-full" />
 
               <div className="flex items-center gap-3">
                 <div className="w-5 h-5 rounded-full bg-sky-500/20 border border-sky-400 flex items-center justify-center text-[#38bdf8] shrink-0 font-black">
@@ -1030,10 +1034,10 @@ export const LandingHero: React.FC<LandingHeroProps> = ({
             </div>
 
             {/* Action Buttons */}
-            <div className="flex flex-wrap items-center gap-4">
+            <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 sm:gap-4 w-full sm:w-auto">
               <button
                 onClick={onGetStarted}
-                className="inline-flex items-center gap-2 px-6 py-3.5 rounded-xl bg-gradient-to-r from-[#0284c7] via-[#0ea5e9] to-[#38bdf8] hover:brightness-110 text-white font-extrabold text-sm shadow-[0_4px_18px_rgba(14,165,233,0.4)] transition-all cursor-pointer"
+                className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-5 sm:px-6 py-3 sm:py-3.5 rounded-xl bg-gradient-to-r from-[#0284c7] via-[#0ea5e9] to-[#38bdf8] hover:brightness-110 text-white font-extrabold text-sm shadow-[0_4px_18px_rgba(14,165,233,0.4)] transition-all cursor-pointer"
               >
                 <span>Bắt đầu trải nghiệm miễn phí</span>
                 <ArrowRight className="w-4 h-4 stroke-[2.5]" />
@@ -1041,10 +1045,10 @@ export const LandingHero: React.FC<LandingHeroProps> = ({
 
               <a
                 href="#preview"
-                className="inline-flex items-center gap-2 px-5 py-3.5 rounded-xl bg-white/5 hover:bg-sky-500/10 border border-white/20 hover:border-sky-400 text-white font-medium text-sm transition-colors cursor-pointer"
+                className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-5 py-3 sm:py-3.5 rounded-xl bg-[#0b1324]/90 hover:bg-sky-500/15 border border-sky-500/30 hover:border-sky-400 text-sky-100 font-semibold text-sm transition-all cursor-pointer text-center shadow-sm"
               >
                 <span>Xem bản vẽ mẫu</span>
-                <ChevronRight className="w-4 h-4" />
+                <ChevronRight className="w-4 h-4 text-sky-400" />
               </a>
             </div>
 

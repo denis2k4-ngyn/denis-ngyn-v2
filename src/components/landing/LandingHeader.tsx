@@ -23,17 +23,17 @@ export const LandingHeader: React.FC<LandingHeaderProps> = ({
 
   return (
     <header className="sticky top-0 z-50 w-full bg-[#080d18]/95 backdrop-blur-xl border-b border-sky-500/15 transition-all">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-18 flex items-center justify-between gap-4">
+      <div className="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8 h-16 sm:h-18 flex items-center justify-between gap-2 sm:gap-4">
         
         {/* Brand Logo: Tech Blue Isometric Home Icon + ENGENIX */}
         <div
-          className="flex items-center gap-2.5 cursor-pointer group shrink-0"
+          className="flex items-center gap-2 sm:gap-2.5 cursor-pointer group shrink-0 min-w-0"
           onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
         >
           {/* Electric Blue Gradient Icon matching Chibi's Tech Helmet & Vest */}
-          <div className="w-9 h-9 rounded-xl bg-gradient-to-tr from-[#0284c7] via-[#0ea5e9] to-[#38bdf8] p-[1.5px] shadow-[0_2px_14px_rgba(14,165,233,0.4)]">
+          <div className="w-8 h-8 sm:w-9 sm:h-9 rounded-xl bg-gradient-to-tr from-[#0284c7] via-[#0ea5e9] to-[#38bdf8] p-[1.5px] shadow-[0_2px_14px_rgba(14,165,233,0.4)] shrink-0">
             <div className="w-full h-full bg-[#0a101f] rounded-[10px] flex items-center justify-center">
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" className="text-[#38bdf8]">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" className="text-[#38bdf8] sm:w-5 sm:h-5">
                 <path d="M3 9.5L12 2.5L21 9.5V20.5C21 21.0523 20.5523 21.5 20 21.5H4C3.44772 21.5 3 21.0523 3 20.5V9.5Z" stroke="currentColor" strokeWidth="2" strokeLinejoin="round" />
                 <path d="M9 21.5V12.5H15V21.5" stroke="currentColor" strokeWidth="2" strokeLinejoin="round" />
                 <circle cx="12" cy="7" r="1.5" fill="#0ea5e9" />
@@ -41,20 +41,20 @@ export const LandingHeader: React.FC<LandingHeaderProps> = ({
             </div>
           </div>
 
-          <div className="flex flex-col text-left">
+          <div className="flex flex-col text-left truncate">
             <div className="flex items-center gap-1.5">
-              <span className="font-extrabold text-white text-lg tracking-tight font-sans leading-none">
+              <span className="font-extrabold text-white text-base sm:text-lg tracking-tight font-sans leading-none">
                 ENGENIX
               </span>
-              <span className="text-[10px] font-mono text-sky-400 font-bold uppercase tracking-wider">· AI CAD</span>
+              <span className="text-[9px] sm:text-[10px] font-mono text-sky-400 font-bold uppercase tracking-wider">· AI CAD</span>
             </div>
-            <span className="text-[10px] text-white/50 font-mono tracking-tight leading-tight mt-1">
+            <span className="hidden sm:block text-[10px] text-white/50 font-mono tracking-tight leading-tight mt-1">
               BÓC TÁCH KHỐI LƯỢNG TỰ ĐỘNG
             </span>
           </div>
         </div>
 
-        {/* Central Navigation Links with Tech Cyan hover indicators */}
+        {/* Central Navigation Links with Tech Cyan hover indicators (Desktop) */}
         <nav className="hidden lg:flex items-center gap-6 xl:gap-8 text-sm font-medium">
           {navItems.map((item) => {
             const isActive = activeNav === item.name;
@@ -76,10 +76,10 @@ export const LandingHeader: React.FC<LandingHeaderProps> = ({
           })}
         </nav>
 
-        {/* Right Actions: Language VN + User [P] Phát Đức + Primary Blue Button */}
-        <div className="flex items-center gap-3">
+        {/* Right Actions: Language VN + User [P] Phát Đức + Primary Blue Button + Mobile Hamburger */}
+        <div className="flex items-center gap-2 sm:gap-3 shrink-0">
           {/* Language Flag Selector */}
-          <div className="hidden sm:flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg bg-white/5 border border-white/10 text-xs font-mono text-white/80 cursor-pointer hover:bg-white/10 hover:border-sky-500/30 transition-colors">
+          <div className="hidden md:flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg bg-white/5 border border-white/10 text-xs font-mono text-white/80 cursor-pointer hover:bg-white/10 hover:border-sky-500/30 transition-colors">
             <span className="text-sm">🇻🇳</span>
             <span>VN</span>
             <ChevronDown className="w-3 h-3 text-white/50" />
@@ -88,76 +88,100 @@ export const LandingHeader: React.FC<LandingHeaderProps> = ({
           {/* User Account: Clean technical user label */}
           <div 
             onClick={onLogin}
-            className="hidden sm:flex items-center gap-2 px-3 py-1.5 rounded-lg bg-white/5 border border-white/10 hover:border-sky-500/40 hover:bg-sky-500/5 transition-all cursor-pointer text-xs text-white"
+            className="hidden sm:flex items-center gap-2 px-2.5 sm:px-3 py-1.5 rounded-lg bg-white/5 border border-white/10 hover:border-sky-500/40 hover:bg-sky-500/5 transition-all cursor-pointer text-xs text-white"
           >
             <div className="w-5 h-5 rounded bg-sky-500/20 border border-sky-400/40 flex items-center justify-center text-[10px] font-mono font-bold text-sky-300">
               P
             </div>
-            <span className="font-semibold">Phát Đức</span>
-            <span className="text-white/30 font-mono text-[10px]">|</span>
-            <span className="text-white/50 font-mono text-[10px]">Kỹ sư</span>
+            <span className="font-semibold hidden md:inline">Phát Đức</span>
+            <span className="text-white/30 font-mono text-[10px] hidden md:inline">|</span>
+            <span className="text-white/50 font-mono text-[10px] hidden md:inline">Kỹ sư</span>
           </div>
 
-          {/* Primary Action Button: Bắt đầu ngay → in Electric Blue Gradient */}
+          {/* Primary Action Button: Bắt đầu ngay → (Hidden on mobile, shown in mobile drawer & on tablet/desktop) */}
           <button
             onClick={onGetStarted}
-            className="inline-flex items-center gap-2 px-4 sm:px-5 py-2 sm:py-2.5 text-xs sm:text-sm font-bold text-white bg-gradient-to-r from-[#0284c7] via-[#0ea5e9] to-[#38bdf8] hover:brightness-110 active:scale-98 rounded-xl shadow-[0_4px_18px_rgba(14,165,233,0.4)] transition-all cursor-pointer"
+            className="hidden sm:inline-flex items-center justify-center gap-1.5 sm:gap-2 px-3 sm:px-4 py-1.5 sm:py-2 text-xs md:text-sm font-bold text-white bg-gradient-to-r from-[#0284c7] via-[#0ea5e9] to-[#38bdf8] hover:brightness-110 active:scale-98 rounded-xl shadow-[0_2px_12px_rgba(14,165,233,0.35)] transition-all cursor-pointer shrink-0 whitespace-nowrap"
           >
             <span>Bắt đầu ngay</span>
-            <ArrowRight className="w-4 h-4 stroke-[2.5]" />
+            <ArrowRight className="w-3.5 h-3.5 sm:w-4 sm:h-4 stroke-[2.5]" />
           </button>
 
-          {/* Mobile Menu Hamburger */}
+          {/* Mobile Menu Hamburger Button (Always visible on mobile & tablet) */}
           <button
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-            className="lg:hidden p-2 rounded-xl text-white/70 hover:text-white hover:bg-white/10 transition-colors"
+            className="lg:hidden w-9 h-9 sm:w-10 sm:h-10 rounded-xl bg-white/5 hover:bg-sky-500/15 border border-sky-500/25 hover:border-sky-400/60 flex items-center justify-center text-white/90 hover:text-sky-300 transition-all shrink-0 cursor-pointer shadow-sm active:scale-95"
             aria-label="Toggle navigation menu"
           >
-            {mobileMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
+            {mobileMenuOpen ? <X className="w-5 h-5 text-sky-400" /> : <Menu className="w-5 h-5" />}
           </button>
         </div>
       </div>
 
-      {/* Mobile Drawer */}
+      {/* Mobile Drawer Navigation Menu */}
       {mobileMenuOpen && (
-        <div className="lg:hidden border-t border-sky-500/20 bg-[#080d18] px-4 py-5 flex flex-col gap-2.5 text-sm text-white/80">
+        <div className="lg:hidden border-t border-sky-500/20 bg-[#080d18]/98 backdrop-blur-2xl px-4 py-5 flex flex-col gap-2 text-sm text-white/85 shadow-2xl animate-in fade-in slide-in-from-top-2 duration-200">
+          <div className="text-[10px] font-mono uppercase tracking-widest text-sky-400/80 px-3 pb-1 border-b border-white/5">
+            ĐIỀU HƯỚNG NHANH
+          </div>
+
           <a 
             href="#hero" 
             onClick={() => setMobileMenuOpen(false)}
-            className="py-2 px-3 rounded-lg hover:bg-sky-500/10 hover:text-[#38bdf8] font-medium"
+            className="py-2.5 px-3 rounded-lg hover:bg-sky-500/10 hover:text-[#38bdf8] font-medium flex items-center justify-between"
           >
-            Sản phẩm
+            <span>Sản phẩm</span>
+            <ChevronDown className="w-4 h-4 -rotate-90 text-white/30" />
           </a>
           <a 
             href="#preview" 
             onClick={() => setMobileMenuOpen(false)}
-            className="py-2 px-3 rounded-lg hover:bg-sky-500/10 hover:text-[#38bdf8] font-medium"
+            className="py-2.5 px-3 rounded-lg hover:bg-sky-500/10 hover:text-[#38bdf8] font-medium flex items-center justify-between"
           >
-            Xem trước kết quả
+            <span>Xem trước kết quả</span>
+            <ChevronDown className="w-4 h-4 -rotate-90 text-white/30" />
           </a>
           <a 
             href="#features" 
             onClick={() => setMobileMenuOpen(false)}
-            className="py-2 px-3 rounded-lg hover:bg-sky-500/10 hover:text-[#38bdf8] font-medium"
+            className="py-2.5 px-3 rounded-lg hover:bg-sky-500/10 hover:text-[#38bdf8] font-medium flex items-center justify-between"
           >
-            Tính năng nổi bật
+            <span>Tính năng nổi bật</span>
+            <ChevronDown className="w-4 h-4 -rotate-90 text-white/30" />
           </a>
           <a 
             href="#how-it-works" 
             onClick={() => setMobileMenuOpen(false)}
-            className="py-2 px-3 rounded-lg hover:bg-sky-500/10 hover:text-[#38bdf8] font-medium"
+            className="py-2.5 px-3 rounded-lg hover:bg-sky-500/10 hover:text-[#38bdf8] font-medium flex items-center justify-between"
           >
-            Quy trình hoạt động
+            <span>Quy trình hoạt động</span>
+            <ChevronDown className="w-4 h-4 -rotate-90 text-white/30" />
           </a>
-          <div className="pt-3 border-t border-white/10 flex flex-col gap-2">
+
+          {/* Mobile User Profile Info */}
+          <div className="pt-3 mt-1 border-t border-white/10 flex items-center justify-between px-3 py-2 bg-white/5 rounded-xl">
+            <div className="flex items-center gap-2.5">
+              <div className="w-6 h-6 rounded-lg bg-sky-500/20 border border-sky-400/40 flex items-center justify-center text-[10px] font-mono font-bold text-sky-300">
+                P
+              </div>
+              <div className="flex flex-col text-left">
+                <span className="font-semibold text-xs text-white">Phát Đức</span>
+                <span className="text-white/50 text-[10px] font-mono">Kỹ sư dự toán</span>
+              </div>
+            </div>
+            <span className="text-xs font-mono text-white/70">🇻🇳 VN</span>
+          </div>
+
+          <div className="pt-2 flex flex-col gap-2">
             <button
               onClick={() => {
                 setMobileMenuOpen(false);
                 onGetStarted();
               }}
-              className="w-full py-2.5 rounded-xl bg-gradient-to-r from-[#0284c7] to-[#38bdf8] text-white font-bold text-center shadow-lg"
+              className="w-full py-3 rounded-xl bg-gradient-to-r from-[#0284c7] via-[#0ea5e9] to-[#38bdf8] text-white font-bold text-sm text-center shadow-[0_4px_18px_rgba(14,165,233,0.4)] flex items-center justify-center gap-2 cursor-pointer active:scale-98"
             >
-              Phân tích bản vẽ ngay →
+              <span>Phân tích bản vẽ ngay</span>
+              <ArrowRight className="w-4 h-4 stroke-[2.5]" />
             </button>
           </div>
         </div>

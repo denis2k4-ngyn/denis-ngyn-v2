@@ -92,14 +92,14 @@ export const EngineerMascot: React.FC<EngineerMascotProps> = ({
           rotate: [3, 5.5, 3]
         }}
         transition={{ repeat: Infinity, duration: 4.2, ease: 'easeInOut' }}
-        className="absolute -top-3 right-0 sm:-right-4 z-20 pointer-events-none text-right font-sans"
+        className="absolute -top-2 sm:-top-3 right-0 sm:-right-4 z-20 pointer-events-none text-right font-sans"
       >
-        <div className="text-[#bae6fd] font-extrabold text-sm sm:text-base leading-tight tracking-tight drop-shadow-[0_2px_8px_rgba(0,0,0,0.9)]">
+        <div className="text-[#bae6fd] font-extrabold text-xs sm:text-base leading-tight tracking-tight drop-shadow-[0_2px_8px_rgba(0,0,0,0.9)]">
           Biến bản vẽ<br />
           thành giá trị<br />
           <span className="text-[#38bdf8]">thật! ~</span>
         </div>
-        <svg width="100" height="12" viewBox="0 0 100 12" className="mt-1 ml-auto text-[#0ea5e9]">
+        <svg width="70" height="10" viewBox="0 0 100 12" className="mt-1 ml-auto text-[#0ea5e9] sm:w-[100px] sm:h-[12px]">
           <path d="M 5 6 Q 50 1 95 8" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" />
         </svg>
       </motion.div>
@@ -107,40 +107,40 @@ export const EngineerMascot: React.FC<EngineerMascotProps> = ({
       {/* ─────────────────────────────────────────────────────────────
           TECHNICAL HUD METADATA (ARCHITECTURAL SPECIFICATION CARD)
           Crisp, unboxed technical typography with standard separators (·, |, /)
-          Staggered floating animation alongside character - responsive safe positioning
+          Scaled down gracefully on mobile to preserve character visibility
       ───────────────────────────────────────────────────────────── */}
       <motion.div 
         initial={{ opacity: 0, x: 20 }}
         animate={{ 
           opacity: 1, 
-          x: 0,
-          y: [0, -8, 0]
+          x: 0, 
+          y: [0, -8, 0] 
         }}
         transition={{ 
           opacity: { duration: 0.6, delay: 0.25 },
           x: { duration: 0.6, delay: 0.25 },
           y: { repeat: Infinity, duration: 4.8, ease: 'easeInOut', delay: 0.6 }
         }}
-        className="absolute right-0 sm:-right-6 md:-right-8 top-20 sm:top-24 md:top-28 z-20 pointer-events-none bg-[#0a1222]/95 border border-sky-400/40 p-2.5 sm:p-3 rounded-xl backdrop-blur-md shadow-[0_12px_32px_rgba(0,0,0,0.7)] text-left font-mono max-w-[160px] sm:max-w-none"
+        className="absolute -right-1 sm:-right-6 md:-right-8 top-20 sm:top-24 md:top-28 z-20 pointer-events-none bg-[#0a1222]/95 border border-sky-400/40 p-2.5 sm:p-3 rounded-xl backdrop-blur-md shadow-[0_12px_32px_rgba(0,0,0,0.7)] text-left font-mono scale-[0.82] sm:scale-100 origin-top-right"
       >
-        <div className="flex items-center gap-2 text-[10px] text-sky-400 font-bold uppercase tracking-wider pb-1.5 border-b border-sky-500/20">
-          <span className="w-1.5 h-1.5 bg-sky-400 animate-pulse" />
+        <div className="flex items-center gap-2 text-[10px] sm:text-[11px] text-sky-400 font-bold uppercase tracking-wider pb-1.5 border-b border-sky-500/20">
+          <span className="w-2 h-2 rounded-[2px] bg-sky-400 shadow-[0_0_8px_rgba(56,189,248,0.8)]" />
           <span>ENGENIX SPECS</span>
           <span aria-hidden="true" className="text-white/20">/</span>
           <span className="text-white/60">V2.4</span>
         </div>
-        <div className="mt-1.5 space-y-1 text-[11px] text-white/80 font-mono">
-          <div className="flex items-center gap-1.5">
+        <div className="mt-2 space-y-1.5 text-[11px] sm:text-xs text-white/80 font-mono">
+          <div className="flex items-center gap-2">
             <span className="text-sky-300 font-bold">30s</span>
             <span className="text-white/30">|</span>
             <span className="text-white/70">Xử lý tự động</span>
           </div>
-          <div className="flex items-center gap-1.5">
+          <div className="flex items-center gap-2">
             <span className="text-emerald-400 font-bold">95%+</span>
             <span className="text-white/30">|</span>
             <span className="text-white/70">Độ chuẩn xác</span>
           </div>
-          <div className="flex items-center gap-1.5">
+          <div className="flex items-center gap-2">
             <span className="text-sky-300 font-bold">DXF · DWG</span>
             <span className="text-white/30">|</span>
             <span className="text-white/70">Vector gốc</span>
@@ -149,8 +149,7 @@ export const EngineerMascot: React.FC<EngineerMascotProps> = ({
       </motion.div>
 
       {/* ─────────────────────────────────────────────────────────────
-          HAND-DRAWN SKETCH QUOTE (BOTTOM RIGHT)
-          "Cùng xây dựng tương lai tốt đẹp hơn ☺" (Good People Build Great Things)
+          HAND-DRAWN SKETCH QUOTE (ORIGINAL BOTTOM RIGHT POSITION)
       ───────────────────────────────────────────────────────────── */}
       <motion.div 
         animate={{ 
@@ -158,7 +157,7 @@ export const EngineerMascot: React.FC<EngineerMascotProps> = ({
           rotate: [-2, -4, -2]
         }}
         transition={{ repeat: Infinity, duration: 4.6, ease: 'easeInOut', delay: 1 }}
-        className="absolute -bottom-4 right-0 sm:-right-4 z-20 pointer-events-none text-right font-sans"
+        className="absolute -bottom-3 sm:-bottom-4 right-0 sm:-right-4 z-20 pointer-events-none text-right font-sans"
       >
         <div className="text-sky-100/90 font-medium text-xs sm:text-sm leading-snug tracking-tight drop-shadow-md">
           Cùng xây dựng<br />
@@ -177,7 +176,7 @@ export const EngineerMascot: React.FC<EngineerMascotProps> = ({
         animate={{ y: [0, -14, 0] }}
         transition={{ repeat: Infinity, duration: 4.2, ease: 'easeInOut' }}
         whileHover={{ scale: 1.025, transition: { duration: 0.25 } }}
-        className={`relative group cursor-pointer transition-all duration-300 ${
+        className={`relative group cursor-pointer transition-all duration-300 -translate-x-3.5 sm:translate-x-0 ${
           isDragOver ? 'scale-105 ring-4 ring-sky-400 rounded-3xl' : ''
         }`}
         onClick={() => fileInputRef.current?.click()}
@@ -222,7 +221,7 @@ export const EngineerMascot: React.FC<EngineerMascotProps> = ({
                   setImageError(true);
                 }
               }}
-              className="relative w-64 sm:w-72 md:w-80 lg:w-88 h-auto max-h-[460px] sm:max-h-[500px] object-contain drop-shadow-[0_20px_40px_rgba(14,165,233,0.4)] drop-shadow-[0_8px_16px_rgba(0,0,0,0.9)] filter transition-transform duration-300 group-hover:scale-102"
+              className="relative w-72 sm:w-80 md:w-88 lg:w-96 h-auto max-h-[500px] sm:max-h-[540px] object-contain drop-shadow-[0_20px_40px_rgba(14,165,233,0.45)] drop-shadow-[0_8px_16px_rgba(0,0,0,0.9)] filter transition-transform duration-300 group-hover:scale-102"
             />
             {/* Quick change button */}
             <div className="absolute top-2 right-2 opacity-0 group-hover:opacity-100 transition-opacity bg-black/80 backdrop-blur-md border border-sky-400/40 px-2.5 py-1 rounded-full text-[10px] text-sky-200 flex items-center gap-1 font-mono shadow-md">
@@ -232,7 +231,7 @@ export const EngineerMascot: React.FC<EngineerMascotProps> = ({
           </div>
         ) : (
           /* High-Fidelity 3D Chibi SVG illustration fallback with Tech Blue Helmet & Safety Vest */
-          <div className="relative w-64 sm:w-72 md:w-80 h-[430px] rounded-3xl bg-gradient-to-b from-[#0e1828]/95 via-[#0a1120]/95 to-[#060b14] border-2 border-sky-500/40 p-5 flex flex-col items-center justify-between shadow-[0_20px_60px_rgba(0,0,0,0.8)] overflow-hidden group-hover:border-sky-400 transition-all">
+          <div className="relative w-72 sm:w-80 md:w-88 h-[460px] rounded-3xl bg-gradient-to-b from-[#0e1828]/95 via-[#0a1120]/95 to-[#060b14] border-2 border-sky-500/40 p-5 flex flex-col items-center justify-between shadow-[0_20px_60px_rgba(0,0,0,0.8)] overflow-hidden group-hover:border-sky-400 transition-all">
             
             {/* Chibi Character Vector Representation */}
             <div className="relative w-full flex-1 flex flex-col items-center justify-center">
