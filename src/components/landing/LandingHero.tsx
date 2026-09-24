@@ -231,7 +231,13 @@ export const LandingHero: React.FC<LandingHeroProps> = ({
         id="preview" 
         className="relative w-full min-h-[calc(100vh-4.5rem)] lg:min-h-[calc(100dvh-4.5rem)] flex flex-col justify-center py-12 lg:py-8 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto scroll-mt-20"
       >
-        <div className="rounded-2xl sm:rounded-3xl bg-[#0b1220] border border-sky-500/30 hover:border-sky-400/50 p-4 sm:p-6 lg:p-7 shadow-[0_20px_60px_rgba(0,0,0,0.6)] transition-all my-auto">
+        <motion.div 
+          initial={{ opacity: 0, y: 32, scale: 0.98 }}
+          whileInView={{ opacity: 1, y: 0, scale: 1 }}
+          viewport={{ once: true, amount: 0.15 }}
+          transition={{ duration: 0.65, ease: [0.16, 1, 0.3, 1] }}
+          className="rounded-2xl sm:rounded-3xl bg-[#0b1220] border border-sky-500/30 hover:border-sky-400/50 p-4 sm:p-6 lg:p-7 shadow-[0_20px_60px_rgba(0,0,0,0.6)] transition-all my-auto"
+        >
           
           {/* Card Header: ⌂ XEM TRƯỚC KẾT QUẢ PHÂN TÍCH · ENGENIX AI · ● Đang quét / Đã hoàn tất */}
           <div className="flex flex-wrap items-center justify-between gap-3 pb-5 mb-5 border-b border-sky-500/15">
@@ -611,7 +617,7 @@ export const LandingHero: React.FC<LandingHeroProps> = ({
             );
           })()}
 
-        </div>
+        </motion.div>
       </section>
 
       {/* ═══════════════════════════════════════════════════════════════
@@ -619,22 +625,29 @@ export const LandingHero: React.FC<LandingHeroProps> = ({
       ═══════════════════════════════════════════════════════════════ */}
       <section id="features" className="py-16 sm:py-20 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto text-center">
         
-        {/* Eyebrow Kicker: Unboxed quiet typography with standard separators */}
-        <div className="flex items-center justify-center gap-2 text-xs font-mono font-bold tracking-widest text-sky-400 uppercase mb-3">
-          <span>TÍNH NĂNG NỔI BẬT</span>
-          <span aria-hidden="true" className="text-white/30">·</span>
-          <span>NỀN TẢNG THỐNG NHẤT</span>
-        </div>
+        {/* Eyebrow Kicker, Title & Subtitle with Viewport Entrance */}
+        <motion.div 
+          initial={{ opacity: 0, y: 22 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, amount: 0.2 }}
+          transition={{ duration: 0.55 }}
+        >
+          <div className="flex items-center justify-center gap-2 text-xs font-mono font-bold tracking-widest text-sky-400 uppercase mb-3">
+            <span>TÍNH NĂNG NỔI BẬT</span>
+            <span aria-hidden="true" className="text-white/30">·</span>
+            <span>NỀN TẢNG THỐNG NHẤT</span>
+          </div>
 
-        {/* Title */}
-        <h2 className="text-2xl sm:text-3xl md:text-4xl font-extrabold text-white tracking-tight mb-3 font-sans">
-          Mọi thứ bạn cần trong một nền tảng
-        </h2>
+          {/* Title */}
+          <h2 className="text-2xl sm:text-3xl md:text-4xl font-extrabold text-white tracking-tight mb-3 font-sans">
+            Mọi thứ bạn cần trong một nền tảng
+          </h2>
 
-        {/* Subtitle */}
-        <p className="text-sm sm:text-base text-white/70 max-w-3xl mx-auto mb-12">
-          Từ bóc tách tự động đến xuất file chuyên nghiệp, ENGENIX hỗ trợ toàn bộ quy trình phân tích bản vẽ.
-        </p>
+          {/* Subtitle */}
+          <p className="text-sm sm:text-base text-white/70 max-w-3xl mx-auto mb-12">
+            Từ bóc tách tự động đến xuất file chuyên nghiệp, ENGENIX hỗ trợ toàn bộ quy trình phân tích bản vẽ.
+          </p>
+        </motion.div>
 
         {/* 6 Features Grid with Staggered Entrance & Micro-interactions */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 text-left">
@@ -768,22 +781,29 @@ export const LandingHero: React.FC<LandingHeroProps> = ({
       ═══════════════════════════════════════════════════════════════ */}
       <section id="how-it-works" className="py-16 sm:py-20 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto text-center border-t border-sky-500/15">
         
-        {/* Eyebrow Kicker: Unboxed quiet typography with standard separators */}
-        <div className="flex items-center justify-center gap-2 text-xs font-mono font-bold tracking-widest text-sky-400 uppercase mb-3">
-          <span>QUY TRÌNH KỸ THUẬT</span>
-          <span aria-hidden="true" className="text-white/30">·</span>
-          <span>6 BƯỚC KHÉP KÍN</span>
-        </div>
+        {/* Eyebrow Kicker, Title & Subtitle with Viewport Entrance */}
+        <motion.div 
+          initial={{ opacity: 0, y: 22 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, amount: 0.2 }}
+          transition={{ duration: 0.55 }}
+        >
+          <div className="flex items-center justify-center gap-2 text-xs font-mono font-bold tracking-widest text-sky-400 uppercase mb-3">
+            <span>QUY TRÌNH KỸ THUẬT</span>
+            <span aria-hidden="true" className="text-white/30">·</span>
+            <span>6 BƯỚC KHÉP KÍN</span>
+          </div>
 
-        {/* Title */}
-        <h2 className="text-2xl sm:text-3xl md:text-4xl font-extrabold text-white tracking-tight mb-3 font-sans">
-          Chỉ 6 bước đơn giản
-        </h2>
+          {/* Title */}
+          <h2 className="text-2xl sm:text-3xl md:text-4xl font-extrabold text-white tracking-tight mb-3 font-sans">
+            Chỉ 6 bước đơn giản
+          </h2>
 
-        {/* Subtitle */}
-        <p className="text-sm sm:text-base text-white/70 max-w-2xl mx-auto mb-16">
-          Từ bản vẽ thô đến bảng khối lượng hoàn chỉnh, nhanh chóng và dễ dàng.
-        </p>
+          {/* Subtitle */}
+          <p className="text-sm sm:text-base text-white/70 max-w-2xl mx-auto mb-16">
+            Từ bản vẽ thô đến bảng khối lượng hoàn chỉnh, nhanh chóng và dễ dàng.
+          </p>
+        </motion.div>
 
         {/* 6 Steps Circular Pipeline with connecting energy beam */}
         <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-6 relative">
@@ -957,7 +977,13 @@ export const LandingHero: React.FC<LandingHeroProps> = ({
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-center">
           
           {/* Left Column: Heading, Value Props & CTAs */}
-          <div className="lg:col-span-6 flex flex-col items-start text-left">
+          <motion.div 
+            initial={{ opacity: 0, x: -28 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true, amount: 0.2 }}
+            transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
+            className="lg:col-span-6 flex flex-col items-start text-left"
+          >
             
             {/* Eyebrow Kicker: Unboxed quiet typography with standard separators */}
             <div className="flex items-center gap-2 text-xs font-mono font-bold tracking-widest text-sky-400 uppercase mb-4">
@@ -1022,10 +1048,16 @@ export const LandingHero: React.FC<LandingHeroProps> = ({
               </a>
             </div>
 
-          </div>
+          </motion.div>
 
           {/* Right Column: BÁO CÁO DỰ ÁN MẪU Interactive App Box */}
-          <div className="lg:col-span-6 rounded-2xl sm:rounded-3xl bg-[#0b1220] border border-sky-500/30 p-5 sm:p-6 shadow-[0_20px_50px_rgba(0,0,0,0.7)]">
+          <motion.div 
+            initial={{ opacity: 0, x: 28 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true, amount: 0.2 }}
+            transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1], delay: 0.12 }}
+            className="lg:col-span-6 rounded-2xl sm:rounded-3xl bg-[#0b1220] border border-sky-500/30 p-5 sm:p-6 shadow-[0_20px_50px_rgba(0,0,0,0.7)]"
+          >
             
             {/* Box Header: BÁO CÁO DỰ ÁN MẪU · Dự án Demo */}
             <div className="flex items-center justify-between pb-4 mb-4 border-b border-sky-500/15">
@@ -1204,7 +1236,7 @@ export const LandingHero: React.FC<LandingHeroProps> = ({
 
             </div>
 
-          </div>
+          </motion.div>
 
         </div>
       </section>
