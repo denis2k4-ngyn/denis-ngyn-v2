@@ -298,19 +298,24 @@ export function App() {
   // ─────────────────────────────────────────────────────────────────
   if (viewMode === 'landing') {
     return (
-      <div className="min-h-screen bg-[#080d18] text-white font-sans selection:bg-[#0ea5e9] selection:text-white relative">
-        {/* Lưới kỹ thuật CAD / Blueprint đồng bộ toàn bộ Landing Page (độ mờ dịu mắt) */}
+      <div className="min-h-screen bg-[#080d18] text-white font-sans selection:bg-[#0ea5e9] selection:text-white relative overflow-x-hidden">
+        {/* Lưới kỹ thuật CAD / Blueprint đồng bộ toàn bộ Landing Page với hiệu ứng quét Laser động */}
         <div 
-          className="fixed inset-0 pointer-events-none z-0"
+          className="fixed inset-0 pointer-events-none z-0 opacity-85"
           style={{
             backgroundImage: `
-              linear-gradient(to right, rgba(14, 165, 233, 0.11) 1px, transparent 1px),
-              linear-gradient(to bottom, rgba(14, 165, 233, 0.11) 1px, transparent 1px)
+              linear-gradient(to right, rgba(14, 165, 233, 0.09) 1px, transparent 1px),
+              linear-gradient(to bottom, rgba(14, 165, 233, 0.09) 1px, transparent 1px)
             `,
             backgroundSize: '48px 48px',
             backgroundPosition: 'center center',
           }}
         />
+
+        {/* Ambient atmospheric glows */}
+        <div className="fixed top-[-15%] left-[20%] w-[600px] h-[600px] rounded-full bg-[radial-gradient(circle,rgba(2,132,199,0.15)_0%,transparent_70%)] blur-3xl pointer-events-none z-0 animate-grid-glow" />
+        <div className="fixed top-[45%] right-[-10%] w-[550px] h-[550px] rounded-full bg-[radial-gradient(circle,rgba(56,189,248,0.12)_0%,transparent_70%)] blur-3xl pointer-events-none z-0 animate-grid-glow" style={{ animationDelay: '3s' }} />
+
         <div className="relative z-10">
           <LandingHeader
             onGetStarted={handleGetStarted}

@@ -43,9 +43,11 @@ export const LandingStorytelling: React.FC<LandingStorytellingProps> = ({
       <section className="py-20 md:py-28 border-b border-white/10 bg-[#0e1015] relative">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div {...fadeInUp} className="max-w-3xl mb-14">
-            <span className="text-xs font-mono font-bold uppercase tracking-[0.2em] text-[#38bdf8] bg-sky-500/10 px-3 py-1 rounded-full border border-sky-500/30">
-              01 // Bản chất Kỹ thuật
-            </span>
+            <div className="flex items-center gap-2 text-xs font-mono font-bold uppercase tracking-widest text-sky-400 mb-3">
+              <span>01. BẢN CHẤT KỸ THUẬT</span>
+              <span aria-hidden="true" className="text-white/30">·</span>
+              <span>VECTOR CAD NGUYÊN BẢN</span>
+            </div>
             <h2 className="font-serif-cormorant text-3xl sm:text-5xl font-semibold text-white tracking-tight mt-4 leading-[1.15]">
               Độ chính xác hình học bắt đầu từ Vector CAD nguyên bản.
             </h2>
@@ -63,13 +65,13 @@ export const LandingStorytelling: React.FC<LandingStorytellingProps> = ({
             >
               <div className="flex items-center justify-between pb-4 border-b border-emerald-500/20">
                 <div className="flex items-center gap-2">
-                  <span className="w-3 h-3 rounded-full bg-emerald-400 shadow-[0_0_10px_rgba(52,211,153,0.6)]" />
+                  <span className="w-2 h-2 rounded-full bg-emerald-400 shadow-[0_0_10px_rgba(52,211,153,0.6)]" />
                   <span className="font-mono text-xs font-bold text-emerald-300 uppercase tracking-wider">
                     Thuật toán AI Paint Take-off
                   </span>
                 </div>
-                <span className="px-2.5 py-0.5 rounded-full text-xs font-mono font-bold bg-emerald-500/20 text-emerald-300 border border-emerald-500/40">
-                  Chuẩn xác 100%
+                <span className="text-xs font-mono font-bold text-emerald-400">
+                  CHUẨN XÁC 100% · SAI SỐ 0.00%
                 </span>
               </div>
 
@@ -86,7 +88,7 @@ export const LandingStorytelling: React.FC<LandingStorytellingProps> = ({
                   Trích xuất thực thể DXF:
                 </div>
                 <div className="text-white/70 pl-5">
-                  <span className="text-emerald-400 font-semibold">LWPOLYLINE</span> [Handle: #8F31] - 14 Đỉnh khép kín
+                  <span className="text-emerald-400 font-semibold">LWPOLYLINE</span> [Handle: #8F31] · 14 Đỉnh khép kín
                 </div>
                 <div className="text-white/70 pl-5">
                   Lớp: <span className="text-[#38bdf8] font-semibold">A-WALL</span> | Bề dày: <span className="text-white font-semibold">200mm</span> | Chu vi: <span className="text-white font-semibold">26.50m</span>
@@ -104,13 +106,13 @@ export const LandingStorytelling: React.FC<LandingStorytellingProps> = ({
             >
               <div className="flex items-center justify-between pb-4 border-b border-rose-500/20">
                 <div className="flex items-center gap-2">
-                  <span className="w-3 h-3 rounded-full bg-rose-500 shadow-[0_0_10px_rgba(244,63,94,0.6)]" />
+                  <span className="w-2 h-2 rounded-full bg-rose-500 shadow-[0_0_10px_rgba(244,63,94,0.6)]" />
                   <span className="font-mono text-xs font-bold text-rose-300 uppercase tracking-wider">
                     Cách làm Quét ảnh OCR / Raster cũ
                   </span>
                 </div>
-                <span className="px-2.5 py-0.5 rounded-full text-xs font-mono font-bold bg-rose-500/20 text-rose-300 border border-rose-500/40">
-                  Rủi ro Thất thoát
+                <span className="text-xs font-mono font-bold text-rose-400">
+                  SAI SỐ 15–25% · RỦI RO THẤT THOÁT
                 </span>
               </div>
 
@@ -147,9 +149,11 @@ export const LandingStorytelling: React.FC<LandingStorytellingProps> = ({
       <section id="detection" className="py-20 md:py-28 border-b border-white/10 bg-[#12141a] relative">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div {...fadeInUp} className="max-w-3xl mb-14">
-            <span className="text-xs font-mono font-bold uppercase tracking-[0.2em] text-[#38bdf8] bg-sky-500/10 px-3 py-1 rounded-full border border-sky-500/30">
-              02 // Kiến trúc Pipeline Bóc tách
-            </span>
+            <div className="flex items-center gap-2 text-xs font-mono font-bold uppercase tracking-widest text-sky-400 mb-3">
+              <span>02. KIẾN TRÚC PIPELINE</span>
+              <span aria-hidden="true" className="text-white/30">·</span>
+              <span>NHẬN DIỆN HÌNH HỌC ĐA TẦNG</span>
+            </div>
             <h2 className="font-serif-cormorant text-3xl sm:text-5xl font-semibold text-white tracking-tight mt-4 leading-[1.15]">
               Thuật toán nhận diện không gian đa tầng.
             </h2>
@@ -221,7 +225,7 @@ export const LandingStorytelling: React.FC<LandingStorytellingProps> = ({
             className="mt-12 p-6 dense-panel rounded-2xl border border-white/10 bg-[#161820]"
           >
             <h4 className="text-xs font-mono font-bold text-white/60 uppercase tracking-wider mb-4">
-              Hệ thống Màu Ngữ nghĩa // Nhất quán Tuyệt đối trên Toàn Bộ Bản vẽ & Báo cáo
+              Hệ thống Màu Ngữ nghĩa · Nhất quán Bản vẽ & Báo cáo Dự toán
             </h4>
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 text-xs font-sans-tight">
               <div className="flex items-center gap-3 p-3 rounded-xl bg-emerald-500/10 border border-emerald-500/30">
@@ -263,9 +267,11 @@ export const LandingStorytelling: React.FC<LandingStorytellingProps> = ({
       <section className="py-20 md:py-28 border-b border-white/10 bg-[#0c0e12] relative">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div {...fadeInUp} className="max-w-3xl mb-14">
-            <span className="text-xs font-mono font-bold uppercase tracking-[0.2em] text-[#38bdf8] bg-sky-500/10 px-3 py-1 rounded-full border border-sky-500/30">
-              03 // Cơ chế Thẩm định Kỹ thuật (Human-In-The-Loop)
-            </span>
+            <div className="flex items-center gap-2 text-xs font-mono font-bold uppercase tracking-widest text-sky-400 mb-3">
+              <span>03. THẨM ĐỊNH KỸ THUẬT</span>
+              <span aria-hidden="true" className="text-white/30">·</span>
+              <span>HUMAN-IN-THE-LOOP</span>
+            </div>
             <h2 className="font-serif-cormorant text-3xl sm:text-5xl font-semibold text-white tracking-tight mt-4 leading-[1.15]">
               AI đề xuất. Kỹ sư là người quyết định.
             </h2>
@@ -394,9 +400,11 @@ export const LandingStorytelling: React.FC<LandingStorytellingProps> = ({
       <section id="traceability" className="py-20 md:py-28 border-b border-white/10 bg-[#0e1015] text-white relative">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div {...fadeInUp} className="max-w-3xl mb-14">
-            <span className="text-xs font-mono font-bold uppercase tracking-[0.2em] text-[#38bdf8] bg-sky-500/10 px-3 py-1 rounded-full border border-sky-500/30">
-              04 // Tính năng Kỹ thuật Độc bản
-            </span>
+            <div className="flex items-center gap-2 text-xs font-mono font-bold uppercase tracking-widest text-sky-400 mb-3">
+              <span>04. TRUY XUẤT NGUỒN GỐC HAI CHIỀU</span>
+              <span aria-hidden="true" className="text-white/30">·</span>
+              <span>CAD ↔ BOQ KIỂM TOÁN</span>
+            </div>
             <h2 className="font-serif-cormorant text-3xl sm:text-5xl font-semibold text-white tracking-tight mt-4 leading-[1.15]">
               Mọi con số đều có nguồn gốc rõ ràng.
             </h2>
@@ -568,9 +576,11 @@ export const LandingStorytelling: React.FC<LandingStorytellingProps> = ({
       <section id="estimate" className="py-20 md:py-28 border-b border-white/10 bg-[#12141a] relative">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div {...fadeInUp} className="max-w-3xl mb-14">
-            <span className="text-xs font-mono font-bold uppercase tracking-[0.2em] text-[#38bdf8] bg-sky-500/10 px-3 py-1 rounded-full border border-sky-500/30">
-              05 // Khối lượng & Hồ sơ Dự toán
-            </span>
+            <div className="flex items-center gap-2 text-xs font-mono font-bold uppercase tracking-widest text-sky-400 mb-3">
+              <span>05. HỒ SƠ DỰ TOÁN HOÀN CHỈNH</span>
+              <span aria-hidden="true" className="text-white/30">·</span>
+              <span>BẢNG TIÊN LƯỢNG BOQ</span>
+            </div>
             <h2 className="font-serif-cormorant text-3xl sm:text-5xl font-semibold text-white tracking-tight mt-4 leading-[1.15]">
               Từ hình học đến hồ sơ dự toán hoàn chỉnh.
             </h2>
@@ -620,7 +630,7 @@ export const LandingStorytelling: React.FC<LandingStorytellingProps> = ({
               <div className="flex items-center gap-2">
                 <Table2 className="w-4 h-4 text-[#38bdf8]" />
                 <span className="text-xs font-mono font-bold text-white">
-                  TÒA THÁP SUNRISE TOWER // BẢNG BÓC TÁCH KHỐI LƯỢNG SƠN TẦNG 03
+                  TÒA THÁP SUNRISE TOWER · BẢNG BÓC TÁCH KHỐI LƯỢNG SƠN TẦNG 03
                 </span>
               </div>
               <span className="text-xs font-mono text-emerald-300 font-bold bg-emerald-500/20 px-2.5 py-1 rounded border border-emerald-500/40">

@@ -226,9 +226,9 @@ export const LandingFooter: React.FC<LandingFooterProps> = ({
                 </div>
 
                 {/* AI Service Live Status */}
-                <div className="mt-1 pt-2 border-t border-white/10 flex items-center gap-2 text-[10px] text-white/70">
-                  <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
-                  <span>Máy chủ AI: Hoạt động bình thường (99.9%)</span>
+                <div className="mt-1 pt-2 border-t border-white/10 flex items-center gap-2 text-[10px] font-mono text-white/70">
+                  <span className="w-1.5 h-1.5 bg-emerald-400 animate-pulse" />
+                  <span>HỆ THỐNG VECTOR CAD · KHẢ DỤNG 99.9%</span>
                 </div>
               </div>
             </div>
@@ -238,14 +238,14 @@ export const LandingFooter: React.FC<LandingFooterProps> = ({
           {/* Bottom Bar: Copyright & Back to Top */}
           <div className="pt-6 flex flex-col sm:flex-row items-center justify-between gap-4 text-[11px] text-white/40">
             <div>
-              © 2026 ENGENIX. Nền tảng phân tích bản vẽ & bóc tách khối lượng tự động.
+              © 2026 ENGENIX · Nền tảng phân tích bản vẽ & bóc tách khối lượng tự động.
             </div>
             
-            <div className="flex items-center gap-4">
-              <span className="text-sky-400/80 font-medium">✓ Tiết kiệm 80% thời gian</span>
-              <span>•</span>
-              <span className="text-sky-400/80 font-medium">✓ Độ chính xác 95%+</span>
-              <span>•</span>
+            <div className="flex items-center gap-3 font-mono text-[11px]">
+              <span className="text-sky-400 font-medium">TIẾT KIỆM 80% THỜI GIAN</span>
+              <span aria-hidden="true" className="text-white/20">·</span>
+              <span className="text-emerald-400 font-medium">ĐỘ CHÍNH XÁC 95%+</span>
+              <span aria-hidden="true" className="text-white/20">·</span>
               <button
                 onClick={scrollToTop}
                 className="inline-flex items-center gap-1 text-white/60 hover:text-[#38bdf8] transition-colors cursor-pointer"

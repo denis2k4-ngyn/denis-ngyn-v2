@@ -68,17 +68,33 @@ export const EngineerMascot: React.FC<EngineerMascotProps> = ({
       
       {/* ─────────────────────────────────────────────────────────────
           AMBIENT ELECTRIC CYAN & COBALT GLOW (Themed to Tech Blue Chibi)
+          Animated breathing aura pulse
       ───────────────────────────────────────────────────────────── */}
-      <div className="absolute inset-0 pointer-events-none flex items-center justify-center -z-10">
-        <div className="w-[320px] sm:w-[420px] h-[320px] sm:h-[420px] rounded-full bg-[radial-gradient(circle,rgba(14,165,233,0.3)_0%,rgba(2,132,199,0.16)_45%,transparent_75%)] blur-2xl" />
-      </div>
+      <motion.div 
+        animate={{ 
+          scale: [1, 1.1, 1],
+          opacity: [0.35, 0.6, 0.35]
+        }}
+        transition={{ repeat: Infinity, duration: 4.5, ease: 'easeInOut' }}
+        className="absolute inset-0 pointer-events-none flex items-center justify-center -z-10"
+      >
+        <div className="w-[320px] sm:w-[440px] h-[320px] sm:h-[440px] rounded-full bg-[radial-gradient(circle,rgba(14,165,233,0.38)_0%,rgba(2,132,199,0.18)_45%,transparent_75%)] blur-2xl" />
+      </motion.div>
 
       {/* ─────────────────────────────────────────────────────────────
           HAND-DRAWN SKETCH QUOTE (TOP RIGHT)
           "Biến bản vẽ thành giá trị thật! ~" in Tech Cyan & Sky
+          Gentle floating & swaying motion
       ───────────────────────────────────────────────────────────── */}
-      <div className="absolute -top-3 right-0 sm:-right-4 z-20 pointer-events-none text-right font-sans">
-        <div className="text-[#bae6fd] font-extrabold text-sm sm:text-base leading-tight tracking-tight rotate-[4deg] drop-shadow-[0_2px_8px_rgba(0,0,0,0.9)]">
+      <motion.div 
+        animate={{ 
+          y: [0, -6, 0],
+          rotate: [3, 5.5, 3]
+        }}
+        transition={{ repeat: Infinity, duration: 4.2, ease: 'easeInOut' }}
+        className="absolute -top-3 right-0 sm:-right-4 z-20 pointer-events-none text-right font-sans"
+      >
+        <div className="text-[#bae6fd] font-extrabold text-sm sm:text-base leading-tight tracking-tight drop-shadow-[0_2px_8px_rgba(0,0,0,0.9)]">
           Biến bản vẽ<br />
           thành giá trị<br />
           <span className="text-[#38bdf8]">thật! ~</span>
@@ -86,75 +102,81 @@ export const EngineerMascot: React.FC<EngineerMascotProps> = ({
         <svg width="100" height="12" viewBox="0 0 100 12" className="mt-1 ml-auto text-[#0ea5e9]">
           <path d="M 5 6 Q 50 1 95 8" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" />
         </svg>
-      </div>
+      </motion.div>
 
       {/* ─────────────────────────────────────────────────────────────
-          3 CHECK CAPSULES (STACKED ON RIGHT SIDE) - THEMED TO BLUE CHIBI
-          ✓ Nhanh hơn (Xanh Coban Kỹ thuật)
-          ✓ Chính xác hơn (Cyan Bạc Phản quang)
-          ✓ Hiệu quả hơn (Xanh Thiên Thanh)
+          TECHNICAL HUD METADATA (ARCHITECTURAL SPECIFICATION CARD)
+          Crisp, unboxed technical typography with standard separators (·, |, /)
+          Staggered floating animation alongside character
       ───────────────────────────────────────────────────────────── */}
-      <div className="absolute right-0 sm:-right-8 top-28 sm:top-32 z-20 flex flex-col gap-2 pointer-events-none">
-        {/* Nhanh hơn */}
-        <motion.div 
-          initial={{ opacity: 0, x: 20 }}
-          animate={{ opacity: 1, x: 0 }}
-          transition={{ delay: 0.2 }}
-          className="flex items-center gap-2 px-3 py-1.5 rounded-full bg-[#0a1222]/95 border border-sky-400/50 backdrop-blur-md shadow-lg shadow-black/60"
-        >
-          <div className="w-4 h-4 rounded-full bg-gradient-to-tr from-[#0284c7] to-[#38bdf8] flex items-center justify-center text-white shrink-0 font-black shadow-xs">
-            <Check className="w-2.5 h-2.5 stroke-[3.5]" />
+      <motion.div 
+        initial={{ opacity: 0, x: 20 }}
+        animate={{ 
+          opacity: 1, 
+          x: 0,
+          y: [0, -8, 0]
+        }}
+        transition={{ 
+          opacity: { duration: 0.6, delay: 0.25 },
+          x: { duration: 0.6, delay: 0.25 },
+          y: { repeat: Infinity, duration: 4.8, ease: 'easeInOut', delay: 0.6 }
+        }}
+        className="absolute right-0 sm:-right-8 top-24 sm:top-28 z-20 pointer-events-none bg-[#0a1222]/95 border border-sky-400/40 p-3 rounded-xl backdrop-blur-md shadow-[0_12px_32px_rgba(0,0,0,0.7)] text-left font-mono"
+      >
+        <div className="flex items-center gap-2 text-[10px] text-sky-400 font-bold uppercase tracking-wider pb-1.5 border-b border-sky-500/20">
+          <span className="w-1.5 h-1.5 bg-sky-400 animate-pulse" />
+          <span>ENGENIX SPECS</span>
+          <span aria-hidden="true" className="text-white/20">/</span>
+          <span className="text-white/60">V2.4</span>
+        </div>
+        <div className="mt-1.5 space-y-1 text-[11px] text-white/80 font-mono">
+          <div className="flex items-center gap-1.5">
+            <span className="text-sky-300 font-bold">30s</span>
+            <span className="text-white/30">|</span>
+            <span className="text-white/70">Xử lý tự động</span>
           </div>
-          <span className="text-xs font-bold text-sky-100 tracking-wide">Nhanh hơn</span>
-        </motion.div>
-
-        {/* Chính xác hơn */}
-        <motion.div 
-          initial={{ opacity: 0, x: 20 }}
-          animate={{ opacity: 1, x: 0 }}
-          transition={{ delay: 0.35 }}
-          className="flex items-center gap-2 px-3 py-1.5 rounded-full bg-[#0a1222]/95 border border-cyan-400/50 backdrop-blur-md shadow-lg shadow-black/60"
-        >
-          <div className="w-4 h-4 rounded-full bg-gradient-to-tr from-[#0ea5e9] to-[#7dd3fc] flex items-center justify-center text-[#080d18] shrink-0 font-black shadow-xs">
-            <Check className="w-2.5 h-2.5 stroke-[3.5]" />
+          <div className="flex items-center gap-1.5">
+            <span className="text-emerald-400 font-bold">95%+</span>
+            <span className="text-white/30">|</span>
+            <span className="text-white/70">Độ chuẩn xác</span>
           </div>
-          <span className="text-xs font-bold text-cyan-100 tracking-wide">Chính xác hơn</span>
-        </motion.div>
-
-        {/* Hiệu quả hơn */}
-        <motion.div 
-          initial={{ opacity: 0, x: 20 }}
-          animate={{ opacity: 1, x: 0 }}
-          transition={{ delay: 0.5 }}
-          className="flex items-center gap-2 px-3 py-1.5 rounded-full bg-[#0a1222]/95 border border-blue-400/50 backdrop-blur-md shadow-lg shadow-black/60"
-        >
-          <div className="w-4 h-4 rounded-full bg-gradient-to-tr from-[#2563eb] to-[#60a5fa] flex items-center justify-center text-white shrink-0 font-black shadow-xs">
-            <Check className="w-2.5 h-2.5 stroke-[3.5]" />
+          <div className="flex items-center gap-1.5">
+            <span className="text-sky-300 font-bold">DXF · DWG</span>
+            <span className="text-white/30">|</span>
+            <span className="text-white/70">Vector gốc</span>
           </div>
-          <span className="text-xs font-bold text-blue-100 tracking-wide">Hiệu quả hơn</span>
-        </motion.div>
-      </div>
+        </div>
+      </motion.div>
 
       {/* ─────────────────────────────────────────────────────────────
           HAND-DRAWN SKETCH QUOTE (BOTTOM RIGHT)
           "Cùng xây dựng tương lai tốt đẹp hơn ☺" (Good People Build Great Things)
       ───────────────────────────────────────────────────────────── */}
-      <div className="absolute -bottom-4 right-0 sm:-right-4 z-20 pointer-events-none text-right font-sans">
-        <div className="text-sky-100/90 font-medium text-xs sm:text-sm leading-snug tracking-tight rotate-[-2deg] drop-shadow-md">
+      <motion.div 
+        animate={{ 
+          y: [0, -4, 0],
+          rotate: [-2, -4, -2]
+        }}
+        transition={{ repeat: Infinity, duration: 4.6, ease: 'easeInOut', delay: 1 }}
+        className="absolute -bottom-4 right-0 sm:-right-4 z-20 pointer-events-none text-right font-sans"
+      >
+        <div className="text-sky-100/90 font-medium text-xs sm:text-sm leading-snug tracking-tight drop-shadow-md">
           Cùng xây dựng<br />
           tương lai tốt đẹp hơn
         </div>
         <div className="text-[#38bdf8] text-sm font-bold rotate-[6deg]">
           ☺
         </div>
-      </div>
+      </motion.div>
 
       {/* ─────────────────────────────────────────────────────────────
           MAIN 3D CHIBI CHARACTER RENDERER
+          Natural breathing float physics with synchronized floor shadows
       ───────────────────────────────────────────────────────────── */}
       <motion.div
-        animate={{ y: [0, -5, 0] }}
-        transition={{ repeat: Infinity, duration: 3.8, ease: 'easeInOut' }}
+        animate={{ y: [0, -14, 0] }}
+        transition={{ repeat: Infinity, duration: 4.2, ease: 'easeInOut' }}
+        whileHover={{ scale: 1.025, transition: { duration: 0.25 } }}
         className={`relative group cursor-pointer transition-all duration-300 ${
           isDragOver ? 'scale-105 ring-4 ring-sky-400 rounded-3xl' : ''
         }`}
@@ -164,9 +186,23 @@ export const EngineerMascot: React.FC<EngineerMascotProps> = ({
         onDrop={handleDrop}
         title="Nhấp để tải hoặc thay đổi ảnh Chibi Engineer"
       >
-        {/* Floor drop shadow */}
-        <div className="absolute -bottom-3 left-1/2 -translate-x-1/2 w-44 sm:w-56 h-6 bg-black/85 rounded-[100%] blur-md" />
-        <div className="absolute -bottom-1 left-1/2 -translate-x-1/2 w-32 sm:w-44 h-3 bg-sky-500/35 rounded-[100%] blur-sm" />
+        {/* Floor drop shadow with dynamic breathing scale */}
+        <motion.div 
+          animate={{ 
+            scale: [1, 0.82, 1],
+            opacity: [0.85, 0.45, 0.85]
+          }}
+          transition={{ repeat: Infinity, duration: 4.2, ease: 'easeInOut' }}
+          className="absolute -bottom-3 left-1/2 -translate-x-1/2 w-44 sm:w-56 h-6 bg-black/85 rounded-[100%] blur-md" 
+        />
+        <motion.div 
+          animate={{ 
+            scale: [1, 0.78, 1],
+            opacity: [0.45, 0.22, 0.45]
+          }}
+          transition={{ repeat: Infinity, duration: 4.2, ease: 'easeInOut' }}
+          className="absolute -bottom-1 left-1/2 -translate-x-1/2 w-32 sm:w-44 h-3 bg-sky-500/35 rounded-[100%] blur-sm" 
+        />
 
         {/* Display image if available */}
         {!imageError ? (

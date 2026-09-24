@@ -94,23 +94,33 @@ export const LandingHero: React.FC<LandingHeroProps> = ({
       
       {/* ═══════════════════════════════════════════════════════════════
           SECTION 1: HERO (Phân tích bản vẽ mặt bằng ngay lập tức bằng AI)
-          THEME: TECH COBALT & REFLECTIVE CYAN (Matching New Blue Chibi)
+          FULL VIEWPORT HEIGHT: Fits 100% of above-the-fold screen perfectly
       ═══════════════════════════════════════════════════════════════ */}
-      <section id="hero" className="relative w-full pt-8 sm:pt-14 pb-16 overflow-hidden">
-        <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <section 
+        id="hero" 
+        className="relative w-full min-h-[calc(100vh-4.5rem)] lg:min-h-[calc(100dvh-4.5rem)] flex flex-col justify-center py-10 lg:py-0 overflow-hidden"
+      >
+        <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full my-auto">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
           
           {/* Left Column: Heading, Subtitle, CTAs, Stats */}
           <div className="lg:col-span-7 flex flex-col items-start text-left z-10">
             
-            {/* Eyebrow Pill: AI CHO NGÀNH XÂY DỰNG */}
+            {/* Technical Eyebrow Kicker: Unboxed quiet typography with live radar ping */}
             <motion.div 
-              initial={{ opacity: 0, y: -10 }}
+              initial={{ opacity: 0, y: -8 }}
               animate={{ opacity: 1, y: 0 }}
-              className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#0c1628] border border-sky-500/50 text-[#38bdf8] text-xs font-bold uppercase tracking-wider mb-5 shadow-[0_0_18px_rgba(14,165,233,0.25)]"
+              className="flex items-center gap-2 text-xs font-mono tracking-widest text-sky-400 uppercase mb-4"
             >
-              <span className="w-2 h-2 rounded-full bg-[#0ea5e9] animate-ping" />
-              <span>AI CHO NGÀNH XÂY DỰNG</span>
+              <span className="relative flex h-2 w-2 mr-0.5">
+                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-sky-400 opacity-75" />
+                <span className="relative inline-flex rounded-full h-2 w-2 bg-sky-500" />
+              </span>
+              <span className="font-bold">ENGENIX AI</span>
+              <span aria-hidden="true" className="text-white/30">·</span>
+              <span>BÓC TÁCH MẶT BẰNG</span>
+              <span aria-hidden="true" className="text-white/30">·</span>
+              <span className="text-sky-300/80">CHUẨN VECTOR CAD</span>
             </motion.div>
 
             {/* Main Headline with Tech Blue & Cyan Gradient text */}
@@ -136,72 +146,62 @@ export const LandingHero: React.FC<LandingHeroProps> = ({
               Bóc tách khối lượng tự động từ bản vẽ PDF chỉ trong 30 giây. ENGENIX giúp bạn tiết kiệm thời gian, giảm sai sót và sẵn sàng xuất file Excel, AutoCAD để sử dụng ngay.
             </motion.p>
 
-            {/* Call to Actions */}
+            {/* Call to Actions with motion micro-interactions */}
             <motion.div 
               initial={{ opacity: 0, y: 15 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.3 }}
-              className="flex flex-wrap items-center gap-4 sm:gap-5 mb-10 w-full sm:w-auto"
+              className="flex flex-wrap items-center gap-4 sm:gap-5 mb-8 w-full sm:w-auto"
             >
-              {/* Primary Button: Tech Blue Gradient */}
-              <button
+              {/* Primary Button with Tech Blue Shimmer & Motion */}
+              <motion.button
                 onClick={onGetStarted}
-                className="w-full sm:w-auto inline-flex items-center justify-center gap-2.5 px-6 sm:px-7 py-3.5 rounded-xl bg-gradient-to-r from-[#0284c7] via-[#0ea5e9] to-[#38bdf8] hover:brightness-110 active:scale-98 text-white font-extrabold text-sm sm:text-base shadow-[0_4px_22px_rgba(14,165,233,0.45)] transition-all cursor-pointer group"
+                whileHover={{ scale: 1.03, y: -2 }}
+                whileTap={{ scale: 0.98 }}
+                className="w-full sm:w-auto inline-flex items-center justify-center gap-2.5 px-6 sm:px-7 py-3.5 rounded-xl tech-blue-button hover:brightness-110 text-white font-extrabold text-sm sm:text-base shadow-[0_4px_22px_rgba(14,165,233,0.5)] transition-all cursor-pointer group"
               >
                 <span>Phân tích bản vẽ ngay</span>
                 <ArrowRight className="w-4 h-4 stroke-[3] transition-transform group-hover:translate-x-1" />
-              </button>
+              </motion.button>
 
               {/* Secondary Button: Xem video giới thiệu */}
-              <button
+              <motion.button
                 onClick={() => setShowVideoModal(true)}
-                className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-5 py-3.5 rounded-xl bg-white/5 hover:bg-sky-500/10 border border-sky-500/30 hover:border-sky-400 text-white font-medium text-sm sm:text-base transition-colors cursor-pointer"
+                whileHover={{ scale: 1.02, y: -1 }}
+                whileTap={{ scale: 0.98 }}
+                className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-5 py-3.5 rounded-xl bg-white/5 hover:bg-sky-500/10 border border-sky-500/30 hover:border-sky-400 text-white font-medium text-sm sm:text-base transition-all cursor-pointer group"
               >
-                <div className="w-5 h-5 rounded-full bg-[#0ea5e9]/20 flex items-center justify-center">
+                <div className="w-5 h-5 rounded-md bg-[#0ea5e9]/20 flex items-center justify-center group-hover:scale-110 transition-transform">
                   <Play className="w-2.5 h-2.5 fill-[#38bdf8] text-[#38bdf8] translate-x-0.5" />
                 </div>
                 <span>Xem video giới thiệu</span>
-              </button>
+              </motion.button>
             </motion.div>
 
-            {/* 3 Metric Badges themed to Tech Blue & Cyan */}
+            {/* Refined Technical Metrics (Anti-AI Slop: clean tabular data with separators) */}
             <motion.div 
               initial={{ opacity: 0, y: 15 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.4 }}
-              className="grid grid-cols-3 gap-4 sm:gap-8 pt-6 border-t border-sky-500/20 w-full max-w-xl"
+              className="flex items-center gap-6 sm:gap-8 pt-6 border-t border-white/10 w-full max-w-xl text-xs font-mono"
             >
-              {/* 30 giây */}
-              <div className="flex items-center gap-2.5">
-                <div className="w-8 h-8 rounded-lg bg-sky-500/20 border border-sky-400/40 flex items-center justify-center text-sky-400 shrink-0">
-                  <Zap className="w-4 h-4" />
-                </div>
-                <div>
-                  <div className="text-base sm:text-lg font-bold text-white leading-tight font-mono">30 giây</div>
-                  <div className="text-xs text-sky-200/60 leading-tight">Có kết quả</div>
-                </div>
+              <div>
+                <div className="text-xl sm:text-2xl font-bold text-white font-mono tabular-nums leading-none">30s</div>
+                <div className="text-white/50 text-[11px] mt-1 font-sans">Thời gian xử lý</div>
               </div>
 
-              {/* 95%+ */}
-              <div className="flex items-center gap-2.5">
-                <div className="w-8 h-8 rounded-lg bg-cyan-500/20 border border-cyan-400/40 flex items-center justify-center text-cyan-400 shrink-0">
-                  <CheckCircle2 className="w-4 h-4" />
-                </div>
-                <div>
-                  <div className="text-base sm:text-lg font-bold text-white leading-tight font-mono">95%+</div>
-                  <div className="text-xs text-cyan-200/60 leading-tight">Độ chính xác</div>
-                </div>
+              <div className="h-8 w-px bg-white/10" aria-hidden="true" />
+
+              <div>
+                <div className="text-xl sm:text-2xl font-bold text-sky-400 font-mono tabular-nums leading-none">95%+</div>
+                <div className="text-white/50 text-[11px] mt-1 font-sans">Độ chuẩn xác</div>
               </div>
 
-              {/* 10.000+ */}
-              <div className="flex items-center gap-2.5">
-                <div className="w-8 h-8 rounded-lg bg-blue-500/20 border border-blue-400/40 flex items-center justify-center text-blue-400 shrink-0">
-                  <Bot className="w-4 h-4" />
-                </div>
-                <div>
-                  <div className="text-base sm:text-lg font-bold text-white leading-tight font-mono">10.000+</div>
-                  <div className="text-xs text-blue-200/60 leading-tight">Kỹ sư tin dùng</div>
-                </div>
+              <div className="h-8 w-px bg-white/10" aria-hidden="true" />
+
+              <div>
+                <div className="text-xl sm:text-2xl font-bold text-white font-mono tabular-nums leading-none">10.000+</div>
+                <div className="text-white/50 text-[11px] mt-1 font-sans">Bản vẽ xử lý</div>
               </div>
             </motion.div>
 
@@ -214,14 +214,24 @@ export const LandingHero: React.FC<LandingHeroProps> = ({
 
         </div>
         </div>
+
+        {/* Subtle Bottom Viewport Scroll Cue */}
+        <div className="hidden lg:flex absolute bottom-3 left-1/2 -translate-x-1/2 items-center gap-2 text-[11px] font-mono text-white/40 tracking-wider select-none pointer-events-none">
+          <span>CUỘN ĐỂ XEM MÔ PHỎNG QUÉT CAD</span>
+          <span className="animate-bounce text-sky-400">↓</span>
+        </div>
       </section>
 
 
       {/* ═══════════════════════════════════════════════════════════════
           SECTION 2: XEM TRƯỚC KẾT QUẢ PHÂN TÍCH (Live AI Scanning Radar)
+          FULL VIEWPORT HEIGHT: Fits 100% of viewport cleanly on scroll
       ═══════════════════════════════════════════════════════════════ */}
-      <section id="preview" className="py-10 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
-        <div className="rounded-2xl sm:rounded-3xl bg-[#0b1220] border border-sky-500/30 hover:border-sky-400/50 p-4 sm:p-6 lg:p-7 shadow-[0_20px_60px_rgba(0,0,0,0.6)] transition-all">
+      <section 
+        id="preview" 
+        className="relative w-full min-h-[calc(100vh-4.5rem)] lg:min-h-[calc(100dvh-4.5rem)] flex flex-col justify-center py-12 lg:py-8 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto scroll-mt-20"
+      >
+        <div className="rounded-2xl sm:rounded-3xl bg-[#0b1220] border border-sky-500/30 hover:border-sky-400/50 p-4 sm:p-6 lg:p-7 shadow-[0_20px_60px_rgba(0,0,0,0.6)] transition-all my-auto">
           
           {/* Card Header: ⌂ XEM TRƯỚC KẾT QUẢ PHÂN TÍCH · ENGENIX AI · ● Đang quét / Đã hoàn tất */}
           <div className="flex flex-wrap items-center justify-between gap-3 pb-5 mb-5 border-b border-sky-500/15">
@@ -315,10 +325,10 @@ export const LandingHero: React.FC<LandingHeroProps> = ({
                       {/* Vệt quét mờ radar tỏa lên trên */}
                       <div className="absolute bottom-0 left-0 right-0 h-16 bg-gradient-to-t from-sky-400/20 via-sky-500/5 to-transparent pointer-events-none" />
                       
-                      {/* Huy hiệu năng lượng trung tâm Laser */}
-                      <div className="absolute left-1/2 -top-3 -translate-x-1/2 flex items-center gap-1 px-2.5 py-0.5 rounded-full bg-[#0284c7] border border-sky-300 text-[10px] text-white font-mono font-bold shadow-[0_0_12px_#38bdf8] tracking-wider whitespace-nowrap">
-                        <Zap className="w-2.5 h-2.5 text-yellow-300 fill-yellow-300 animate-pulse" />
-                        <span>AI SCANNING</span>
+                      {/* Technical HUD crosshair readout (Clean technical label, no pill) */}
+                      <div className="absolute right-4 -top-3 flex items-center gap-1.5 px-2 py-0.5 bg-[#060a14] border border-sky-400/70 text-[10px] text-sky-300 font-mono font-semibold tracking-wider whitespace-nowrap shadow-md">
+                        <span className="w-1.5 h-1.5 bg-sky-400 animate-pulse" />
+                        <span>QUÉT VECTOR CAD: {Math.round(scanProgress)}%</span>
                       </div>
                     </div>
                   )}
@@ -609,9 +619,11 @@ export const LandingHero: React.FC<LandingHeroProps> = ({
       ═══════════════════════════════════════════════════════════════ */}
       <section id="features" className="py-16 sm:py-20 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto text-center">
         
-        {/* Eyebrow Pill */}
-        <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#0c1628] border border-sky-500/50 text-[#38bdf8] text-xs font-bold uppercase tracking-wider mb-3">
-          TÍNH NĂNG NỔI BẬT
+        {/* Eyebrow Kicker: Unboxed quiet typography with standard separators */}
+        <div className="flex items-center justify-center gap-2 text-xs font-mono font-bold tracking-widest text-sky-400 uppercase mb-3">
+          <span>TÍNH NĂNG NỔI BẬT</span>
+          <span aria-hidden="true" className="text-white/30">·</span>
+          <span>NỀN TẢNG THỐNG NHẤT</span>
         </div>
 
         {/* Title */}
@@ -624,12 +636,19 @@ export const LandingHero: React.FC<LandingHeroProps> = ({
           Từ bóc tách tự động đến xuất file chuyên nghiệp, ENGENIX hỗ trợ toàn bộ quy trình phân tích bản vẽ.
         </p>
 
-        {/* 6 Features Grid */}
+        {/* 6 Features Grid with Staggered Entrance & Micro-interactions */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 text-left">
           
           {/* Card 1: AI bóc tách tự động */}
-          <div className="rounded-2xl bg-[#0c1322] border border-sky-500/20 hover:border-sky-400/60 p-6 flex flex-col gap-3 transition-all group hover:bg-[#0f172a]">
-            <div className="w-12 h-12 rounded-xl bg-sky-500/15 border border-sky-400/35 flex items-center justify-center text-[#38bdf8] group-hover:scale-105 transition-transform">
+          <motion.div 
+            initial={{ opacity: 0, y: 25 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, amount: 0.2 }}
+            transition={{ duration: 0.45, delay: 0.05 }}
+            whileHover={{ y: -6, transition: { duration: 0.2 } }}
+            className="rounded-2xl bg-[#0c1322] border border-sky-500/20 hover:border-sky-400/60 p-6 flex flex-col gap-3 transition-all group hover:bg-[#0f172a] shadow-lg hover:shadow-[0_12px_30px_rgba(14,165,233,0.15)]"
+          >
+            <div className="w-12 h-12 rounded-xl bg-sky-500/15 border border-sky-400/35 flex items-center justify-center text-[#38bdf8] group-hover:scale-110 group-hover:rotate-3 transition-transform">
               <Bot className="w-6 h-6" />
             </div>
             <h3 className="text-base sm:text-lg font-bold text-white mt-1">
@@ -638,11 +657,18 @@ export const LandingHero: React.FC<LandingHeroProps> = ({
             <p className="text-xs sm:text-sm text-white/70 leading-relaxed">
               Nhận diện tường, sàn, cửa, thiết bị... bằng AI siêu nhanh.
             </p>
-          </div>
+          </motion.div>
 
           {/* Card 2: Chỉnh sửa thủ công */}
-          <div className="rounded-2xl bg-[#0c1322] border border-sky-500/20 hover:border-sky-400/60 p-6 flex flex-col gap-3 transition-all group hover:bg-[#0f172a]">
-            <div className="w-12 h-12 rounded-xl bg-cyan-500/15 border border-cyan-400/35 flex items-center justify-center text-[#0ea5e9] group-hover:scale-105 transition-transform">
+          <motion.div 
+            initial={{ opacity: 0, y: 25 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, amount: 0.2 }}
+            transition={{ duration: 0.45, delay: 0.1 }}
+            whileHover={{ y: -6, transition: { duration: 0.2 } }}
+            className="rounded-2xl bg-[#0c1322] border border-sky-500/20 hover:border-sky-400/60 p-6 flex flex-col gap-3 transition-all group hover:bg-[#0f172a] shadow-lg hover:shadow-[0_12px_30px_rgba(14,165,233,0.15)]"
+          >
+            <div className="w-12 h-12 rounded-xl bg-cyan-500/15 border border-cyan-400/35 flex items-center justify-center text-[#0ea5e9] group-hover:scale-110 group-hover:rotate-3 transition-transform">
               <Edit3 className="w-6 h-6" />
             </div>
             <h3 className="text-base sm:text-lg font-bold text-white mt-1">
@@ -651,11 +677,18 @@ export const LandingHero: React.FC<LandingHeroProps> = ({
             <p className="text-xs sm:text-sm text-white/70 leading-relaxed">
               Dễ dàng chỉnh sửa, bổ sung sau khi AI phân tích.
             </p>
-          </div>
+          </motion.div>
 
           {/* Card 3: Xuất file Excel */}
-          <div className="rounded-2xl bg-[#0c1322] border border-sky-500/20 hover:border-sky-400/60 p-6 flex flex-col gap-3 transition-all group hover:bg-[#0f172a]">
-            <div className="w-12 h-12 rounded-xl bg-blue-500/15 border border-blue-400/35 flex items-center justify-center text-[#60a5fa] group-hover:scale-105 transition-transform">
+          <motion.div 
+            initial={{ opacity: 0, y: 25 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, amount: 0.2 }}
+            transition={{ duration: 0.45, delay: 0.15 }}
+            whileHover={{ y: -6, transition: { duration: 0.2 } }}
+            className="rounded-2xl bg-[#0c1322] border border-sky-500/20 hover:border-sky-400/60 p-6 flex flex-col gap-3 transition-all group hover:bg-[#0f172a] shadow-lg hover:shadow-[0_12px_30px_rgba(14,165,233,0.15)]"
+          >
+            <div className="w-12 h-12 rounded-xl bg-blue-500/15 border border-blue-400/35 flex items-center justify-center text-[#60a5fa] group-hover:scale-110 group-hover:rotate-3 transition-transform">
               <FileSpreadsheet className="w-6 h-6" />
             </div>
             <h3 className="text-base sm:text-lg font-bold text-white mt-1">
@@ -664,11 +697,18 @@ export const LandingHero: React.FC<LandingHeroProps> = ({
             <p className="text-xs sm:text-sm text-white/70 leading-relaxed">
               Xuất bảng khối lượng chi tiết, sẵn sàng sử dụng.
             </p>
-          </div>
+          </motion.div>
 
           {/* Card 4: PDF có chú thích */}
-          <div className="rounded-2xl bg-[#0c1322] border border-sky-500/20 hover:border-sky-400/60 p-6 flex flex-col gap-3 transition-all group hover:bg-[#0f172a]">
-            <div className="w-12 h-12 rounded-xl bg-sky-500/15 border border-sky-400/35 flex items-center justify-center text-[#38bdf8] group-hover:scale-105 transition-transform">
+          <motion.div 
+            initial={{ opacity: 0, y: 25 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, amount: 0.2 }}
+            transition={{ duration: 0.45, delay: 0.2 }}
+            whileHover={{ y: -6, transition: { duration: 0.2 } }}
+            className="rounded-2xl bg-[#0c1322] border border-sky-500/20 hover:border-sky-400/60 p-6 flex flex-col gap-3 transition-all group hover:bg-[#0f172a] shadow-lg hover:shadow-[0_12px_30px_rgba(14,165,233,0.15)]"
+          >
+            <div className="w-12 h-12 rounded-xl bg-sky-500/15 border border-sky-400/35 flex items-center justify-center text-[#38bdf8] group-hover:scale-110 group-hover:rotate-3 transition-transform">
               <FileText className="w-6 h-6" />
             </div>
             <h3 className="text-base sm:text-lg font-bold text-white mt-1">
@@ -677,11 +717,18 @@ export const LandingHero: React.FC<LandingHeroProps> = ({
             <p className="text-xs sm:text-sm text-white/70 leading-relaxed">
               Tạo file PDF với màu sắc, ghi chú rõ ràng.
             </p>
-          </div>
+          </motion.div>
 
           {/* Card 5: Hỗ trợ DWG/DXF */}
-          <div className="rounded-2xl bg-[#0c1322] border border-sky-500/20 hover:border-sky-400/60 p-6 flex flex-col gap-3 transition-all group hover:bg-[#0f172a]">
-            <div className="w-12 h-12 rounded-xl bg-cyan-500/15 border border-cyan-400/35 flex items-center justify-center text-[#0ea5e9] group-hover:scale-105 transition-transform">
+          <motion.div 
+            initial={{ opacity: 0, y: 25 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, amount: 0.2 }}
+            transition={{ duration: 0.45, delay: 0.25 }}
+            whileHover={{ y: -6, transition: { duration: 0.2 } }}
+            className="rounded-2xl bg-[#0c1322] border border-sky-500/20 hover:border-sky-400/60 p-6 flex flex-col gap-3 transition-all group hover:bg-[#0f172a] shadow-lg hover:shadow-[0_12px_30px_rgba(14,165,233,0.15)]"
+          >
+            <div className="w-12 h-12 rounded-xl bg-cyan-500/15 border border-cyan-400/35 flex items-center justify-center text-[#0ea5e9] group-hover:scale-110 group-hover:rotate-3 transition-transform">
               <FileCode className="w-6 h-6" />
             </div>
             <h3 className="text-base sm:text-lg font-bold text-white mt-1">
@@ -690,11 +737,18 @@ export const LandingHero: React.FC<LandingHeroProps> = ({
             <p className="text-xs sm:text-sm text-white/70 leading-relaxed">
               Xuất file AutoCAD gốc, tương thích dễ dàng.
             </p>
-          </div>
+          </motion.div>
 
           {/* Card 6: Kết quả siêu nhanh */}
-          <div className="rounded-2xl bg-[#0c1322] border border-sky-500/20 hover:border-sky-400/60 p-6 flex flex-col gap-3 transition-all group hover:bg-[#0f172a]">
-            <div className="w-12 h-12 rounded-xl bg-blue-500/15 border border-blue-400/35 flex items-center justify-center text-[#38bdf8] group-hover:scale-105 transition-transform">
+          <motion.div 
+            initial={{ opacity: 0, y: 25 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, amount: 0.2 }}
+            transition={{ duration: 0.45, delay: 0.3 }}
+            whileHover={{ y: -6, transition: { duration: 0.2 } }}
+            className="rounded-2xl bg-[#0c1322] border border-sky-500/20 hover:border-sky-400/60 p-6 flex flex-col gap-3 transition-all group hover:bg-[#0f172a] shadow-lg hover:shadow-[0_12px_30px_rgba(14,165,233,0.15)]"
+          >
+            <div className="w-12 h-12 rounded-xl bg-blue-500/15 border border-blue-400/35 flex items-center justify-center text-[#38bdf8] group-hover:scale-110 group-hover:rotate-3 transition-transform">
               <Zap className="w-6 h-6" />
             </div>
             <h3 className="text-base sm:text-lg font-bold text-white mt-1">
@@ -703,7 +757,7 @@ export const LandingHero: React.FC<LandingHeroProps> = ({
             <p className="text-xs sm:text-sm text-white/70 leading-relaxed">
               Bóc tách bản vẽ chỉ trong 30 giây.
             </p>
-          </div>
+          </motion.div>
 
         </div>
       </section>
@@ -714,9 +768,11 @@ export const LandingHero: React.FC<LandingHeroProps> = ({
       ═══════════════════════════════════════════════════════════════ */}
       <section id="how-it-works" className="py-16 sm:py-20 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto text-center border-t border-sky-500/15">
         
-        {/* Eyebrow Pill */}
-        <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#0c1628] border border-sky-500/50 text-[#38bdf8] text-xs font-bold uppercase tracking-wider mb-3">
-          QUY TRÌNH HOẠT ĐỘNG
+        {/* Eyebrow Kicker: Unboxed quiet typography with standard separators */}
+        <div className="flex items-center justify-center gap-2 text-xs font-mono font-bold tracking-widest text-sky-400 uppercase mb-3">
+          <span>QUY TRÌNH KỸ THUẬT</span>
+          <span aria-hidden="true" className="text-white/30">·</span>
+          <span>6 BƯỚC KHÉP KÍN</span>
         </div>
 
         {/* Title */}
@@ -762,88 +818,130 @@ export const LandingHero: React.FC<LandingHeroProps> = ({
           </div>
 
           {/* Step 1: Tải lên bản vẽ */}
-          <div className="flex flex-col items-center text-center group relative z-10">
+          <motion.div 
+            initial={{ opacity: 0, y: 25 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, amount: 0.2 }}
+            transition={{ duration: 0.45, delay: 0.05 }}
+            whileHover={{ y: -6 }}
+            className="flex flex-col items-center text-center group relative z-10 cursor-pointer"
+          >
             <div className="relative mb-4">
-              <div className="w-16 h-16 rounded-full bg-[#080d18] border-2 border-sky-400 flex items-center justify-center text-[#38bdf8] shadow-[0_0_20px_rgba(14,165,233,0.35)] group-hover:scale-105 group-hover:border-white transition-all">
+              <div className="w-16 h-16 rounded-full bg-[#080d18] border-2 border-sky-400 flex items-center justify-center text-[#38bdf8] shadow-[0_0_20px_rgba(14,165,233,0.35)] group-hover:scale-110 group-hover:border-white group-hover:shadow-[0_0_28px_rgba(56,189,248,0.6)] transition-all">
                 <Upload className="w-6 h-6" />
               </div>
               <span className="absolute -bottom-2.5 left-1/2 -translate-x-1/2 bg-gradient-to-r from-[#0284c7] to-[#38bdf8] text-white text-[10px] font-extrabold px-2 py-0.5 rounded-full font-mono shadow-sm">
                 01
               </span>
             </div>
-            <h4 className="text-sm font-bold text-white mt-2 mb-1">Tải lên bản vẽ</h4>
+            <h4 className="text-sm font-bold text-white mt-2 mb-1 group-hover:text-sky-300 transition-colors">Tải lên bản vẽ</h4>
             <p className="text-xs text-white/60 leading-tight">PDF, DWG, DXF...</p>
-          </div>
+          </motion.div>
 
           {/* Step 2: Cắt vùng bản vẽ */}
-          <div className="flex flex-col items-center text-center group relative z-10">
+          <motion.div 
+            initial={{ opacity: 0, y: 25 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, amount: 0.2 }}
+            transition={{ duration: 0.45, delay: 0.1 }}
+            whileHover={{ y: -6 }}
+            className="flex flex-col items-center text-center group relative z-10 cursor-pointer"
+          >
             <div className="relative mb-4">
-              <div className="w-16 h-16 rounded-full bg-[#080d18] border-2 border-sky-400 flex items-center justify-center text-[#38bdf8] shadow-[0_0_20px_rgba(14,165,233,0.35)] group-hover:scale-105 group-hover:border-white transition-all">
+              <div className="w-16 h-16 rounded-full bg-[#080d18] border-2 border-sky-400 flex items-center justify-center text-[#38bdf8] shadow-[0_0_20px_rgba(14,165,233,0.35)] group-hover:scale-110 group-hover:border-white group-hover:shadow-[0_0_28px_rgba(56,189,248,0.6)] transition-all">
                 <Crop className="w-6 h-6" />
               </div>
               <span className="absolute -bottom-2.5 left-1/2 -translate-x-1/2 bg-gradient-to-r from-[#0284c7] to-[#38bdf8] text-white text-[10px] font-extrabold px-2 py-0.5 rounded-full font-mono shadow-sm">
                 02
               </span>
             </div>
-            <h4 className="text-sm font-bold text-white mt-2 mb-1">Cắt vùng bản vẽ</h4>
+            <h4 className="text-sm font-bold text-white mt-2 mb-1 group-hover:text-sky-300 transition-colors">Cắt vùng bản vẽ</h4>
             <p className="text-xs text-white/60 leading-tight">Chọn khu vực cần phân tích</p>
-          </div>
+          </motion.div>
 
           {/* Step 3: Thiết lập tỷ lệ */}
-          <div className="flex flex-col items-center text-center group relative z-10">
+          <motion.div 
+            initial={{ opacity: 0, y: 25 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, amount: 0.2 }}
+            transition={{ duration: 0.45, delay: 0.15 }}
+            whileHover={{ y: -6 }}
+            className="flex flex-col items-center text-center group relative z-10 cursor-pointer"
+          >
             <div className="relative mb-4">
-              <div className="w-16 h-16 rounded-full bg-[#080d18] border-2 border-sky-400 flex items-center justify-center text-[#38bdf8] shadow-[0_0_20px_rgba(14,165,233,0.35)] group-hover:scale-105 group-hover:border-white transition-all">
+              <div className="w-16 h-16 rounded-full bg-[#080d18] border-2 border-sky-400 flex items-center justify-center text-[#38bdf8] shadow-[0_0_20px_rgba(14,165,233,0.35)] group-hover:scale-110 group-hover:border-white group-hover:shadow-[0_0_28px_rgba(56,189,248,0.6)] transition-all">
                 <Ruler className="w-6 h-6" />
               </div>
               <span className="absolute -bottom-2.5 left-1/2 -translate-x-1/2 bg-gradient-to-r from-[#0284c7] to-[#38bdf8] text-white text-[10px] font-extrabold px-2 py-0.5 rounded-full font-mono shadow-sm">
                 03
               </span>
             </div>
-            <h4 className="text-sm font-bold text-white mt-2 mb-1">Thiết lập tỷ lệ</h4>
+            <h4 className="text-sm font-bold text-white mt-2 mb-1 group-hover:text-sky-300 transition-colors">Thiết lập tỷ lệ</h4>
             <p className="text-xs text-white/60 leading-tight">Nhập thông số hoặc auto-detect</p>
-          </div>
+          </motion.div>
 
           {/* Step 4: AI phân tích */}
-          <div className="flex flex-col items-center text-center group relative z-10">
+          <motion.div 
+            initial={{ opacity: 0, y: 25 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, amount: 0.2 }}
+            transition={{ duration: 0.45, delay: 0.2 }}
+            whileHover={{ y: -6 }}
+            className="flex flex-col items-center text-center group relative z-10 cursor-pointer"
+          >
             <div className="relative mb-4">
-              <div className="w-16 h-16 rounded-full bg-[#080d18] border-2 border-sky-400 flex items-center justify-center text-[#38bdf8] shadow-[0_0_20px_rgba(14,165,233,0.35)] group-hover:scale-105 group-hover:border-white transition-all">
+              <div className="w-16 h-16 rounded-full bg-[#080d18] border-2 border-sky-400 flex items-center justify-center text-[#38bdf8] shadow-[0_0_20px_rgba(14,165,233,0.35)] group-hover:scale-110 group-hover:border-white group-hover:shadow-[0_0_28px_rgba(56,189,248,0.6)] transition-all">
                 <Bot className="w-6 h-6" />
               </div>
               <span className="absolute -bottom-2.5 left-1/2 -translate-x-1/2 bg-gradient-to-r from-[#0284c7] to-[#38bdf8] text-white text-[10px] font-extrabold px-2 py-0.5 rounded-full font-mono shadow-sm">
                 04
               </span>
             </div>
-            <h4 className="text-sm font-bold text-white mt-2 mb-1">AI phân tích</h4>
+            <h4 className="text-sm font-bold text-white mt-2 mb-1 group-hover:text-sky-300 transition-colors">AI phân tích</h4>
             <p className="text-xs text-white/60 leading-tight">Tự động nhận diện và bóc tách</p>
-          </div>
+          </motion.div>
 
           {/* Step 5: Kiểm tra & chỉnh sửa */}
-          <div className="flex flex-col items-center text-center group relative z-10">
+          <motion.div 
+            initial={{ opacity: 0, y: 25 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, amount: 0.2 }}
+            transition={{ duration: 0.45, delay: 0.25 }}
+            whileHover={{ y: -6 }}
+            className="flex flex-col items-center text-center group relative z-10 cursor-pointer"
+          >
             <div className="relative mb-4">
-              <div className="w-16 h-16 rounded-full bg-[#080d18] border-2 border-sky-400 flex items-center justify-center text-[#38bdf8] shadow-[0_0_20px_rgba(14,165,233,0.35)] group-hover:scale-105 group-hover:border-white transition-all">
+              <div className="w-16 h-16 rounded-full bg-[#080d18] border-2 border-sky-400 flex items-center justify-center text-[#38bdf8] shadow-[0_0_20px_rgba(14,165,233,0.35)] group-hover:scale-110 group-hover:border-white group-hover:shadow-[0_0_28px_rgba(56,189,248,0.6)] transition-all">
                 <Check className="w-6 h-6 stroke-[3]" />
               </div>
               <span className="absolute -bottom-2.5 left-1/2 -translate-x-1/2 bg-gradient-to-r from-[#0284c7] to-[#38bdf8] text-white text-[10px] font-extrabold px-2 py-0.5 rounded-full font-mono shadow-sm">
                 05
               </span>
             </div>
-            <h4 className="text-sm font-bold text-white mt-2 mb-1">Kiểm tra & chỉnh sửa</h4>
+            <h4 className="text-sm font-bold text-white mt-2 mb-1 group-hover:text-sky-300 transition-colors">Kiểm tra & chỉnh sửa</h4>
             <p className="text-xs text-white/60 leading-tight">Xem lại kết quả, điều chỉnh nếu cần</p>
-          </div>
+          </motion.div>
 
           {/* Step 6: Xuất kết quả */}
-          <div className="flex flex-col items-center text-center group relative z-10">
+          <motion.div 
+            initial={{ opacity: 0, y: 25 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, amount: 0.2 }}
+            transition={{ duration: 0.45, delay: 0.3 }}
+            whileHover={{ y: -6 }}
+            className="flex flex-col items-center text-center group relative z-10 cursor-pointer"
+          >
             <div className="relative mb-4">
-              <div className="w-16 h-16 rounded-full bg-[#080d18] border-2 border-sky-400 flex items-center justify-center text-[#38bdf8] shadow-[0_0_20px_rgba(14,165,233,0.35)] group-hover:scale-105 group-hover:border-white transition-all">
+              <div className="w-16 h-16 rounded-full bg-[#080d18] border-2 border-sky-400 flex items-center justify-center text-[#38bdf8] shadow-[0_0_20px_rgba(14,165,233,0.35)] group-hover:scale-110 group-hover:border-white group-hover:shadow-[0_0_28px_rgba(56,189,248,0.6)] transition-all">
                 <Download className="w-6 h-6" />
               </div>
               <span className="absolute -bottom-2.5 left-1/2 -translate-x-1/2 bg-gradient-to-r from-[#0284c7] to-[#38bdf8] text-white text-[10px] font-extrabold px-2 py-0.5 rounded-full font-mono shadow-sm">
                 06
               </span>
             </div>
-            <h4 className="text-sm font-bold text-white mt-2 mb-1">Xuất kết quả</h4>
+            <h4 className="text-sm font-bold text-white mt-2 mb-1 group-hover:text-sky-300 transition-colors">Xuất kết quả</h4>
             <p className="text-xs text-white/60 leading-tight">Excel, PDF, DWG... sẵn sàng sử dụng</p>
-          </div>
+          </motion.div>
 
         </div>
       </section>
@@ -861,9 +959,11 @@ export const LandingHero: React.FC<LandingHeroProps> = ({
           {/* Left Column: Heading, Value Props & CTAs */}
           <div className="lg:col-span-6 flex flex-col items-start text-left">
             
-            {/* Eyebrow Pill */}
-            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#0c1628] border border-sky-500/50 text-[#38bdf8] text-xs font-bold uppercase tracking-wider mb-4">
-              BIẾN BẢN VẼ THÀNH THÔNG TIN CÓ GIÁ TRỊ
+            {/* Eyebrow Kicker: Unboxed quiet typography with standard separators */}
+            <div className="flex items-center gap-2 text-xs font-mono font-bold tracking-widest text-sky-400 uppercase mb-4">
+              <span>DỮ LIỆU CHÍNH XÁC</span>
+              <span aria-hidden="true" className="text-white/30">·</span>
+              <span>RA QUYẾT ĐỊNH KỸ THUẬT</span>
             </div>
 
             {/* Title */}

@@ -42,14 +42,14 @@ export const LandingHeader: React.FC<LandingHeaderProps> = ({
           </div>
 
           <div className="flex flex-col text-left">
-            <div className="flex items-center gap-1">
+            <div className="flex items-center gap-1.5">
               <span className="font-extrabold text-white text-lg tracking-tight font-sans leading-none">
                 ENGENIX
               </span>
-              <span className="w-1.5 h-1.5 rounded-full bg-[#0ea5e9] animate-pulse" />
+              <span className="text-[10px] font-mono text-sky-400 font-bold uppercase tracking-wider">· AI CAD</span>
             </div>
-            <span className="text-[10px] text-sky-200/60 font-sans tracking-tight leading-tight mt-0.5">
-              Xây dựng thông minh hơn
+            <span className="text-[10px] text-white/50 font-mono tracking-tight leading-tight mt-1">
+              BÓC TÁCH KHỐI LƯỢNG TỰ ĐỘNG
             </span>
           </div>
         </div>
@@ -79,22 +79,23 @@ export const LandingHeader: React.FC<LandingHeaderProps> = ({
         {/* Right Actions: Language VN + User [P] Phát Đức + Primary Blue Button */}
         <div className="flex items-center gap-3">
           {/* Language Flag Selector */}
-          <div className="hidden sm:flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg bg-white/5 border border-white/10 text-xs font-medium text-white/80 cursor-pointer hover:bg-white/10 hover:border-sky-500/30 transition-colors">
+          <div className="hidden sm:flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg bg-white/5 border border-white/10 text-xs font-mono text-white/80 cursor-pointer hover:bg-white/10 hover:border-sky-500/30 transition-colors">
             <span className="text-sm">🇻🇳</span>
-            <span>VI</span>
+            <span>VN</span>
             <ChevronDown className="w-3 h-3 text-white/50" />
           </div>
 
-          {/* User Account Capsule [P] Phát Đức ▾ with Blue Avatar */}
+          {/* User Account: Clean technical user label */}
           <div 
             onClick={onLogin}
-            className="hidden sm:flex items-center gap-2 px-3 py-1.5 rounded-lg bg-white/5 border border-white/10 hover:border-sky-500/50 hover:bg-sky-500/5 transition-all cursor-pointer text-xs font-semibold text-white"
+            className="hidden sm:flex items-center gap-2 px-3 py-1.5 rounded-lg bg-white/5 border border-white/10 hover:border-sky-500/40 hover:bg-sky-500/5 transition-all cursor-pointer text-xs text-white"
           >
-            <div className="w-5 h-5 rounded-full bg-gradient-to-tr from-[#0284c7] to-[#38bdf8] flex items-center justify-center text-[10px] font-extrabold text-[#0a101f] shadow-xs">
+            <div className="w-5 h-5 rounded bg-sky-500/20 border border-sky-400/40 flex items-center justify-center text-[10px] font-mono font-bold text-sky-300">
               P
             </div>
-            <span>Phát Đức</span>
-            <ChevronDown className="w-3 h-3 text-white/50" />
+            <span className="font-semibold">Phát Đức</span>
+            <span className="text-white/30 font-mono text-[10px]">|</span>
+            <span className="text-white/50 font-mono text-[10px]">Kỹ sư</span>
           </div>
 
           {/* Primary Action Button: Bắt đầu ngay → in Electric Blue Gradient */}

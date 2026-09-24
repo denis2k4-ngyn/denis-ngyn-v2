@@ -569,25 +569,25 @@ export const DashboardView: React.FC<DashboardViewProps> = ({
                       </div>
                     </td>
 
-                    {/* Trạng thái Badge */}
+                    {/* Trạng thái (Clean unboxed technical status with dot indicator) */}
                     <td className="py-3 px-3">
                       {isCompleted && (
-                        <span className="inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-[11px] font-semibold bg-[#0a2e24] text-[#34d399] border border-[#059669]/40">
-                          <CheckCircle2 className="w-3 h-3" />
+                        <div className="inline-flex items-center gap-1.5 text-xs font-mono font-medium text-emerald-400">
+                          <span className="w-1.5 h-1.5 rounded-full bg-emerald-400" />
                           <span>Đã hoàn thành</span>
-                        </span>
+                        </div>
                       )}
                       {isProcessing && (
-                        <span className={`inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-[11px] font-semibold ${themeConfig.badgeBg} ${themeConfig.accentText} border ${themeConfig.accentBorder}`}>
-                          <span className={`w-1.5 h-1.5 rounded-full ${themeConfig.activeIndicator} animate-pulse`} />
+                        <div className="inline-flex items-center gap-1.5 text-xs font-mono font-medium text-sky-400">
+                          <span className="w-1.5 h-1.5 rounded-full bg-sky-400 animate-pulse" />
                           <span>Đang xử lý</span>
-                        </span>
+                        </div>
                       )}
                       {isReview && (
-                        <span className="inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-[11px] font-semibold bg-[#381017] text-[#f87171] border border-[#ef4444]/40">
-                          <AlertTriangle className="w-3 h-3" />
+                        <div className="inline-flex items-center gap-1.5 text-xs font-mono font-medium text-rose-400">
+                          <span className="w-1.5 h-1.5 rounded-full bg-rose-400" />
                           <span>Cần kiểm tra</span>
-                        </span>
+                        </div>
                       )}
                     </td>
 
