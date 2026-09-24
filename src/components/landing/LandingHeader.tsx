@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { createPortal } from 'react-dom';
 import { ChevronDown, ArrowRight, Menu, X } from 'lucide-react';
 
 interface LandingHeaderProps {
@@ -13,6 +14,18 @@ export const LandingHeader: React.FC<LandingHeaderProps> = ({
 }) => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [activeNav, setActiveNav] = useState('Sản phẩm');
+
+  // Prevent background scrolling while mobile navigation menu is open
+  useEffect(() => {
+    if (mobileMenuOpen) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = '';
+    }
+    return () => {
+      document.body.style.overflow = '';
+    };
+  }, [mobileMenuOpen]);
 
   const navItems = [
     { name: 'Sản phẩm', href: '#hero' },
@@ -118,73 +131,84 @@ export const LandingHeader: React.FC<LandingHeaderProps> = ({
         </div>
       </div>
 
-      {/* Mobile Drawer Navigation Menu */}
-      {mobileMenuOpen && (
-        <div className="lg:hidden border-t border-sky-500/20 bg-[#080d18]/98 backdrop-blur-2xl px-4 py-5 flex flex-col gap-2 text-sm text-white/85 shadow-2xl animate-in fade-in slide-in-from-top-2 duration-200">
-          <div className="text-[10px] font-mono uppercase tracking-widest text-sky-400/80 px-3 pb-1 border-b border-white/5">
-            ĐIỀU HƯỚNG NHANH
-          </div>
+      {/* Mobile Drawer & Backdrop Overlay via React Portal directly into body */}
+      {mobileMenuOpen && typeof document !== 'undefined' && createPortal(
+        <div className="lg:hidden">
+          {/* 1. Backdrop Scrim Overlay: Phủ mờ tối toàn bộ phần màn hình phía dưới */}
+          <div 
+            onClick={() => setMobileMenuOpen(false)}
+            className="fixed inset-0 top-16 sm:top-18 bg-black/85 backdrop-blur-md z-40 transition-opacity duration-200"
+            aria-hidden="true"
+          />
 
-          <a 
-            href="#hero" 
-            onClick={() => setMobileMenuOpen(false)}
-            className="py-2.5 px-3 rounded-lg hover:bg-sky-500/10 hover:text-[#38bdf8] font-medium flex items-center justify-between"
-          >
-            <span>Sản phẩm</span>
-            <ChevronDown className="w-4 h-4 -rotate-90 text-white/30" />
-          </a>
-          <a 
-            href="#preview" 
-            onClick={() => setMobileMenuOpen(false)}
-            className="py-2.5 px-3 rounded-lg hover:bg-sky-500/10 hover:text-[#38bdf8] font-medium flex items-center justify-between"
-          >
-            <span>Xem trước kết quả</span>
-            <ChevronDown className="w-4 h-4 -rotate-90 text-white/30" />
-          </a>
-          <a 
-            href="#features" 
-            onClick={() => setMobileMenuOpen(false)}
-            className="py-2.5 px-3 rounded-lg hover:bg-sky-500/10 hover:text-[#38bdf8] font-medium flex items-center justify-between"
-          >
-            <span>Tính năng nổi bật</span>
-            <ChevronDown className="w-4 h-4 -rotate-90 text-white/30" />
-          </a>
-          <a 
-            href="#how-it-works" 
-            onClick={() => setMobileMenuOpen(false)}
-            className="py-2.5 px-3 rounded-lg hover:bg-sky-500/10 hover:text-[#38bdf8] font-medium flex items-center justify-between"
-          >
-            <span>Quy trình hoạt động</span>
-            <ChevronDown className="w-4 h-4 -rotate-90 text-white/30" />
-          </a>
-
-          {/* Mobile User Profile Info */}
-          <div className="pt-3 mt-1 border-t border-white/10 flex items-center justify-between px-3 py-2 bg-white/5 rounded-xl">
-            <div className="flex items-center gap-2.5">
-              <div className="w-6 h-6 rounded-lg bg-sky-500/20 border border-sky-400/40 flex items-center justify-center text-[10px] font-mono font-bold text-sky-300">
-                P
-              </div>
-              <div className="flex flex-col text-left">
-                <span className="font-semibold text-xs text-white">Phát Đức</span>
-                <span className="text-white/50 text-[10px] font-mono">Kỹ sư dự toán</span>
-              </div>
+          {/* 2. Floating Menu Drawer: Nền tối đặc 100% Solid Dark, hoàn toàn không xuyên thấu chữ phía sau */}
+          <div className="fixed top-16 sm:top-18 left-0 right-0 z-50 bg-[#070c18] border-b border-sky-500/30 px-4 py-5 flex flex-col gap-2 text-sm text-white shadow-[0_25px_60px_rgba(0,0,0,0.95)] animate-in fade-in slide-in-from-top-2 duration-200">
+            <div className="text-[10px] font-mono uppercase tracking-widest text-sky-400 font-bold px-3 pb-1 border-b border-white/10">
+              ĐIỀU HƯỚNG NHANH
             </div>
-            <span className="text-xs font-mono text-white/70">🇻🇳 VN</span>
-          </div>
 
-          <div className="pt-2 flex flex-col gap-2">
-            <button
-              onClick={() => {
-                setMobileMenuOpen(false);
-                onGetStarted();
-              }}
-              className="w-full py-3 rounded-xl bg-gradient-to-r from-[#0284c7] via-[#0ea5e9] to-[#38bdf8] text-white font-bold text-sm text-center shadow-[0_4px_18px_rgba(14,165,233,0.4)] flex items-center justify-center gap-2 cursor-pointer active:scale-98"
+            <a 
+              href="#hero" 
+              onClick={() => setMobileMenuOpen(false)}
+              className="py-2.5 px-3 rounded-lg hover:bg-sky-500/10 hover:text-[#38bdf8] font-medium flex items-center justify-between"
             >
-              <span>Phân tích bản vẽ ngay</span>
-              <ArrowRight className="w-4 h-4 stroke-[2.5]" />
-            </button>
+              <span>Sản phẩm</span>
+              <ChevronDown className="w-4 h-4 -rotate-90 text-white/30" />
+            </a>
+            <a 
+              href="#preview" 
+              onClick={() => setMobileMenuOpen(false)}
+              className="py-2.5 px-3 rounded-lg hover:bg-sky-500/10 hover:text-[#38bdf8] font-medium flex items-center justify-between"
+            >
+              <span>Xem trước kết quả</span>
+              <ChevronDown className="w-4 h-4 -rotate-90 text-white/30" />
+            </a>
+            <a 
+              href="#features" 
+              onClick={() => setMobileMenuOpen(false)}
+              className="py-2.5 px-3 rounded-lg hover:bg-sky-500/10 hover:text-[#38bdf8] font-medium flex items-center justify-between"
+            >
+              <span>Tính năng nổi bật</span>
+              <ChevronDown className="w-4 h-4 -rotate-90 text-white/30" />
+            </a>
+            <a 
+              href="#how-it-works" 
+              onClick={() => setMobileMenuOpen(false)}
+              className="py-2.5 px-3 rounded-lg hover:bg-sky-500/10 hover:text-[#38bdf8] font-medium flex items-center justify-between"
+            >
+              <span>Quy trình hoạt động</span>
+              <ChevronDown className="w-4 h-4 -rotate-90 text-white/30" />
+            </a>
+
+            {/* Mobile User Profile Info */}
+            <div className="pt-3 mt-1 border-t border-white/10 flex items-center justify-between px-3 py-2 bg-white/5 rounded-xl">
+              <div className="flex items-center gap-2.5">
+                <div className="w-6 h-6 rounded-lg bg-sky-500/20 border border-sky-400/40 flex items-center justify-center text-[10px] font-mono font-bold text-sky-300">
+                  P
+                </div>
+                <div className="flex flex-col text-left">
+                  <span className="font-semibold text-xs text-white">Phát Đức</span>
+                  <span className="text-white/50 text-[10px] font-mono">Kỹ sư dự toán</span>
+                </div>
+              </div>
+              <span className="text-xs font-mono text-white/70">🇻🇳 VN</span>
+            </div>
+
+            <div className="pt-2 flex flex-col gap-2">
+              <button
+                onClick={() => {
+                  setMobileMenuOpen(false);
+                  onGetStarted();
+                }}
+                className="w-full py-3 rounded-xl bg-gradient-to-r from-[#0284c7] via-[#0ea5e9] to-[#38bdf8] text-white font-bold text-sm text-center shadow-[0_4px_18px_rgba(14,165,233,0.4)] flex items-center justify-center gap-2 cursor-pointer active:scale-98"
+              >
+                <span>Phân tích bản vẽ ngay</span>
+                <ArrowRight className="w-4 h-4 stroke-[2.5]" />
+              </button>
+            </div>
           </div>
-        </div>
+        </div>,
+        document.body
       )}
     </header>
   );
