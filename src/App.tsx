@@ -17,6 +17,7 @@ import { AuditTrailModal } from './components/workspace/AuditTrailModal';
 import { ExportModal } from './components/workspace/ExportModal';
 import { CreateProjectView } from './components/workspace/CreateProjectView';
 import { AIVerificationCenterView } from './components/workspace/AIVerificationCenterView';
+import { EngenixChatWidget } from './components/common/EngenixChatWidget';
 
 import { 
   INITIAL_ROOMS, 
@@ -331,6 +332,24 @@ export function App() {
             onExploreDemo={handleExploreDemo}
           />
         </div>
+
+        {/* Floating Engenix Assistant Chat Widget */}
+        <EngenixChatWidget
+          onNavigateTab={(tab) => {
+            setViewMode('app');
+            setCurrentTab(tab as WorkspaceTab);
+          }}
+          onOpenRules={() => {
+            setViewMode('app');
+            setIsRulesModalOpen(true);
+          }}
+          onOpenExport={() => {
+            setViewMode('app');
+            setIsExportModalOpen(true);
+          }}
+          onSwitchToWorkspace={() => setViewMode('app')}
+          currentMode="landing"
+        />
       </div>
     );
   }
@@ -584,6 +603,15 @@ export function App() {
         onClose={() => setIsExportModalOpen(false)}
         project={activeProject}
         rooms={rooms}
+      />
+
+      {/* Floating Engenix Assistant Chat Widget */}
+      <EngenixChatWidget
+        onNavigateTab={(tab) => setCurrentTab(tab as WorkspaceTab)}
+        onOpenRules={() => setIsRulesModalOpen(true)}
+        onOpenExport={() => setIsExportModalOpen(true)}
+        onSwitchToWorkspace={() => setViewMode('app')}
+        currentMode="app"
       />
     </AppShell>
   );
