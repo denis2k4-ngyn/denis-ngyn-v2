@@ -299,23 +299,23 @@ export function App() {
   // ─────────────────────────────────────────────────────────────────
   if (viewMode === 'landing') {
     return (
-      <div className="min-h-screen bg-[#080d18] text-white font-sans selection:bg-[#0ea5e9] selection:text-white relative overflow-x-hidden">
-        {/* Lưới kỹ thuật CAD / Blueprint đồng bộ toàn bộ Landing Page với hiệu ứng quét Laser động */}
+      <div className="min-h-screen bg-[#F9F6F0] text-[#231B15] font-sans selection:bg-[#C25E3E] selection:text-white relative overflow-x-hidden">
+        {/* Lưới kỹ thuật CAD / Drafting Grid phong cách Warm Sandstone & Terracotta */}
         <div 
-          className="fixed inset-0 pointer-events-none z-0 opacity-85"
+          className="fixed inset-0 pointer-events-none z-0 opacity-80"
           style={{
             backgroundImage: `
-              linear-gradient(to right, rgba(14, 165, 233, 0.09) 1px, transparent 1px),
-              linear-gradient(to bottom, rgba(14, 165, 233, 0.09) 1px, transparent 1px)
+              linear-gradient(to right, rgba(194, 94, 62, 0.055) 1px, transparent 1px),
+              linear-gradient(to bottom, rgba(194, 94, 62, 0.055) 1px, transparent 1px)
             `,
             backgroundSize: '48px 48px',
             backgroundPosition: 'center center',
           }}
         />
 
-        {/* Ambient atmospheric glows */}
-        <div className="fixed top-[-15%] left-[20%] w-[600px] h-[600px] rounded-full bg-[radial-gradient(circle,rgba(2,132,199,0.15)_0%,transparent_70%)] blur-3xl pointer-events-none z-0 animate-grid-glow" />
-        <div className="fixed top-[45%] right-[-10%] w-[550px] h-[550px] rounded-full bg-[radial-gradient(circle,rgba(56,189,248,0.12)_0%,transparent_70%)] blur-3xl pointer-events-none z-0 animate-grid-glow" style={{ animationDelay: '3s' }} />
+        {/* Ambient atmospheric glows - Cát ấm & Ánh nắng hoàng hôn Terracotta */}
+        <div className="fixed top-[-15%] left-[20%] w-[600px] h-[600px] rounded-full bg-[radial-gradient(circle,rgba(217,119,87,0.12)_0%,transparent_70%)] blur-3xl pointer-events-none z-0 animate-grid-glow" />
+        <div className="fixed top-[45%] right-[-10%] w-[550px] h-[550px] rounded-full bg-[radial-gradient(circle,rgba(230,169,116,0.14)_0%,transparent_70%)] blur-3xl pointer-events-none z-0 animate-grid-glow" style={{ animationDelay: '3s' }} />
 
         <div className="relative z-10">
           <LandingHeader
@@ -371,14 +371,14 @@ export function App() {
       {/* Dependency Invalidation Notification Banner */}
       {invalidationBanner && (
         <div className="absolute top-3 left-1/2 -translate-x-1/2 z-40 max-w-2xl w-full px-4 animate-in fade-in slide-in-from-top-3 duration-200">
-          <div className="p-3.5 rounded-xl bg-[#12141a] text-white border border-[#ffc474]/40 shadow-2xl flex items-center justify-between text-xs font-mono">
+          <div className="p-3.5 rounded-xl bg-white text-[#231B15] border border-[#C25E3E]/40 shadow-xl flex items-center justify-between text-xs font-mono">
             <div className="flex items-center gap-2">
-              <CheckCircle2 className="w-4 h-4 text-emerald-400 shrink-0" />
+              <CheckCircle2 className="w-4 h-4 text-emerald-600 shrink-0" />
               <span className="truncate">{invalidationBanner}</span>
             </div>
             <button
               onClick={() => setInvalidationBanner(null)}
-              className="p-1 rounded text-white/40 hover:text-white"
+              className="p-1 rounded text-[#796E64] hover:text-[#231B15] cursor-pointer"
             >
               <X className="w-3.5 h-3.5" />
             </button>
@@ -472,36 +472,36 @@ export function App() {
       )}
 
       {currentTab === 'audit-trail' && (
-        <div className="h-full overflow-y-auto p-6 md:p-8 max-w-5xl mx-auto space-y-6 text-white">
-          <div className="flex items-center justify-between pb-6 border-b border-white/10">
+        <div className="h-full overflow-y-auto p-6 md:p-8 max-w-5xl mx-auto space-y-6 text-[#231B15]">
+          <div className="flex items-center justify-between pb-6 border-b border-[#E8E1D5]">
             <div>
-              <div className="text-[11px] font-mono font-semibold uppercase tracking-widest text-[#ffc474] mb-1">
+              <div className="text-[11px] font-mono font-semibold uppercase tracking-widest text-[#C25E3E] mb-1">
                 04 // NHẬT KÝ VẾT TÍNH & BẤT BIẾN DỮ LIỆU
               </div>
-              <h1 className="font-serif-cormorant text-2xl sm:text-3xl font-semibold text-white tracking-tight">
+              <h1 className="font-serif-cormorant text-2xl sm:text-3xl font-semibold text-[#231B15] tracking-tight">
                 Nhật ký Kiểm toán & Lịch sử Kỹ thuật
               </h1>
-              <p className="text-xs text-white/50 font-mono mt-1">
+              <p className="text-xs text-[#5C5248] font-mono mt-1">
                 Hồ sơ kiểm toán toàn vẹn về các phát hiện AI, thay đổi thực thể và quyết định của kỹ sư
               </p>
             </div>
-            <span className="text-xs font-mono px-3 py-1.5 rounded-xl bg-white/5 text-[#ffc474] border border-white/10">
+            <span className="text-xs font-mono px-3 py-1.5 rounded-xl bg-[#FDF3EF] text-[#C25E3E] border border-[#E8C2B3]">
               {auditTrail.length} sự kiện ghi nhận
             </span>
           </div>
 
-          <div className="relative pl-6 border-l-2 border-white/10 space-y-6">
+          <div className="relative pl-6 border-l-2 border-[#E8E1D5] space-y-6">
             {auditTrail.map((ev) => (
               <div key={ev.id} className="relative">
-                <div className="absolute -left-[31px] top-1 w-3 h-3 rounded-full bg-[#ffc474] border-2 border-[#0c0e12] shadow-xs" />
-                <div className="flex items-center justify-between font-mono text-xs text-white/40">
-                  <span className="font-bold text-white text-sm">{ev.action}</span>
+                <div className="absolute -left-[31px] top-1 w-3 h-3 rounded-full bg-[#C25E3E] border-2 border-[#FAF7F2] shadow-xs" />
+                <div className="flex items-center justify-between font-mono text-xs text-[#796E64]">
+                  <span className="font-bold text-[#231B15] text-sm">{ev.action}</span>
                   <span>{ev.timestamp}</span>
                 </div>
-                <div className="text-xs font-mono text-[#ffc474] mt-0.5">
+                <div className="text-xs font-mono text-[#C25E3E] mt-0.5">
                   Đối tượng: {ev.target} · Người thực hiện: {ev.user}
                 </div>
-                <p className="text-xs text-white/70 font-sans mt-1 bg-[#161822] p-3 rounded-xl border border-white/10 shadow-sm">
+                <p className="text-xs text-[#5C5248] font-sans mt-1 bg-white p-3 rounded-xl border border-[#E8E1D5] shadow-xs">
                   {ev.detail}
                 </p>
               </div>
@@ -511,48 +511,48 @@ export function App() {
       )}
 
       {currentTab === 'calculation-rules' && (
-        <div className="h-full overflow-y-auto p-6 md:p-8 max-w-4xl mx-auto space-y-6 text-white">
-          <div className="pb-6 border-b border-white/10">
-            <div className="text-[11px] font-mono font-semibold uppercase tracking-widest text-[#ffc474] mb-1">
+        <div className="h-full overflow-y-auto p-6 md:p-8 max-w-4xl mx-auto space-y-6 text-[#231B15]">
+          <div className="pb-6 border-b border-[#E8E1D5]">
+            <div className="text-[11px] font-mono font-semibold uppercase tracking-widest text-[#C25E3E] mb-1">
               05 // QUY CHUẨN THÔNG THỦY & KHẤU TRỪ VẬT TƯ
             </div>
-            <h1 className="font-serif-cormorant text-2xl sm:text-3xl font-semibold text-white tracking-tight">
+            <h1 className="font-serif-cormorant text-2xl sm:text-3xl font-semibold text-[#231B15] tracking-tight">
               Quy tắc Tính toán & Tiêu chuẩn Đo bóc
             </h1>
-            <p className="text-xs text-white/50 font-mono mt-1">
+            <p className="text-xs text-[#5C5248] font-mono mt-1">
               Quy chuẩn kỹ thuật áp dụng khi chuyển đổi ranh giới bản vẽ 2D sang khối lượng sơn
             </p>
           </div>
 
-          <div className="bg-[#12141a] border border-white/10 rounded-2xl p-6 space-y-6 shadow-xl">
+          <div className="bg-white border border-[#E8E1D5] rounded-2xl p-6 space-y-6 shadow-sm">
             <div className="grid grid-cols-2 gap-4 font-mono text-xs">
-              <div className="p-4 rounded-xl bg-[#161822] border border-white/10">
-                <div className="text-white/40 text-[10px]">CHIỀU CAO THÔNG THỦY MẶC ĐỊNH</div>
-                <div className="text-xl font-bold text-white mt-1">{rules.defaultWallHeight} m</div>
-                <div className="text-white/40 text-[10px] mt-1">Chiều cao thông thủy sàn đến đáy dầm/trần</div>
+              <div className="p-4 rounded-xl bg-[#FAF7F2] border border-[#E8E1D5]">
+                <div className="text-[#796E64] text-[10px]">CHIỀU CAO THÔNG THỦY MẶC ĐỊNH</div>
+                <div className="text-xl font-bold text-[#231B15] mt-1">{rules.defaultWallHeight} m</div>
+                <div className="text-[#8C827A] text-[10px] mt-1">Chiều cao thông thủy sàn đến đáy dầm/trần</div>
               </div>
-              <div className="p-4 rounded-xl bg-[#161822] border border-white/10">
-                <div className="text-white/40 text-[10px]">HỆ SỐ HAO HỤT VẬT TƯ</div>
-                <div className="text-xl font-bold text-[#ffc474] mt-1">{rules.wasteFactorPct}%</div>
-                <div className="text-white/40 text-[10px] mt-1">Dự phòng hao hụt thi công & rơi vãi</div>
+              <div className="p-4 rounded-xl bg-[#FAF7F2] border border-[#E8E1D5]">
+                <div className="text-[#796E64] text-[10px]">HỆ SỐ HAO HỤT VẬT TƯ</div>
+                <div className="text-xl font-bold text-[#C25E3E] mt-1">{rules.wasteFactorPct}%</div>
+                <div className="text-[#8C827A] text-[10px] mt-1">Dự phòng hao hụt thi công & rơi vãi</div>
               </div>
             </div>
 
             <div className="space-y-2 text-xs font-mono">
-              <span className="font-bold text-white/80 uppercase block">Khấu trừ diện tích lỗ mở:</span>
-              <div className="p-3 rounded-xl border border-white/10 bg-[#161822] flex justify-between">
-                <span className="text-white/70">Khấu trừ cửa đi:</span>
-                <span className="font-bold text-emerald-400">{rules.deductDoors ? 'KÍCH HOẠT (chuẩn 900x2100mm)' : 'VÔ HIỆU HÓA'}</span>
+              <span className="font-bold text-[#231B15] uppercase block">Khấu trừ diện tích lỗ mở:</span>
+              <div className="p-3 rounded-xl border border-[#E8E1D5] bg-[#FAF7F2] flex justify-between">
+                <span className="text-[#5C5248]">Khấu trừ cửa đi:</span>
+                <span className="font-bold text-emerald-600">{rules.deductDoors ? 'KÍCH HOẠT (chuẩn 900x2100mm)' : 'VÔ HIỆU HÓA'}</span>
               </div>
-              <div className="p-3 rounded-xl border border-white/10 bg-[#161822] flex justify-between">
-                <span className="text-white/70">Khấu trừ cửa sổ:</span>
-                <span className="font-bold text-emerald-400">{rules.deductWindows ? 'KÍCH HOẠT' : 'VÔ HIỆU HÓA'}</span>
+              <div className="p-3 rounded-xl border border-[#E8E1D5] bg-[#FAF7F2] flex justify-between">
+                <span className="text-[#5C5248]">Khấu trừ cửa sổ:</span>
+                <span className="font-bold text-emerald-600">{rules.deductWindows ? 'KÍCH HOẠT' : 'VÔ HIỆU HÓA'}</span>
               </div>
             </div>
 
             <button
               onClick={() => setIsRulesModalOpen(true)}
-              className="amber-button inline-flex items-center gap-2 px-5 py-2.5 text-xs font-semibold shadow-xs transition-all active:scale-98 cursor-pointer"
+              className="terracotta-button inline-flex items-center gap-2 px-5 py-2.5 text-xs font-semibold shadow-xs transition-all active:scale-98 cursor-pointer text-white"
             >
               Chỉnh sửa Quy tắc Tính toán
             </button>

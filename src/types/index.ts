@@ -110,5 +110,5 @@ export interface EstimateVersion {
   status: 'Draft' | 'In Review' | 'Approved';
 }
 
-export type WorkspaceTheme = 'steel-blue' | 'sage-green' | 'muted-sand';
+export type WorkspaceTheme = 'warm-sand' | 'steel-blue' | 'sage-green' | 'muted-sand';
 

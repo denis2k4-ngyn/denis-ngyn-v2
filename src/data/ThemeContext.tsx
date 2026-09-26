@@ -9,8 +9,8 @@ interface ThemeContextType {
 }
 
 const ThemeContext = createContext<ThemeContextType>({
-  theme: 'steel-blue',
-  themeConfig: WORKSPACE_THEMES['steel-blue'],
+  theme: 'warm-sand',
+  themeConfig: WORKSPACE_THEMES['warm-sand'],
   setTheme: () => {},
 });
 
@@ -18,13 +18,13 @@ export const ThemeProvider: React.FC<{ children: React.ReactNode }> = ({ childre
   const [theme, setThemeState] = useState<WorkspaceTheme>(() => {
     try {
       const saved = localStorage.getItem('engenix_workspace_theme') || localStorage.getItem('planai_workspace_theme');
-      if (saved && (saved === 'steel-blue' || saved === 'sage-green' || saved === 'muted-sand')) {
+      if (saved && (saved === 'warm-sand' || saved === 'steel-blue' || saved === 'sage-green' || saved === 'muted-sand')) {
         return saved as WorkspaceTheme;
       }
     } catch {
       // ignore
     }
-    return 'steel-blue'; // Default to Steel Blue (Dịu mắt, chuẩn CAD)
+    return 'warm-sand'; // Default to Warm Sand & Terracotta
   });
 
   const setTheme = (newTheme: WorkspaceTheme) => {
@@ -36,7 +36,7 @@ export const ThemeProvider: React.FC<{ children: React.ReactNode }> = ({ childre
     }
   };
 
-  const themeConfig = WORKSPACE_THEMES[theme] || WORKSPACE_THEMES['steel-blue'];
+  const themeConfig = WORKSPACE_THEMES[theme] || WORKSPACE_THEMES['warm-sand'];
 
   return (
     <ThemeContext.Provider value={{ theme, themeConfig, setTheme }}>

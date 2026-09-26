@@ -283,7 +283,11 @@ export const CreateProjectView: React.FC<CreateProjectViewProps> = ({
 
   return (
     <div 
-      className="min-h-full p-4 sm:p-6 lg:p-7 text-white font-sans space-y-6 transition-all duration-300"
+      className={`min-h-full p-4 sm:p-6 lg:p-7 font-sans space-y-6 transition-all duration-300 ${
+        themeConfig.isLight 
+          ? 'text-[#231B15] selection:bg-[#C25E3E] selection:text-white' 
+          : 'text-white selection:bg-sky-500 selection:text-white'
+      }`}
       style={{
         backgroundImage: `
           linear-gradient(to right, ${themeConfig.gridStroke} 1px, transparent 1px),
@@ -296,16 +300,18 @@ export const CreateProjectView: React.FC<CreateProjectViewProps> = ({
       {/* ─────────────────────────────────────────────────────────────
           TOP STREAMLINED PROGRESS STEPPER (Bóc tách hình học thuần túy)
       ───────────────────────────────────────────────────────────── */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-white/10 pb-4">
+      <div className={`flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b pb-4 ${
+        themeConfig.isLight ? 'border-[#E8E1D5]' : 'border-white/10'
+      }`}>
         <div>
           <div className="flex items-center gap-2">
             <span className={`px-2.5 py-0.5 rounded-full ${themeConfig.accentBadgeBg} text-[11px] font-semibold`}>
               Bóc tách hình học CAD
             </span>
-            <span className="text-white/40 text-xs">•</span>
-            <span className="text-white/60 text-xs font-mono">{uploadedFile.name}</span>
+            <span className={`${themeConfig.isLight ? 'text-[#8C827A]' : 'text-white/40'} text-xs`}>•</span>
+            <span className={`${themeConfig.isLight ? 'text-[#796E64]' : 'text-white/60'} text-xs font-mono`}>{uploadedFile.name}</span>
           </div>
-          <h1 className="text-xl sm:text-2xl font-bold text-white tracking-tight mt-1">
+          <h1 className={`text-xl sm:text-2xl font-bold tracking-tight mt-1 ${themeConfig.isLight ? 'text-[#231B15]' : 'text-white'}`}>
             {phase === 1 && 'Tải bản vẽ CAD & Đo đạc hình học'}
             {phase === 2 && 'AI đang trích xuất chu vi & diện tích...'}
             {phase === 3 && 'Bảng bóc tách khối lượng hình học (Takeoff Sheet)'}
@@ -313,20 +319,22 @@ export const CreateProjectView: React.FC<CreateProjectViewProps> = ({
         </div>
 
         {/* 3-Step Pill Bar */}
-        <div className="flex items-center gap-1.5 p-1 rounded-xl bg-[#0e1424] border border-white/10 text-xs self-start sm:self-auto">
+        <div className={`flex items-center gap-1.5 p-1 rounded-xl border text-xs self-start sm:self-auto ${
+          themeConfig.isLight ? 'bg-white border-[#E8E1D5] shadow-xs' : 'bg-[#0e1424] border-white/10'
+        }`}>
           <button
             onClick={() => setPhase(1)}
             className={`px-3 py-1.5 rounded-lg flex items-center gap-2 font-medium transition-all ${
               phase === 1 
-                ? `${themeConfig.primaryBtn} font-bold shadow-xs` 
-                : 'text-white/60 hover:text-white cursor-pointer'
+                ? `${themeConfig.primaryBtn} font-bold shadow-xs text-white` 
+                : themeConfig.isLight ? 'text-[#5C5248] hover:text-[#231B15] cursor-pointer' : 'text-white/60 hover:text-white cursor-pointer'
             }`}
           >
-            <span className={`w-4 h-4 rounded-full text-[10px] flex items-center justify-center font-bold ${phase === 1 ? 'bg-black/20 text-white' : 'bg-white/20 text-white'}`}>1</span>
+            <span className={`w-4 h-4 rounded-full text-[10px] flex items-center justify-center font-bold ${phase === 1 ? 'bg-black/20 text-white' : themeConfig.isLight ? 'bg-[#E8E1D5] text-[#5C5248]' : 'bg-white/20 text-white'}`}>1</span>
             <span>Tải bản vẽ</span>
           </button>
 
-          <div className="w-3 h-px bg-white/20" />
+          <div className={`w-3 h-px ${themeConfig.isLight ? 'bg-[#E8E1D5]' : 'bg-white/20'}`} />
 
           <button
             onClick={() => {
@@ -335,25 +343,25 @@ export const CreateProjectView: React.FC<CreateProjectViewProps> = ({
             }}
             className={`px-3 py-1.5 rounded-lg flex items-center gap-2 font-medium transition-all ${
               phase === 2 
-                ? `${themeConfig.primaryBtn} font-bold shadow-xs` 
-                : 'text-white/60 hover:text-white cursor-pointer'
+                ? `${themeConfig.primaryBtn} font-bold shadow-xs text-white` 
+                : themeConfig.isLight ? 'text-[#5C5248] hover:text-[#231B15] cursor-pointer' : 'text-white/60 hover:text-white cursor-pointer'
             }`}
           >
-            <span className={`w-4 h-4 rounded-full text-[10px] flex items-center justify-center font-bold ${phase === 2 ? 'bg-black/20 text-white' : 'bg-white/20 text-white'}`}>2</span>
+            <span className={`w-4 h-4 rounded-full text-[10px] flex items-center justify-center font-bold ${phase === 2 ? 'bg-black/20 text-white' : themeConfig.isLight ? 'bg-[#E8E1D5] text-[#5C5248]' : 'bg-white/20 text-white'}`}>2</span>
             <span>Quét CAD</span>
           </button>
 
-          <div className="w-3 h-px bg-white/20" />
+          <div className={`w-3 h-px ${themeConfig.isLight ? 'bg-[#E8E1D5]' : 'bg-white/20'}`} />
 
           <button
             onClick={() => setPhase(3)}
             className={`px-3 py-1.5 rounded-lg flex items-center gap-2 font-medium transition-all ${
               phase === 3 
-                ? `${themeConfig.primaryBtn} font-bold shadow-xs` 
-                : 'text-white/60 hover:text-white cursor-pointer'
+                ? `${themeConfig.primaryBtn} font-bold shadow-xs text-white` 
+                : themeConfig.isLight ? 'text-[#5C5248] hover:text-[#231B15] cursor-pointer' : 'text-white/60 hover:text-white cursor-pointer'
             }`}
           >
-            <span className={`w-4 h-4 rounded-full text-[10px] flex items-center justify-center font-bold ${phase === 3 ? 'bg-black/20 text-white' : 'bg-white/20 text-white'}`}>3</span>
+            <span className={`w-4 h-4 rounded-full text-[10px] flex items-center justify-center font-bold ${phase === 3 ? 'bg-black/20 text-white' : themeConfig.isLight ? 'bg-[#E8E1D5] text-[#5C5248]' : 'bg-white/20 text-white'}`}>3</span>
             <span>Bảng bóc tách</span>
           </button>
         </div>
@@ -367,7 +375,9 @@ export const CreateProjectView: React.FC<CreateProjectViewProps> = ({
         <div className="max-w-3xl mx-auto space-y-6 pt-2">
           
           {/* File Upload Hero Dropzone */}
-          <div className={`rounded-2xl ${themeConfig.cardBg} border border-white/10 p-6 space-y-5 shadow-xl relative overflow-hidden`}>
+          <div className={`rounded-2xl ${themeConfig.cardBg} border ${
+            themeConfig.isLight ? 'border-[#E8E1D5] shadow-xs' : 'border-white/10 shadow-xl'
+          } p-6 space-y-5 relative overflow-hidden`}>
             <input
               type="file"
               ref={fileInputRef}
@@ -401,28 +411,32 @@ export const CreateProjectView: React.FC<CreateProjectViewProps> = ({
               <div className={`w-12 h-12 mx-auto rounded-2xl ${themeConfig.cadCloudIcon} flex items-center justify-center group-hover:scale-105 transition-transform mb-3`}>
                 <UploadCloud className="w-6 h-6" />
               </div>
-              <h3 className="text-sm font-bold text-white">
+              <h3 className={`text-sm font-bold ${themeConfig.isLight ? 'text-[#231B15]' : 'text-white'}`}>
                 Kéo thả bản vẽ CAD vào đây hoặc bấm để chọn tệp
               </h3>
-              <p className="text-xs text-white/50 mt-1">
+              <p className={`text-xs mt-1 ${themeConfig.isLight ? 'text-[#796E64]' : 'text-white/50'}`}>
                 Hỗ trợ tệp <span className={`${themeConfig.accentText} font-semibold`}>AutoCAD (.DWG, .DXF)</span> và <span className={`${themeConfig.accentText} font-semibold`}>PDF vector</span> (Tối đa 100MB)
               </p>
             </div>
 
             {/* Ready File Badge */}
-            <div className={`p-3.5 rounded-xl ${themeConfig.cardBg} border ${themeConfig.accentBorder} flex items-center justify-between gap-3`}>
+            <div className={`p-3.5 rounded-xl ${
+              themeConfig.isLight ? 'bg-[#FAF7F2] border-[#E8E1D5]' : `${themeConfig.cardBg} border-white/10`
+            } border flex items-center justify-between gap-3`}>
               <div className="flex items-center gap-3 min-w-0">
                 <div className={`w-9 h-9 rounded-lg ${themeConfig.accentIconBg} flex items-center justify-center shrink-0`}>
                   <FileText className="w-5 h-5" />
                 </div>
                 <div className="min-w-0">
-                  <div className="text-xs font-bold text-white truncate flex items-center gap-2">
+                  <div className={`text-xs font-bold truncate flex items-center gap-2 ${themeConfig.isLight ? 'text-[#231B15]' : 'text-white'}`}>
                     <span>{uploadedFile.name}</span>
-                    <span className="px-2 py-0.5 rounded-full bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 text-[10px] font-medium">
+                    <span className={`px-2 py-0.5 rounded-full text-[10px] font-medium ${
+                      themeConfig.isLight ? 'bg-emerald-50 text-emerald-700 border border-emerald-200' : 'bg-emerald-500/10 border border-emerald-500/30 text-emerald-400'
+                    }`}>
                       Bản vẽ đã sẵn sàng
                     </span>
                   </div>
-                  <div className="text-[11px] text-white/50 mt-0.5">
+                  <div className={`text-[11px] mt-0.5 ${themeConfig.isLight ? 'text-[#796E64]' : 'text-white/50'}`}>
                     {uploadedFile.size} • {uploadedFile.format} • Đơn vị: {uploadedFile.units}
                   </div>
                 </div>
@@ -431,20 +445,22 @@ export const CreateProjectView: React.FC<CreateProjectViewProps> = ({
               <button
                 type="button"
                 onClick={() => fileInputRef.current?.click()}
-                className="px-3 py-1.5 rounded-lg bg-white/5 hover:bg-white/10 text-white/80 hover:text-white text-xs font-medium cursor-pointer transition-colors shrink-0"
+                className={`px-3 py-1.5 rounded-lg text-xs font-medium cursor-pointer transition-colors shrink-0 ${
+                  themeConfig.isLight ? 'bg-white hover:bg-[#FAF7F2] border border-[#E8E1D5] text-[#5C5248]' : 'bg-white/5 hover:bg-white/10 text-white/80 hover:text-white'
+                }`}
               >
                 Đổi file khác
               </button>
             </div>
 
             {/* Smart Geometric Defaults (NO PAINT LOGIC HERE) */}
-            <div className="pt-2 border-t border-white/10 space-y-4">
+            <div className={`pt-2 border-t space-y-4 ${themeConfig.isLight ? 'border-[#E8E1D5]' : 'border-white/10'}`}>
               <div className="flex items-center justify-between">
-                <div className="text-xs font-bold text-white flex items-center gap-2">
-                  <Sliders className="w-4 h-4 text-[#fbbf24]" />
+                <div className={`text-xs font-bold flex items-center gap-2 ${themeConfig.isLight ? 'text-[#231B15]' : 'text-white'}`}>
+                  <Sliders className={`w-4 h-4 ${themeConfig.accentText}`} />
                   <span>Thông số hình học bóc tách</span>
                 </div>
-                <span className="text-[11px] text-emerald-400 font-medium">
+                <span className={`text-[11px] font-medium ${themeConfig.isLight ? 'text-emerald-700' : 'text-emerald-400'}`}>
                   ✓ Chuẩn đo đạc TCVN
                 </span>
               </div>
@@ -452,36 +468,44 @@ export const CreateProjectView: React.FC<CreateProjectViewProps> = ({
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 {/* Project Name */}
                 <div>
-                  <label className="block text-[11px] font-semibold text-white/70 mb-1">
+                  <label className={`block text-[11px] font-semibold mb-1 ${themeConfig.isLight ? 'text-[#5C5248]' : 'text-white/70'}`}>
                     Tên công trình / Dự án
                   </label>
                   <input
                     type="text"
                     value={projectName}
                     onChange={(e) => setProjectName(e.target.value)}
-                    className="w-full bg-[#080d18] border border-white/10 rounded-xl px-3 py-2 text-xs text-white focus:outline-none focus:border-amber-400"
+                    className={`w-full rounded-xl px-3 py-2 text-xs focus:outline-none ${
+                      themeConfig.isLight 
+                        ? 'bg-white border border-[#E8E1D5] text-[#231B15] focus:border-[#C25E3E]' 
+                        : 'bg-[#080d18] border border-white/10 text-white focus:border-amber-400'
+                    }`}
                   />
                 </div>
 
                 {/* Floor Select */}
                 <div>
-                  <label className="block text-[11px] font-semibold text-white/70 mb-1">
+                  <label className={`block text-[11px] font-semibold mb-1 ${themeConfig.isLight ? 'text-[#5C5248]' : 'text-white/70'}`}>
                     Mặt bằng / Tầng bóc tách
                   </label>
                   <select
                     value={selectedFloor}
                     onChange={(e) => setSelectedFloor(e.target.value)}
-                    className="w-full bg-[#080d18] border border-white/10 rounded-xl px-3 py-2 text-xs text-white focus:outline-none focus:border-amber-400"
+                    className={`w-full rounded-xl px-3 py-2 text-xs focus:outline-none cursor-pointer ${
+                      themeConfig.isLight 
+                        ? 'bg-white border border-[#E8E1D5] text-[#231B15] focus:border-[#C25E3E]' 
+                        : 'bg-[#080d18] border border-white/10 text-white focus:border-amber-400'
+                    }`}
                   >
-                    <option value="Tầng 1 (Floor 01)" className="bg-[#0e1424]">Tầng 1 (Floor 01) - 188.5 m² sàn</option>
-                    <option value="Tầng 2 (Floor 02)" className="bg-[#0e1424]">Tầng 2 (Floor 02) - 188.5 m² sàn</option>
-                    <option value="Tầng 3 (Floor 03)" className="bg-[#0e1424]">Tầng 3 (Floor 03) - 188.5 m² sàn</option>
+                    <option value="Tầng 1 (Floor 01)" className={themeConfig.isLight ? 'bg-white text-[#231B15]' : 'bg-[#0e1424]'}>Tầng 1 (Floor 01) - 188.5 m² sàn</option>
+                    <option value="Tầng 2 (Floor 02)" className={themeConfig.isLight ? 'bg-white text-[#231B15]' : 'bg-[#0e1424]'}>Tầng 2 (Floor 02) - 188.5 m² sàn</option>
+                    <option value="Tầng 3 (Floor 03)" className={themeConfig.isLight ? 'bg-white text-[#231B15]' : 'bg-[#0e1424]'}>Tầng 3 (Floor 03) - 188.5 m² sàn</option>
                   </select>
                 </div>
 
                 {/* Wall Height (Pure Geometry) */}
                 <div>
-                  <label className="block text-[11px] font-semibold text-white/70 mb-1">
+                  <label className={`block text-[11px] font-semibold mb-1 ${themeConfig.isLight ? 'text-[#5C5248]' : 'text-white/70'}`}>
                     Chiều cao tường thiết kế (H)
                   </label>
                   <div className="flex items-center gap-2">
@@ -490,36 +514,46 @@ export const CreateProjectView: React.FC<CreateProjectViewProps> = ({
                       step="0.1"
                       value={wallHeight}
                       onChange={(e) => setWallHeight(parseFloat(e.target.value) || 3.0)}
-                      className="w-full bg-[#080d18] border border-white/10 rounded-xl px-3 py-2 text-xs text-white focus:outline-none focus:border-amber-400"
+                      className={`w-full rounded-xl px-3 py-2 text-xs focus:outline-none ${
+                        themeConfig.isLight 
+                          ? 'bg-white border border-[#E8E1D5] text-[#231B15] focus:border-[#C25E3E]' 
+                          : 'bg-[#080d18] border border-white/10 text-white focus:border-amber-400'
+                      }`}
                     />
-                    <span className="text-xs text-white/50 shrink-0">mét</span>
+                    <span className={`text-xs shrink-0 ${themeConfig.isLight ? 'text-[#796E64]' : 'text-white/50'}`}>mét</span>
                   </div>
                 </div>
 
                 {/* Scope of Surface */}
                 <div>
-                  <label className="block text-[11px] font-semibold text-white/70 mb-1">
+                  <label className={`block text-[11px] font-semibold mb-1 ${themeConfig.isLight ? 'text-[#5C5248]' : 'text-white/70'}`}>
                     Phạm vi trích xuất diện tích
                   </label>
                   <select
                     value={includeCeiling ? 'wall_and_ceiling' : 'wall_only'}
                     onChange={(e) => setIncludeCeiling(e.target.value === 'wall_and_ceiling')}
-                    className="w-full bg-[#080d18] border border-white/10 rounded-xl px-3 py-2 text-xs text-white focus:outline-none focus:border-amber-400"
+                    className={`w-full rounded-xl px-3 py-2 text-xs focus:outline-none cursor-pointer ${
+                      themeConfig.isLight 
+                        ? 'bg-white border border-[#E8E1D5] text-[#231B15] focus:border-[#C25E3E]' 
+                        : 'bg-[#080d18] border border-white/10 text-white focus:border-amber-400'
+                    }`}
                   >
-                    <option value="wall_and_ceiling" className="bg-[#0e1424]">Diện tích Tường + Diện tích Trần</option>
-                    <option value="wall_only" className="bg-[#0e1424]">Chỉ bóc tách Diện tích Tường</option>
+                    <option value="wall_and_ceiling" className={themeConfig.isLight ? 'bg-white text-[#231B15]' : 'bg-[#0e1424]'}>Diện tích Tường + Diện tích Trần</option>
+                    <option value="wall_only" className={themeConfig.isLight ? 'bg-white text-[#231B15]' : 'bg-[#0e1424]'}>Chỉ bóc tách Diện tích Tường</option>
                   </select>
                 </div>
               </div>
 
               {/* Deductions check */}
-              <div className="flex items-center justify-between p-3 rounded-xl bg-[#080d18] border border-white/10 text-xs">
-                <label className="flex items-center gap-2 cursor-pointer text-white/80">
+              <div className={`flex items-center justify-between p-3 rounded-xl border text-xs ${
+                themeConfig.isLight ? 'bg-[#FAF7F2] border-[#E8E1D5]' : 'bg-[#080d18] border-white/10'
+              }`}>
+                <label className={`flex items-center gap-2 cursor-pointer ${themeConfig.isLight ? 'text-[#231B15]' : 'text-white/80'}`}>
                   <input
                     type="checkbox"
                     checked={deductOpenings}
                     onChange={(e) => setDeductOpenings(e.target.checked)}
-                    className="rounded accent-amber-500"
+                    className={`rounded ${themeConfig.isLight ? 'accent-[#C25E3E]' : 'accent-amber-500'}`}
                   />
                   <span>Tự động trừ diện tích khẩu độ cửa đi & cửa sổ</span>
                 </label>
@@ -529,11 +563,13 @@ export const CreateProjectView: React.FC<CreateProjectViewProps> = ({
               </div>
 
               {/* Collapsible CAD Metadata */}
-              <div className="border border-white/10 rounded-xl overflow-hidden">
+              <div className={`border rounded-xl overflow-hidden ${themeConfig.isLight ? 'border-[#E8E1D5]' : 'border-white/10'}`}>
                 <button
                   type="button"
                   onClick={() => setIsDetailsExpanded(!isDetailsExpanded)}
-                  className="w-full p-2.5 px-3 bg-[#080d18]/60 hover:bg-[#080d18] flex items-center justify-between text-xs text-white/50 hover:text-white transition-colors cursor-pointer"
+                  className={`w-full p-2.5 px-3 flex items-center justify-between text-xs transition-colors cursor-pointer ${
+                    themeConfig.isLight ? 'bg-[#FAF7F2] hover:bg-white text-[#5C5248] hover:text-[#231B15]' : 'bg-[#080d18]/60 hover:bg-[#080d18] text-white/50 hover:text-white'
+                  }`}
                 >
                   <div className="flex items-center gap-2">
                     <Layers className={`w-3.5 h-3.5 ${themeConfig.accentText}`} />
@@ -543,8 +579,10 @@ export const CreateProjectView: React.FC<CreateProjectViewProps> = ({
                 </button>
 
                 {isDetailsExpanded && (
-                  <div className="p-3 bg-[#080d18] text-[11px] space-y-2 border-t border-white/10">
-                    <div className="grid grid-cols-2 gap-2 text-white/70">
+                  <div className={`p-3 text-[11px] space-y-2 border-t ${
+                    themeConfig.isLight ? 'bg-white text-[#5C5248] border-[#E8E1D5]' : 'bg-[#080d18] text-white/70 border-white/10'
+                  }`}>
+                    <div className="grid grid-cols-2 gap-2">
                       <div>Tọa độ X: 0 đến 48,250 mm</div>
                       <div>Tọa độ Y: 0 đến 32,180 mm</div>
                       <div>Layer tường: A-WALL, WALL-INT</div>
@@ -573,7 +611,7 @@ export const CreateProjectView: React.FC<CreateProjectViewProps> = ({
               <button
                 type="button"
                 onClick={handleStartAnalysis}
-                className={`px-6 py-2.5 rounded-xl ${themeConfig.primaryBtn} active:scale-98 text-xs flex items-center gap-2.5 transition-all cursor-pointer`}
+                className={`px-6 py-2.5 rounded-xl ${themeConfig.primaryBtn} active:scale-98 text-xs flex items-center gap-2.5 transition-all cursor-pointer text-white shadow-md hover:brightness-110`}
               >
                 <Sparkles className="w-4 h-4 stroke-[2.5]" />
                 <span>Bắt đầu bóc tách hình học ⚡</span>
@@ -583,7 +621,9 @@ export const CreateProjectView: React.FC<CreateProjectViewProps> = ({
           </div>
 
           {/* Value Banner */}
-          <div className={`p-3.5 rounded-xl ${themeConfig.cardBg} border ${themeConfig.accentBorder} flex items-center gap-3 text-xs text-white/80`}>
+          <div className={`p-3.5 rounded-xl ${
+            themeConfig.isLight ? 'bg-white border-[#E8E1D5] text-[#5C5248] shadow-xs' : `${themeConfig.cardBg} border ${themeConfig.accentBorder} text-white/80`
+          } border flex items-center gap-3 text-xs`}>
             <ShieldCheck className={`w-5 h-5 ${themeConfig.accentText} shrink-0`} />
             <span>
               Hệ thống sẽ trích xuất <strong>chu vi, diện tích sàn, diện tích tường gộp và diện tích tường net</strong>. Thông số định mức sơn và dự toán chi phí sẽ được tính ở tab Dự toán riêng biệt.
@@ -707,39 +747,41 @@ export const CreateProjectView: React.FC<CreateProjectViewProps> = ({
         <div className="space-y-4">
           
           {/* Top Geometric Summary Bar */}
-          <div className={`rounded-2xl ${themeConfig.cardBg} border border-white/10 p-4 flex flex-wrap items-center justify-between gap-4 shadow-xl`}>
+          <div className={`rounded-2xl border p-4 flex flex-wrap items-center justify-between gap-4 ${
+            themeConfig.isLight ? 'bg-white border-[#E8E1D5] shadow-xs' : `${themeConfig.cardBg} border-white/10 shadow-xl`
+          }`}>
             <div className="flex flex-wrap items-center gap-4 sm:gap-6 text-xs">
               <div>
-                <span className="text-white/50 block text-[10px]">TỔNG DIỆN TÍCH SÀN</span>
-                <span className="font-bold text-white text-sm sm:text-base font-mono">
+                <span className={`block text-[10px] ${themeConfig.isLight ? 'text-[#8C827A]' : 'text-white/50'}`}>TỔNG DIỆN TÍCH SÀN</span>
+                <span className={`font-bold text-sm sm:text-base font-mono ${themeConfig.isLight ? 'text-[#231B15]' : 'text-white'}`}>
                   {totalFloorArea.toFixed(1)} m²
                 </span>
               </div>
-              <div className="h-7 w-px bg-white/10" />
+              <div className={`h-7 w-px ${themeConfig.isLight ? 'bg-[#E8E1D5]' : 'bg-white/10'}`} />
               <div>
-                <span className="text-white/50 block text-[10px]">TỔNG CHU VI TƯỜNG</span>
-                <span className="font-bold text-white/90 text-sm sm:text-base font-mono">
+                <span className={`block text-[10px] ${themeConfig.isLight ? 'text-[#8C827A]' : 'text-white/50'}`}>TỔNG CHU VI TƯỜNG</span>
+                <span className={`font-bold text-sm sm:text-base font-mono ${themeConfig.isLight ? 'text-[#231B15]' : 'text-white/90'}`}>
                   {totalWallPerimeter.toFixed(1)} m
                 </span>
               </div>
-              <div className="h-7 w-px bg-white/10" />
+              <div className={`h-7 w-px ${themeConfig.isLight ? 'bg-[#E8E1D5]' : 'bg-white/10'}`} />
               <div>
-                <span className="text-white/50 block text-[10px]">DIỆN TÍCH TƯỜNG (NET)</span>
+                <span className={`block text-[10px] ${themeConfig.isLight ? 'text-[#8C827A]' : 'text-white/50'}`}>DIỆN TÍCH TƯỜNG (NET)</span>
                 <span className={`font-bold ${themeConfig.accentText} text-sm sm:text-base font-mono`}>
                   {totalNetWallArea.toFixed(1)} m²
                 </span>
               </div>
-              <div className="h-7 w-px bg-white/10" />
+              <div className={`h-7 w-px ${themeConfig.isLight ? 'bg-[#E8E1D5]' : 'bg-white/10'}`} />
               <div>
-                <span className="text-white/50 block text-[10px]">DIỆN TÍCH TRẦN</span>
-                <span className="font-bold text-white/80 text-sm sm:text-base font-mono">
+                <span className={`block text-[10px] ${themeConfig.isLight ? 'text-[#8C827A]' : 'text-white/50'}`}>DIỆN TÍCH TRẦN</span>
+                <span className={`font-bold text-sm sm:text-base font-mono ${themeConfig.isLight ? 'text-[#5C5248]' : 'text-white/80'}`}>
                   {totalCeilingArea.toFixed(1)} m²
                 </span>
               </div>
-              <div className="h-7 w-px bg-white/10" />
+              <div className={`h-7 w-px ${themeConfig.isLight ? 'bg-[#E8E1D5]' : 'bg-white/10'}`} />
               <div>
-                <span className="text-white/50 block text-[10px]">TỔNG BỀ MẶT BÓC TÁCH</span>
-                <span className="font-bold text-emerald-400 text-sm sm:text-base font-mono">
+                <span className={`block text-[10px] ${themeConfig.isLight ? 'text-[#8C827A]' : 'text-white/50'}`}>TỔNG BỀ MẶT BÓC TÁCH</span>
+                <span className={`font-bold text-sm sm:text-base font-mono ${themeConfig.isLight ? 'text-emerald-700' : 'text-emerald-400'}`}>
                   {totalSurfaceArea.toFixed(1)} m²
                 </span>
               </div>
@@ -749,16 +791,20 @@ export const CreateProjectView: React.FC<CreateProjectViewProps> = ({
             <div className="flex items-center gap-2">
               <button
                 onClick={handleExportExcel}
-                className="px-3.5 py-2 rounded-xl bg-emerald-500/15 hover:bg-emerald-500/25 border border-emerald-500/30 text-xs text-emerald-300 font-semibold flex items-center gap-2 transition-all cursor-pointer shadow-xs"
+                className={`px-3.5 py-2 rounded-xl text-xs font-semibold flex items-center gap-2 transition-all cursor-pointer shadow-xs ${
+                  themeConfig.isLight 
+                    ? 'bg-emerald-50 hover:bg-emerald-100 border border-emerald-200 text-emerald-800' 
+                    : 'bg-emerald-500/15 hover:bg-emerald-500/25 border border-emerald-500/30 text-emerald-300'
+                }`}
                 title="Xuất bảng khối lượng Excel"
               >
-                <FileSpreadsheet className="w-4 h-4 text-emerald-400" />
+                <FileSpreadsheet className="w-4 h-4 text-emerald-600" />
                 <span>{isExported ? 'Đã tải Excel ✓' : 'Xuất Excel'}</span>
               </button>
 
               <button
                 onClick={handleProceedToEstimate}
-                className={`px-4 py-2 rounded-xl ${themeConfig.primaryBtn} active:scale-98 text-xs flex items-center gap-2 transition-all cursor-pointer shadow-sm`}
+                className={`px-4 py-2 rounded-xl ${themeConfig.primaryBtn} active:scale-98 text-xs flex items-center gap-2 transition-all cursor-pointer shadow-sm text-white`}
                 title="Chuyển sang tab Dự toán chi phí & Tính sơn"
               >
                 <Calculator className="w-4 h-4 stroke-[2.5]" />
@@ -773,7 +819,9 @@ export const CreateProjectView: React.FC<CreateProjectViewProps> = ({
             {/* ============================================================
                 LEFT PANE (7 of 12 cols): Interactive CAD Blueprint
             ============================================================ */}
-            <div className={`lg:col-span-7 rounded-2xl ${themeConfig.cardBg} border border-white/10 p-4 space-y-3 shadow-xl`}>
+            <div className={`lg:col-span-7 rounded-2xl border p-4 space-y-3 ${
+              themeConfig.isLight ? 'bg-white border-[#E8E1D5] shadow-xs' : `${themeConfig.cardBg} border-white/10 shadow-xl`
+            }`}>
               
               {/* CAD Controls Bar */}
               <div className="flex items-center justify-between gap-2">
@@ -782,30 +830,32 @@ export const CreateProjectView: React.FC<CreateProjectViewProps> = ({
                     <Layers className="w-4 h-4" />
                   </div>
                   <div>
-                    <h3 className="text-xs font-bold text-white">Mặt bằng kích thước hình học</h3>
-                    <p className="text-[10px] text-white/50">Di chuột hoặc bấm vào phòng để xem chi tiết kích thước</p>
+                    <h3 className={`text-xs font-bold ${themeConfig.isLight ? 'text-[#231B15]' : 'text-white'}`}>Mặt bằng kích thước hình học</h3>
+                    <p className={`text-[10px] ${themeConfig.isLight ? 'text-[#796E64]' : 'text-white/50'}`}>Di chuột hoặc bấm vào phòng để xem chi tiết kích thước</p>
                   </div>
                 </div>
 
                 {/* View toggles */}
-                <div className="flex items-center gap-1.5 p-1 rounded-xl bg-[#080d18] border border-white/10 text-xs">
+                <div className={`flex items-center gap-1.5 p-1 rounded-xl border text-xs ${
+                  themeConfig.isLight ? 'bg-[#FAF7F2] border-[#E8E1D5]' : 'bg-[#080d18] border-white/10'
+                }`}>
                   <button
                     onClick={() => setZoomLevel((z) => Math.min(z + 0.15, 2.0))}
-                    className="p-1 text-white/70 hover:text-white rounded cursor-pointer"
+                    className={`p-1 rounded cursor-pointer ${themeConfig.isLight ? 'text-[#5C5248] hover:text-[#231B15]' : 'text-white/70 hover:text-white'}`}
                     title="Phóng to"
                   >
                     <ZoomIn className="w-3.5 h-3.5" />
                   </button>
                   <button
                     onClick={() => setZoomLevel((z) => Math.max(z - 0.15, 0.7))}
-                    className="p-1 text-white/70 hover:text-white rounded cursor-pointer"
+                    className={`p-1 rounded cursor-pointer ${themeConfig.isLight ? 'text-[#5C5248] hover:text-[#231B15]' : 'text-white/70 hover:text-white'}`}
                     title="Thu nhỏ"
                   >
                     <ZoomOut className="w-3.5 h-3.5" />
                   </button>
                   <button
                     onClick={() => setZoomLevel(1)}
-                    className={`px-2 py-0.5 text-[11px] ${themeConfig.accentText} hover:text-white font-mono cursor-pointer`}
+                    className={`px-2 py-0.5 text-[11px] ${themeConfig.accentText} font-mono cursor-pointer font-bold`}
                   >
                     {Math.round(zoomLevel * 100)}%
                   </button>
@@ -813,7 +863,9 @@ export const CreateProjectView: React.FC<CreateProjectViewProps> = ({
               </div>
 
               {/* CAD Blueprint Stage */}
-              <div className={`relative rounded-2xl bg-[#080d18] border ${themeConfig.accentBorder} h-[400px] sm:h-[450px] overflow-hidden flex items-center justify-center p-3 select-none`}>
+              <div className={`relative rounded-2xl border ${themeConfig.accentBorder} h-[400px] sm:h-[450px] overflow-hidden flex items-center justify-center p-3 select-none ${
+                themeConfig.isLight ? 'bg-[#FAF7F2]' : 'bg-[#080d18]'
+              }`}>
                 
                 {/* CAD Grid Lines */}
                 <div 
@@ -834,7 +886,15 @@ export const CreateProjectView: React.FC<CreateProjectViewProps> = ({
                   style={{ transform: `scale(${zoomLevel})` }}
                 >
                   {/* Outer Walls */}
-                  <rect x="160" y="80" width="580" height="430" fill="#0b101d" stroke={themeConfig.cadOuterWall} strokeWidth="2.5" />
+                  <rect 
+                    x="160" 
+                    y="80" 
+                    width="580" 
+                    height="430" 
+                    fill={themeConfig.isLight ? '#FFFFFF' : '#0b101d'} 
+                    stroke={themeConfig.cadOuterWall} 
+                    strokeWidth="2.5" 
+                  />
                   
                   {/* Top Dimensions */}
                   <g>
@@ -868,17 +928,17 @@ export const CreateProjectView: React.FC<CreateProjectViewProps> = ({
                       y="85" 
                       width="190" 
                       height="190" 
-                      fill={selectedRoomId === 'room-01' ? themeConfig.roomColors.room1.fill : hoveredRoomId === 'room-01' ? themeConfig.roomColors.room1.fill : 'rgba(56, 189, 248, 0.08)'}
+                      fill={selectedRoomId === 'room-01' ? themeConfig.roomColors.room1.fill : hoveredRoomId === 'room-01' ? themeConfig.roomColors.room1.fill : themeConfig.isLight ? 'rgba(194, 94, 62, 0.08)' : 'rgba(56, 189, 248, 0.08)'}
                       stroke={selectedRoomId === 'room-01' ? themeConfig.roomColors.room1.stroke : themeConfig.cadInnerWall}
                       strokeWidth={selectedRoomId === 'room-01' ? '2.5' : '1.5'}
                     />
-                    <text x="260" y="165" fill="#ffffff" fontSize="12" fontWeight="bold" textAnchor="middle">
+                    <text x="260" y="165" fill={themeConfig.isLight ? '#231B15' : '#ffffff'} fontSize="12" fontWeight="bold" textAnchor="middle">
                       OFFICE 01
                     </text>
                     <text x="260" y="185" fill={themeConfig.roomColors.room1.stroke} fontSize="11" textAnchor="middle" fontFamily="monospace">
                       S: 28.5 m² • P: 21.4 m
                     </text>
-                    <text x="260" y="202" fill="rgba(255,255,255,0.7)" fontSize="10" textAnchor="middle" fontFamily="monospace">
+                    <text x="260" y="202" fill={themeConfig.isLight ? '#796E64' : 'rgba(255,255,255,0.7)'} fontSize="10" textAnchor="middle" fontFamily="monospace">
                       Tường Net: 59.4 m²
                     </text>
                   </g>
@@ -895,17 +955,17 @@ export const CreateProjectView: React.FC<CreateProjectViewProps> = ({
                       y="85" 
                       width="195" 
                       height="190" 
-                      fill={selectedRoomId === 'room-02' ? themeConfig.roomColors.room2.fill : hoveredRoomId === 'room-02' ? themeConfig.roomColors.room2.fill : 'rgba(14, 165, 233, 0.08)'}
+                      fill={selectedRoomId === 'room-02' ? themeConfig.roomColors.room2.fill : hoveredRoomId === 'room-02' ? themeConfig.roomColors.room2.fill : themeConfig.isLight ? 'rgba(217, 119, 6, 0.08)' : 'rgba(14, 165, 233, 0.08)'}
                       stroke={selectedRoomId === 'room-02' ? themeConfig.roomColors.room2.stroke : themeConfig.cadInnerWall}
                       strokeWidth={selectedRoomId === 'room-02' ? '2.5' : '1.5'}
                     />
-                    <text x="457" y="165" fill="#ffffff" fontSize="12" fontWeight="bold" textAnchor="middle">
+                    <text x="457" y="165" fill={themeConfig.isLight ? '#231B15' : '#ffffff'} fontSize="12" fontWeight="bold" textAnchor="middle">
                       OFFICE 02
                     </text>
                     <text x="457" y="185" fill={themeConfig.roomColors.room2.stroke} fontSize="11" textAnchor="middle" fontFamily="monospace">
                       S: 32.0 m² • P: 22.8 m
                     </text>
-                    <text x="457" y="202" fill="rgba(255,255,255,0.7)" fontSize="10" textAnchor="middle" fontFamily="monospace">
+                    <text x="457" y="202" fill={themeConfig.isLight ? '#796E64' : 'rgba(255,255,255,0.7)'} fontSize="10" textAnchor="middle" fontFamily="monospace">
                       Tường Net: 63.2 m²
                     </text>
                   </g>
@@ -922,17 +982,17 @@ export const CreateProjectView: React.FC<CreateProjectViewProps> = ({
                       y="85" 
                       width="175" 
                       height="190" 
-                      fill={selectedRoomId === 'room-03' ? themeConfig.roomColors.room3.fill : hoveredRoomId === 'room-03' ? themeConfig.roomColors.room3.fill : 'rgba(99, 102, 241, 0.08)'}
+                      fill={selectedRoomId === 'room-03' ? themeConfig.roomColors.room3.fill : hoveredRoomId === 'room-03' ? themeConfig.roomColors.room3.fill : themeConfig.isLight ? 'rgba(180, 83, 9, 0.08)' : 'rgba(99, 102, 241, 0.08)'}
                       stroke={selectedRoomId === 'room-03' ? themeConfig.roomColors.room3.stroke : themeConfig.cadInnerWall}
                       strokeWidth={selectedRoomId === 'room-03' ? '2.5' : '1.5'}
                     />
-                    <text x="647" y="165" fill="#ffffff" fontSize="12" fontWeight="bold" textAnchor="middle">
+                    <text x="647" y="165" fill={themeConfig.isLight ? '#231B15' : '#ffffff'} fontSize="12" fontWeight="bold" textAnchor="middle">
                       MEETING ROOM
                     </text>
                     <text x="647" y="185" fill={themeConfig.roomColors.room3.stroke} fontSize="11" textAnchor="middle" fontFamily="monospace">
                       S: 34.2 m² • P: 23.6 m
                     </text>
-                    <text x="647" y="202" fill="rgba(255,255,255,0.7)" fontSize="10" textAnchor="middle" fontFamily="monospace">
+                    <text x="647" y="202" fill={themeConfig.isLight ? '#796E64' : 'rgba(255,255,255,0.7)'} fontSize="10" textAnchor="middle" fontFamily="monospace">
                       Tường Net: 64.4 m²
                     </text>
                   </g>
@@ -949,11 +1009,11 @@ export const CreateProjectView: React.FC<CreateProjectViewProps> = ({
                       y="280" 
                       width="570" 
                       height="80" 
-                      fill={selectedRoomId === 'room-04' ? themeConfig.roomColors.room4.fill : hoveredRoomId === 'room-04' ? themeConfig.roomColors.room4.fill : 'rgba(20, 184, 166, 0.08)'}
+                      fill={selectedRoomId === 'room-04' ? themeConfig.roomColors.room4.fill : hoveredRoomId === 'room-04' ? themeConfig.roomColors.room4.fill : themeConfig.isLight ? 'rgba(45, 106, 79, 0.08)' : 'rgba(20, 184, 166, 0.08)'}
                       stroke={selectedRoomId === 'room-04' ? themeConfig.roomColors.room4.stroke : themeConfig.cadInnerWall}
                       strokeWidth={selectedRoomId === 'room-04' ? '2.5' : '1.5'}
                     />
-                    <text x="450" y="325" fill="#ffffff" fontSize="12" fontWeight="bold" textAnchor="middle">
+                    <text x="450" y="325" fill={themeConfig.isLight ? '#231B15' : '#ffffff'} fontSize="12" fontWeight="bold" textAnchor="middle">
                       CORRIDOR (Hành lang: 48.6 m² sàn • P: 36.4 m • Tường Net: 96.6 m²)
                     </text>
                   </g>
@@ -970,14 +1030,14 @@ export const CreateProjectView: React.FC<CreateProjectViewProps> = ({
                       y="365" 
                       width="260" 
                       height="140" 
-                      fill={selectedRoomId === 'room-05' ? 'rgba(168, 85, 247, 0.35)' : hoveredRoomId === 'room-05' ? 'rgba(168, 85, 247, 0.25)' : 'rgba(168, 85, 247, 0.08)'}
+                      fill={selectedRoomId === 'room-05' ? 'rgba(168, 85, 247, 0.25)' : hoveredRoomId === 'room-05' ? 'rgba(168, 85, 247, 0.15)' : 'rgba(168, 85, 247, 0.05)'}
                       stroke={selectedRoomId === 'room-05' ? '#c084fc' : '#a855f7'}
                       strokeWidth={selectedRoomId === 'room-05' ? '2.5' : '1.5'}
                     />
-                    <text x="295" y="435" fill="#ffffff" fontSize="12" fontWeight="bold" textAnchor="middle">
+                    <text x="295" y="435" fill={themeConfig.isLight ? '#231B15' : '#ffffff'} fontSize="12" fontWeight="bold" textAnchor="middle">
                       STORAGE & WC
                     </text>
-                    <text x="295" y="455" fill="#c084fc" fontSize="11" textAnchor="middle" fontFamily="monospace">
+                    <text x="295" y="455" fill="#a855f7" fontSize="11" textAnchor="middle" fontFamily="monospace">
                       S: 19.8 m² • P: 18.2 m • Tường Net: 50.8 m²
                     </text>
                   </g>
@@ -994,29 +1054,31 @@ export const CreateProjectView: React.FC<CreateProjectViewProps> = ({
                       y="365" 
                       width="305" 
                       height="140" 
-                      fill={selectedRoomId === 'room-06' ? 'rgba(16, 185, 129, 0.35)' : hoveredRoomId === 'room-06' ? 'rgba(16, 185, 129, 0.25)' : 'rgba(16, 185, 129, 0.08)'}
+                      fill={selectedRoomId === 'room-06' ? 'rgba(16, 185, 129, 0.25)' : hoveredRoomId === 'room-06' ? 'rgba(16, 185, 129, 0.15)' : 'rgba(16, 185, 129, 0.05)'}
                       stroke={selectedRoomId === 'room-06' ? '#34d399' : '#10b981'}
                       strokeWidth={selectedRoomId === 'room-06' ? '2.5' : '1.5'}
                     />
-                    <text x="580" y="435" fill="#ffffff" fontSize="12" fontWeight="bold" textAnchor="middle">
+                    <text x="580" y="435" fill={themeConfig.isLight ? '#231B15' : '#ffffff'} fontSize="12" fontWeight="bold" textAnchor="middle">
                       MAIN LOBBY
                     </text>
-                    <text x="580" y="455" fill="#34d399" fontSize="11" textAnchor="middle" fontFamily="monospace">
+                    <text x="580" y="455" fill="#10b981" fontSize="11" textAnchor="middle" fontFamily="monospace">
                       S: 26.4 m² • P: 20.6 m • Tường Net: 56.2 m²
                     </text>
                   </g>
                 </svg>
 
                 {/* Auto-Healed Badge (Smart UX) */}
-                <div className="absolute bottom-3 left-3 px-2.5 py-1.5 rounded-lg bg-[#080d18]/90 border border-emerald-500/30 text-[11px] text-emerald-400 flex items-center gap-1.5 shadow-sm">
-                  <CheckCircle2 className="w-3.5 h-3.5" />
+                <div className={`absolute bottom-3 left-3 px-2.5 py-1.5 rounded-lg border text-[11px] flex items-center gap-1.5 shadow-sm ${
+                  themeConfig.isLight ? 'bg-white/95 border-emerald-300 text-emerald-800' : 'bg-[#080d18]/90 border-emerald-500/30 text-emerald-400'
+                }`}>
+                  <CheckCircle2 className="w-3.5 h-3.5 text-emerald-600" />
                   <span>AI đã khép kín chu vi và trừ 8 cửa đi/sổ (38.4 m²)</span>
                 </div>
               </div>
 
               {/* Bottom Quick Jump Link */}
               <div className="flex items-center justify-between text-xs pt-1">
-                <span className="text-white/50">Cần chỉnh sửa đường bao hình học chuyên sâu?</span>
+                <span className={themeConfig.isLight ? 'text-[#796E64]' : 'text-white/50'}>Cần chỉnh sửa đường bao hình học chuyên sâu?</span>
                 <button
                   onClick={() => {
                     if (onNavigateToReview) onNavigateToReview();
@@ -1033,7 +1095,9 @@ export const CreateProjectView: React.FC<CreateProjectViewProps> = ({
             {/* ============================================================
                 RIGHT PANE (5 of 12 cols): Pure Geometric Takeoff Sheet
             ============================================================ */}
-            <div className={`lg:col-span-5 rounded-2xl ${themeConfig.cardBg} border border-white/10 p-4 space-y-3.5 shadow-xl`}>
+            <div className={`lg:col-span-5 rounded-2xl border p-4 space-y-3.5 ${
+              themeConfig.isLight ? 'bg-white border-[#E8E1D5] shadow-xs' : `${themeConfig.cardBg} border-white/10 shadow-xl`
+            }`}>
               
               <div className="flex items-center justify-between">
                 <div className="flex items-center gap-2">
@@ -1041,8 +1105,8 @@ export const CreateProjectView: React.FC<CreateProjectViewProps> = ({
                     <FileSpreadsheet className="w-4 h-4" />
                   </div>
                   <div>
-                    <h3 className="text-xs font-bold text-white">Bảng kích thước & diện tích phòng</h3>
-                    <p className="text-[10px] text-white/50">Chiều cao tường: {wallHeight}m • Khấu trừ cửa đi/sổ</p>
+                    <h3 className={`text-xs font-bold ${themeConfig.isLight ? 'text-[#231B15]' : 'text-white'}`}>Bảng kích thước & diện tích phòng</h3>
+                    <p className={`text-[10px] ${themeConfig.isLight ? 'text-[#796E64]' : 'text-white/50'}`}>Chiều cao tường: {wallHeight}m • Khấu trừ cửa đi/sổ</p>
                   </div>
                 </div>
 
@@ -1064,13 +1128,19 @@ export const CreateProjectView: React.FC<CreateProjectViewProps> = ({
                       onMouseEnter={() => setHoveredRoomId(room.id)}
                       onMouseLeave={() => setHoveredRoomId(null)}
                       className={`p-3 rounded-xl border transition-all cursor-pointer ${
-                        isSelected 
-                          ? `${themeConfig.accentBorder} shadow-sm` 
-                          : isHovered 
-                          ? 'bg-white/5 border-white/20'
-                          : 'bg-[#080d18] border-white/10 hover:border-white/20'
+                        themeConfig.isLight
+                          ? isSelected
+                            ? 'bg-[#FDF3EF] border-[#C25E3E] shadow-xs'
+                            : isHovered
+                            ? 'bg-[#FAF7F2] border-[#E8E1D5]'
+                            : 'bg-[#FAF7F2]/50 border-[#E8E1D5] hover:border-[#C25E3E]/40'
+                          : isSelected 
+                            ? `${themeConfig.accentBorder} shadow-sm` 
+                            : isHovered 
+                            ? 'bg-white/5 border-white/20'
+                            : 'bg-[#080d18] border-white/10 hover:border-white/20'
                       }`}
-                      style={isSelected ? { backgroundColor: `${themeConfig.iconColor}15` } : undefined}
+                      style={!themeConfig.isLight && isSelected ? { backgroundColor: `${themeConfig.iconColor}15` } : undefined}
                     >
                       <div className="flex items-center justify-between mb-1">
                         <div className="flex items-center gap-2">
@@ -1078,32 +1148,34 @@ export const CreateProjectView: React.FC<CreateProjectViewProps> = ({
                             className="w-2.5 h-2.5 rounded-full" 
                             style={{ backgroundColor: room.colorBorder }} 
                           />
-                          <span className="text-xs font-bold text-white">{room.name}</span>
-                          <span className="text-[10px] text-white/40">({room.type})</span>
+                          <span className={`text-xs font-bold ${themeConfig.isLight ? 'text-[#231B15]' : 'text-white'}`}>{room.name}</span>
+                          <span className={`text-[10px] ${themeConfig.isLight ? 'text-[#796E64]' : 'text-white/40'}`}>({room.type})</span>
                         </div>
                         <div className="text-right">
-                          <span className="text-xs font-bold text-emerald-400 font-mono">
+                          <span className={`text-xs font-bold font-mono ${themeConfig.isLight ? 'text-[#C25E3E]' : 'text-emerald-400'}`}>
                             {room.totalSurfaceArea} m²
                           </span>
-                          <span className="text-[9px] text-white/40 block">bề mặt</span>
+                          <span className={`text-[9px] block ${themeConfig.isLight ? 'text-[#8C827A]' : 'text-white/40'}`}>bề mặt</span>
                         </div>
                       </div>
 
-                      <div className="grid grid-cols-4 gap-1 text-[11px] text-white/60 pt-1 border-t border-white/5 font-mono">
+                      <div className={`grid grid-cols-4 gap-1 text-[11px] pt-1 border-t font-mono ${
+                        themeConfig.isLight ? 'border-[#E8E1D5] text-[#5C5248]' : 'border-white/5 text-white/60'
+                      }`}>
                         <div>
-                          <span className="text-[9px] text-white/40 block">SÀN:</span>
+                          <span className={`text-[9px] block ${themeConfig.isLight ? 'text-[#8C827A]' : 'text-white/40'}`}>SÀN:</span>
                           {room.floorArea} m²
                         </div>
                         <div>
-                          <span className="text-[9px] text-white/40 block">CHU VI:</span>
+                          <span className={`text-[9px] block ${themeConfig.isLight ? 'text-[#8C827A]' : 'text-white/40'}`}>CHU VI:</span>
                           {room.wallPerimeter} m
                         </div>
                         <div>
-                          <span className="text-[9px] text-white/40 block">TRỪ CỬA:</span>
+                          <span className={`text-[9px] block ${themeConfig.isLight ? 'text-[#8C827A]' : 'text-white/40'}`}>TRỪ CỬA:</span>
                           -{room.deductionArea} m²
                         </div>
                         <div>
-                          <span className="text-[9px] text-white/40 block">TƯỜNG NET:</span>
+                          <span className={`text-[9px] block ${themeConfig.isLight ? 'text-[#8C827A]' : 'text-white/40'}`}>TƯỜNG NET:</span>
                           {room.netWallArea} m²
                         </div>
                       </div>
@@ -1113,22 +1185,26 @@ export const CreateProjectView: React.FC<CreateProjectViewProps> = ({
               </div>
 
               {/* Bottom Grand Summary Card (Pure Takeoff Data) */}
-              <div className={`p-3.5 rounded-xl ${themeConfig.cardBg} border ${themeConfig.accentBorder} space-y-2 shadow-sm`}>
+              <div className={`p-3.5 rounded-xl border space-y-2 shadow-xs ${
+                themeConfig.isLight ? 'bg-[#FAF7F2] border-[#E8E1D5]' : `${themeConfig.cardBg} border ${themeConfig.accentBorder}`
+              }`}>
                 <div className="flex justify-between items-center text-xs">
-                  <span className="text-white/70">Tổng diện tích tường net (sau trừ cửa):</span>
+                  <span className={themeConfig.isLight ? 'text-[#5C5248]' : 'text-white/70'}>Tổng diện tích tường net (sau trừ cửa):</span>
                   <span className={`font-bold ${themeConfig.accentText} font-mono text-sm`}>
                     {totalNetWallArea.toFixed(1)} m²
                   </span>
                 </div>
                 <div className="flex justify-between items-center text-xs">
-                  <span className="text-white/70">Tổng diện tích trần (nếu bóc tách):</span>
-                  <span className="font-bold text-white/80 font-mono text-sm">
+                  <span className={themeConfig.isLight ? 'text-[#5C5248]' : 'text-white/70'}>Tổng diện tích trần (nếu bóc tách):</span>
+                  <span className={`font-bold font-mono text-sm ${themeConfig.isLight ? 'text-[#231B15]' : 'text-white/80'}`}>
                     {totalCeilingArea.toFixed(1)} m²
                   </span>
                 </div>
-                <div className="pt-1.5 border-t border-white/10 flex justify-between items-center text-xs">
-                  <span className="text-white font-semibold">Tổng diện tích bề mặt hoàn thiện:</span>
-                  <span className="font-bold text-emerald-400 font-mono text-base">
+                <div className={`pt-1.5 border-t flex justify-between items-center text-xs ${
+                  themeConfig.isLight ? 'border-[#E8E1D5]' : 'border-white/10'
+                }`}>
+                  <span className={`font-semibold ${themeConfig.isLight ? 'text-[#231B15]' : 'text-white'}`}>Tổng diện tích bề mặt hoàn thiện:</span>
+                  <span className={`font-bold font-mono text-base ${themeConfig.isLight ? 'text-emerald-700' : 'text-emerald-400'}`}>
                     {totalSurfaceArea.toFixed(1)} m²
                   </span>
                 </div>

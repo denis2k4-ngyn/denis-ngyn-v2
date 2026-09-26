@@ -16,6 +16,7 @@ import {
   RotateCcw
 } from 'lucide-react';
 import { RoomEntity, DoorEntity, DxfLayer } from '../../types';
+import { useTheme } from '../../context/ThemeContext';
 
 interface DrawingCanvasProps {
   rooms: RoomEntity[];
@@ -42,6 +43,8 @@ export const DrawingCanvas: React.FC<DrawingCanvasProps> = ({
   onEditBoundary,
   onToggleLayer,
 }) => {
+  const { themeConfig } = useTheme();
+  const isLight = !!themeConfig.isLight;
   const containerRef = useRef<HTMLDivElement>(null);
   const [activeTool, setActiveTool] = useState<'select' | 'pan' | 'measure'>('select');
   const [zoom, setZoom] = useState<number>(1);
@@ -131,7 +134,9 @@ export const DrawingCanvas: React.FC<DrawingCanvasProps> = ({
   return (
     <div 
       ref={containerRef}
-      className="relative w-full h-full bg-[#080c15] overflow-hidden select-none cursor-default flex flex-col"
+      className={`relative w-full h-full overflow-hidden select-none cursor-default flex flex-col transition-colors duration-200 ${
+        isLight ? 'bg-[#F9F6F0]' : 'bg-[#080c15]'
+      }`}
       onMouseDown={handleMouseDown}
       onMouseMove={handleMouseMove}
       onMouseUp={handleMouseUp}
@@ -140,7 +145,11 @@ export const DrawingCanvas: React.FC<DrawingCanvasProps> = ({
       {/* ─────────────────────────────────────────────────────────────
           THANH CÔNG CỤ CAD PHÍA TRÊN
       ───────────────────────────────────────────────────────────── */}
-      <div className="absolute top-4 left-4 z-20 flex items-center gap-1.5 p-1.5 rounded-xl bg-[#12141a]/95 backdrop-blur-md border border-white/10 text-white/70 shadow-2xl">
+      <div className={`absolute top-4 left-4 z-20 flex items-center gap-1.5 p-1.5 rounded-xl backdrop-blur-md border shadow-2xl transition-colors ${
+        isLight 
+          ? 'bg-white/95 border-[#E8E1D5] text-[#5C5248]' 
+          : 'bg-[#12141a]/95 border-white/10 text-white/70'
+      }`}>
         <button
           onClick={() => {
             setActiveTool('select');
@@ -149,12 +158,20 @@ export const DrawingCanvas: React.FC<DrawingCanvasProps> = ({
           }}
           className={`p-2 rounded-lg text-xs flex items-center gap-1.5 transition-all cursor-pointer ${
             activeTool === 'select'
-              ? 'bg-amber-500/20 text-[#ffc474] font-semibold border border-amber-500/40 shadow-sm'
-              : 'hover:text-white hover:bg-white/5'
+              ? isLight
+                ? 'bg-[#C25E3E] text-white font-semibold shadow-xs'
+                : 'bg-amber-500/20 text-[#ffc474] font-semibold border border-amber-500/40 shadow-sm'
+              : isLight
+                ? 'hover:text-[#231B15] hover:bg-[#F2ECE4]'
+                : 'hover:text-white hover:bg-white/5'
           }`}
           title="Chọn thực thể CAD (V)"
         >
-          <MousePointer className={`w-4 h-4 ${activeTool === 'select' ? 'text-[#ffc474]' : 'text-white/60'}`} />
+          <MousePointer className={`w-4 h-4 ${
+            activeTool === 'select' 
+              ? (isLight ? 'text-white' : 'text-[#ffc474]') 
+              : (isLight ? 'text-[#796E64]' : 'text-white/60')
+          }`} />
           <span className="hidden sm:inline">Chọn</span>
         </button>
 
@@ -166,12 +183,20 @@ export const DrawingCanvas: React.FC<DrawingCanvasProps> = ({
           }}
           className={`p-2 rounded-lg text-xs flex items-center gap-1.5 transition-all cursor-pointer ${
             activeTool === 'pan'
-              ? 'bg-amber-500/20 text-[#ffc474] font-semibold border border-amber-500/40 shadow-sm'
-              : 'hover:text-white hover:bg-white/5'
+              ? isLight
+                ? 'bg-[#C25E3E] text-white font-semibold shadow-xs'
+                : 'bg-amber-500/20 text-[#ffc474] font-semibold border border-amber-500/40 shadow-sm'
+              : isLight
+                ? 'hover:text-[#231B15] hover:bg-[#F2ECE4]'
+                : 'hover:text-white hover:bg-white/5'
           }`}
           title="Kéo di chuyển bản vẽ (H / Phím cách)"
         >
-          <Hand className={`w-4 h-4 ${activeTool === 'pan' ? 'text-[#ffc474]' : 'text-white/60'}`} />
+          <Hand className={`w-4 h-4 ${
+            activeTool === 'pan' 
+              ? (isLight ? 'text-white' : 'text-[#ffc474]') 
+              : (isLight ? 'text-[#796E64]' : 'text-white/60')
+          }`} />
           <span className="hidden sm:inline">Kéo</span>
         </button>
 
@@ -183,44 +208,58 @@ export const DrawingCanvas: React.FC<DrawingCanvasProps> = ({
           }}
           className={`p-2 rounded-lg text-xs flex items-center gap-1.5 transition-all cursor-pointer ${
             activeTool === 'measure'
-              ? 'bg-amber-500/20 text-[#ffc474] font-semibold border border-amber-500/40 shadow-sm'
-              : 'hover:text-white hover:bg-white/5'
+              ? isLight
+                ? 'bg-[#C25E3E] text-white font-semibold shadow-xs'
+                : 'bg-amber-500/20 text-[#ffc474] font-semibold border border-amber-500/40 shadow-sm'
+              : isLight
+                ? 'hover:text-[#231B15] hover:bg-[#F2ECE4]'
+                : 'hover:text-white hover:bg-white/5'
           }`}
           title="Thước đo khoảng cách (M)"
         >
-          <Ruler className={`w-4 h-4 ${activeTool === 'measure' ? 'text-[#ffc474]' : 'text-white/60'}`} />
+          <Ruler className={`w-4 h-4 ${
+            activeTool === 'measure' 
+              ? (isLight ? 'text-white' : 'text-[#ffc474]') 
+              : (isLight ? 'text-[#796E64]' : 'text-white/60')
+          }`} />
           <span className="hidden sm:inline">Đo</span>
         </button>
 
-        <div className="w-[1px] h-5 bg-white/10 mx-1" />
+        <div className={`w-[1px] h-5 mx-1 ${isLight ? 'bg-[#E8E1D5]' : 'bg-white/10'}`} />
 
         {/* Zoom Group */}
         <button
           onClick={handleZoomIn}
-          className="p-2 rounded-lg hover:text-white hover:bg-white/10 transition-colors cursor-pointer"
+          className={`p-2 rounded-lg transition-colors cursor-pointer ${
+            isLight ? 'hover:text-[#231B15] hover:bg-[#F2ECE4]' : 'hover:text-white hover:bg-white/10'
+          }`}
           title="Phóng to"
         >
           <ZoomIn className="w-4 h-4" />
         </button>
-        <span className="text-[11px] font-mono px-1 text-white/50">
+        <span className={`text-[11px] font-mono px-1 ${isLight ? 'text-[#796E64]' : 'text-white/50'}`}>
           {Math.round(zoom * 100)}%
         </span>
         <button
           onClick={handleZoomOut}
-          className="p-2 rounded-lg hover:text-white hover:bg-white/10 transition-colors cursor-pointer"
+          className={`p-2 rounded-lg transition-colors cursor-pointer ${
+            isLight ? 'hover:text-[#231B15] hover:bg-[#F2ECE4]' : 'hover:text-white hover:bg-white/10'
+          }`}
           title="Thu nhỏ"
         >
           <ZoomOut className="w-4 h-4" />
         </button>
         <button
           onClick={handleResetFit}
-          className="p-2 rounded-lg hover:text-white hover:bg-white/10 transition-colors cursor-pointer"
+          className={`p-2 rounded-lg transition-colors cursor-pointer ${
+            isLight ? 'hover:text-[#231B15] hover:bg-[#F2ECE4]' : 'hover:text-white hover:bg-white/10'
+          }`}
           title="Vừa khung hình"
         >
           <Maximize2 className="w-4 h-4" />
         </button>
 
-        <div className="w-[1px] h-5 bg-white/10 mx-1" />
+        <div className={`w-[1px] h-5 mx-1 ${isLight ? 'bg-[#E8E1D5]' : 'bg-white/10'}`} />
 
         {/* Bật tắt lớp CAD (Layers) */}
         <div className="relative">
@@ -228,25 +267,37 @@ export const DrawingCanvas: React.FC<DrawingCanvasProps> = ({
             onClick={() => setShowLayersMenu(!showLayersMenu)}
             className={`p-2 rounded-lg text-xs flex items-center gap-1.5 transition-all cursor-pointer ${
               showLayersMenu
-                ? 'bg-white/10 text-white border border-white/15'
-                : 'hover:text-white hover:bg-white/5'
+                ? isLight 
+                  ? 'bg-[#FAF7F2] text-[#C25E3E] border border-[#E8E1D5]' 
+                  : 'bg-white/10 text-white border border-white/15'
+                : isLight 
+                  ? 'hover:text-[#231B15] hover:bg-[#F2ECE4]' 
+                  : 'hover:text-white hover:bg-white/5'
             }`}
             title="Quản lý lớp CAD"
           >
-            <Layers className="w-4 h-4 text-[#ffc474]" />
+            <Layers className={`w-4 h-4 ${isLight ? 'text-[#C25E3E]' : 'text-[#ffc474]'}`} />
             <span className="hidden sm:inline">Lớp</span>
           </button>
 
           {showLayersMenu && (
-            <div className="absolute top-12 left-0 w-60 p-3 rounded-xl bg-[#161822] border border-white/10 shadow-2xl text-xs font-mono space-y-2 z-30">
-              <div className="flex items-center justify-between text-white/40 text-[10px] pb-1.5 border-b border-white/10 uppercase">
+            <div className={`absolute top-12 left-0 w-60 p-3 rounded-xl border shadow-2xl text-xs font-mono space-y-2 z-30 ${
+              isLight 
+                ? 'bg-white border-[#E8E1D5] text-[#231B15]' 
+                : 'bg-[#161822] border-white/10 text-white'
+            }`}>
+              <div className={`flex items-center justify-between text-[10px] pb-1.5 border-b uppercase ${
+                isLight ? 'text-[#8C827A] border-[#E8E1D5]' : 'text-white/40 border-white/10'
+              }`}>
                 <span>LỚP CAD (LAYERS)</span>
                 <span>HIỂN THỊ</span>
               </div>
               {layers.map((lay) => (
                 <label
                   key={lay.id}
-                  className="flex items-center justify-between cursor-pointer py-1 text-white/70 hover:text-white"
+                  className={`flex items-center justify-between cursor-pointer py-1 transition-colors ${
+                    isLight ? 'text-[#5C5248] hover:text-[#231B15]' : 'text-white/70 hover:text-white'
+                  }`}
                 >
                   <div className="flex items-center gap-2">
                     <span
@@ -259,7 +310,7 @@ export const DrawingCanvas: React.FC<DrawingCanvasProps> = ({
                     type="checkbox"
                     checked={lay.visible}
                     onChange={() => onToggleLayer(lay.id)}
-                    className="rounded bg-white/10 border-white/20 text-[#ffc474] focus:ring-0 cursor-pointer"
+                    className="rounded accent-[#C25E3E] cursor-pointer"
                   />
                 </label>
               ))}
@@ -272,12 +323,16 @@ export const DrawingCanvas: React.FC<DrawingCanvasProps> = ({
           onClick={() => setFilterNeedsReview(!filterNeedsReview)}
           className={`p-2 rounded-lg text-xs flex items-center gap-1.5 transition-all cursor-pointer ${
             filterNeedsReview
-              ? 'bg-amber-500/20 text-[#ffc474] border border-amber-500/40'
-              : 'hover:text-white hover:bg-white/5'
+              ? isLight 
+                ? 'bg-[#FDF3EF] text-[#C25E3E] border border-[#E8C2B3] font-semibold' 
+                : 'bg-amber-500/20 text-[#ffc474] border border-amber-500/40'
+              : isLight 
+                ? 'hover:text-[#231B15] hover:bg-[#F2ECE4]' 
+                : 'hover:text-white hover:bg-white/5'
           }`}
           title="Lọc các phòng cần thẩm định"
         >
-          <Filter className="w-4 h-4 text-[#ffc474]" />
+          <Filter className={`w-4 h-4 ${isLight ? 'text-[#C25E3E]' : 'text-[#ffc474]'}`} />
           <span className="hidden md:inline">
             {filterNeedsReview ? 'Chỉ phòng cảnh báo' : 'Tất cả phòng'}
           </span>
@@ -288,15 +343,23 @@ export const DrawingCanvas: React.FC<DrawingCanvasProps> = ({
           THANH HÀNH ĐỘNG KHI ĐANG CHỌN PHÒNG
       ───────────────────────────────────────────────────────────── */}
       {selectedRoom && (
-        <div className="absolute top-4 right-4 z-20 flex items-center gap-2 p-1.5 rounded-xl bg-[#12141a]/95 backdrop-blur-md border border-white/10 shadow-2xl font-mono text-xs animate-in fade-in slide-in-from-top-2 duration-150">
-          <div className="px-3 py-1 bg-[#161822] border border-white/10 rounded-lg text-white font-bold flex items-center gap-2">
-            <span className="text-[#ffc474]">{selectedRoom.code}</span>
-            <span className="text-white/40 font-normal">({selectedRoom.floorArea} m²)</span>
+        <div className={`absolute top-4 right-4 z-20 flex items-center gap-2 p-1.5 rounded-xl backdrop-blur-md border shadow-2xl font-mono text-xs animate-in fade-in slide-in-from-top-2 duration-150 ${
+          isLight ? 'bg-white/95 border-[#E8E1D5]' : 'bg-[#12141a]/95 border-white/10'
+        }`}>
+          <div className={`px-3 py-1 border rounded-lg font-bold flex items-center gap-2 ${
+            isLight ? 'bg-[#FAF7F2] border-[#E8E1D5] text-[#231B15]' : 'bg-[#161822] border-white/10 text-white'
+          }`}>
+            <span className={isLight ? 'text-[#C25E3E]' : 'text-[#ffc474]'}>{selectedRoom.code}</span>
+            <span className={isLight ? 'text-[#8C827A] font-normal' : 'text-white/40 font-normal'}>({selectedRoom.floorArea} m²)</span>
           </div>
 
           <button
             onClick={() => onEditBoundary(selectedRoom)}
-            className="px-3 py-1.5 rounded-lg bg-white/5 hover:bg-white/10 border border-white/10 text-sky-400 flex items-center gap-1.5 transition-colors cursor-pointer"
+            className={`px-3 py-1.5 rounded-lg border flex items-center gap-1.5 transition-colors cursor-pointer ${
+              isLight 
+                ? 'bg-white hover:bg-[#FAF7F2] border-[#DDD5C7] text-[#C25E3E]' 
+                : 'bg-white/5 hover:bg-white/10 border-white/10 text-sky-400'
+            }`}
             title="Hiệu chỉnh đỉnh & đa giác"
           >
             <Edit3 className="w-3.5 h-3.5" />
@@ -305,7 +368,7 @@ export const DrawingCanvas: React.FC<DrawingCanvasProps> = ({
 
           <button
             onClick={() => onConfirmRoom(selectedRoom.id)}
-            className="px-3 py-1.5 rounded-lg bg-emerald-600 hover:bg-emerald-500 text-white font-semibold flex items-center gap-1.5 transition-colors cursor-pointer shadow-sm"
+            className="px-3 py-1.5 rounded-lg bg-emerald-600 hover:bg-emerald-500 text-white font-semibold flex items-center gap-1.5 transition-colors cursor-pointer shadow-xs"
           >
             <Check className="w-3.5 h-3.5" />
             <span>Phê duyệt</span>
@@ -313,7 +376,7 @@ export const DrawingCanvas: React.FC<DrawingCanvasProps> = ({
 
           <button
             onClick={() => onRejectRoom(selectedRoom.id)}
-            className="px-2.5 py-1.5 rounded-lg bg-rose-500/10 hover:bg-rose-500/20 border border-rose-500/30 text-rose-400 transition-colors cursor-pointer"
+            className="px-2.5 py-1.5 rounded-lg bg-rose-500/10 hover:bg-rose-500/20 border border-rose-500/30 text-rose-600 dark:text-rose-400 transition-colors cursor-pointer"
             title="Từ chối phòng"
           >
             <X className="w-3.5 h-3.5" />
@@ -339,7 +402,7 @@ export const DrawingCanvas: React.FC<DrawingCanvasProps> = ({
               <path
                 d={`M ${20 * zoom} 0 L 0 0 0 ${20 * zoom}`}
                 fill="none"
-                stroke="#1e293b"
+                stroke={isLight ? 'rgba(194, 94, 62, 0.08)' : '#1e293b'}
                 strokeWidth="0.5"
               />
             </pattern>
@@ -353,21 +416,21 @@ export const DrawingCanvas: React.FC<DrawingCanvasProps> = ({
               <path
                 d={`M ${100 * zoom} 0 L 0 0 0 ${100 * zoom}`}
                 fill="none"
-                stroke="#334155"
+                stroke={isLight ? 'rgba(194, 94, 62, 0.16)' : '#334155'}
                 strokeWidth="1"
               />
             </pattern>
           </defs>
 
           {/* Lưới tọa độ CAD */}
-          <rect width="100%" height="100%" fill="#080c15" />
+          <rect width="100%" height="100%" fill={isLight ? '#F9F6F0' : '#080c15'} />
           <rect width="100%" height="100%" fill="url(#cadGridLarge)" />
 
           {/* Nhóm hiển thị có thể phóng to và dịch chuyển */}
           <g transform={`translate(${pan.x}, ${pan.y}) scale(${zoom})`}>
             {/* Lưới trục kiến trúc (Layer A-DIM) */}
             {isLayerVisible('A-DIM') && (
-              <g stroke="#1e293b" strokeWidth="1" strokeDasharray="6 6">
+              <g stroke={isLight ? 'rgba(194, 94, 62, 0.2)' : '#1e293b'} strokeWidth="1" strokeDasharray="6 6">
                 <line x1="120" y1="40" x2="120" y2="780" />
                 <line x1="420" y1="40" x2="420" y2="780" />
                 <line x1="720" y1="40" x2="720" y2="780" />
@@ -380,24 +443,24 @@ export const DrawingCanvas: React.FC<DrawingCanvasProps> = ({
 
             {/* Vòng tròn định danh trục */}
             {isLayerVisible('A-DIM') && (
-              <g fill="#475569" className="font-mono text-[10px]">
-                <circle cx="120" cy="30" r="10" fill="#0f172a" stroke="#334155" />
-                <text x="117" y="34" fill="#94a3b8">1</text>
+              <g fill={isLight ? '#796E64' : '#475569'} className="font-mono text-[10px]">
+                <circle cx="120" cy="30" r="10" fill={isLight ? '#FFFFFF' : '#0f172a'} stroke={isLight ? '#C25E3E' : '#334155'} />
+                <text x="117" y="34" fill={isLight ? '#C25E3E' : '#94a3b8'}>1</text>
 
-                <circle cx="420" cy="30" r="10" fill="#0f172a" stroke="#334155" />
-                <text x="417" y="34" fill="#94a3b8">2</text>
+                <circle cx="420" cy="30" r="10" fill={isLight ? '#FFFFFF' : '#0f172a'} stroke={isLight ? '#C25E3E' : '#334155'} />
+                <text x="417" y="34" fill={isLight ? '#C25E3E' : '#94a3b8'}>2</text>
 
-                <circle cx="720" cy="30" r="10" fill="#0f172a" stroke="#334155" />
-                <text x="717" y="34" fill="#94a3b8">3</text>
+                <circle cx="720" cy="30" r="10" fill={isLight ? '#FFFFFF' : '#0f172a'} stroke={isLight ? '#C25E3E' : '#334155'} />
+                <text x="717" y="34" fill={isLight ? '#C25E3E' : '#94a3b8'}>3</text>
 
-                <circle cx="940" cy="30" r="10" fill="#0f172a" stroke="#334155" />
-                <text x="937" y="34" fill="#94a3b8">4</text>
+                <circle cx="940" cy="30" r="10" fill={isLight ? '#FFFFFF' : '#0f172a'} stroke={isLight ? '#C25E3E' : '#334155'} />
+                <text x="937" y="34" fill={isLight ? '#C25E3E' : '#94a3b8'}>4</text>
               </g>
             )}
 
             {/* Cột bê tông cốt thép kết cấu (Layer S-COL) */}
             {isLayerVisible('S-COL') && (
-              <g fill="#1e293b" stroke="#475569" strokeWidth="1.5">
+              <g fill={isLight ? '#E5DCD0' : '#1e293b'} stroke={isLight ? '#A3482B' : '#475569'} strokeWidth="1.5">
                 <rect x="105" y="85" width="30" height="30" />
                 <rect x="405" y="85" width="30" height="30" />
                 <rect x="705" y="85" width="30" height="30" />
@@ -448,22 +511,22 @@ export const DrawingCanvas: React.FC<DrawingCanvasProps> = ({
                         fill={
                           isSelected || isSourceHighlighted
                             ? isNeedsReview
-                              ? 'rgba(250, 204, 21, 0.28)'
-                              : 'rgba(74, 222, 128, 0.28)'
+                              ? isLight ? 'rgba(217, 119, 6, 0.28)' : 'rgba(250, 204, 21, 0.28)'
+                              : isLight ? 'rgba(194, 94, 62, 0.28)' : 'rgba(74, 222, 128, 0.28)'
                             : isNeedsReview
-                            ? 'rgba(250, 204, 21, 0.12)'
+                            ? isLight ? 'rgba(217, 119, 6, 0.16)' : 'rgba(250, 204, 21, 0.12)'
                             : isConfirmed
-                            ? 'rgba(74, 222, 128, 0.14)'
-                            : 'rgba(56, 189, 248, 0.10)'
+                            ? isLight ? 'rgba(5, 150, 105, 0.16)' : 'rgba(74, 222, 128, 0.14)'
+                            : isLight ? 'rgba(194, 94, 62, 0.12)' : 'rgba(56, 189, 248, 0.10)'
                         }
                         stroke={
                           isSelected || isSourceHighlighted
-                            ? '#38bdf8'
+                            ? isLight ? '#C25E3E' : '#38bdf8'
                             : isNeedsReview
-                            ? '#facc15'
+                            ? isLight ? '#D97706' : '#facc15'
                             : isConfirmed
-                            ? '#4ade80'
-                            : '#60a5fa'
+                            ? isLight ? '#059669' : '#4ade80'
+                            : isLight ? '#A3482B' : '#60a5fa'
                         }
                         strokeWidth={
                           isSelected || isSourceHighlighted ? '3' : '1.8'
@@ -481,14 +544,14 @@ export const DrawingCanvas: React.FC<DrawingCanvasProps> = ({
                               cx={v.x}
                               cy={v.y}
                               r="4.5"
-                              fill="#38bdf8"
-                              stroke="#080c15"
+                              fill={isLight ? '#C25E3E' : '#38bdf8'}
+                              stroke={isLight ? '#FFFFFF' : '#080c15'}
                               strokeWidth="1.5"
                             />
                             <text
                               x={v.x + 6}
                               y={v.y - 6}
-                              fill="#7dd3fc"
+                              fill={isLight ? '#A3482B' : '#7dd3fc'}
                               className="font-mono text-[9px] font-bold pointer-events-none"
                             >
                               #{vIdx + 1}
@@ -506,34 +569,42 @@ export const DrawingCanvas: React.FC<DrawingCanvasProps> = ({
                           y="0"
                           width="90"
                           height="44"
-                          rx="4"
-                          fill="rgba(15, 23, 42, 0.85)"
-                          stroke={isSelected ? '#38bdf8' : '#334155'}
-                          strokeWidth="1"
+                          rx="6"
+                          fill={isLight ? 'rgba(255, 255, 255, 0.95)' : 'rgba(15, 23, 42, 0.85)'}
+                          stroke={
+                            isSelected 
+                              ? (isLight ? '#C25E3E' : '#38bdf8') 
+                              : (isLight ? '#E8E1D5' : '#334155')
+                          }
+                          strokeWidth={isSelected ? '2' : '1'}
                         />
                         <text
                           x="45"
-                          y="16"
+                          y="15"
                           textAnchor="middle"
-                          fill="#f8fafc"
+                          fill={isLight ? '#231B15' : '#f8fafc'}
                           className="font-mono text-[11px] font-bold"
                         >
                           {room.code}
                         </text>
                         <text
                           x="45"
-                          y="29"
+                          y="28"
                           textAnchor="middle"
-                          fill="#94a3b8"
+                          fill={isLight ? '#5C5248' : '#94a3b8'}
                           className="font-mono text-[10px]"
                         >
                           {room.floorArea.toFixed(2)} m²
                         </text>
                         <text
                           x="45"
-                          y="39"
+                          y="38"
                           textAnchor="middle"
-                          fill={isNeedsReview ? '#facc15' : '#4ade80'}
+                          fill={
+                            isNeedsReview 
+                              ? (isLight ? '#D97706' : '#facc15') 
+                              : (isLight ? '#059669' : '#4ade80')
+                          }
                           className="font-mono text-[8px] font-bold"
                         >
                           {isNeedsReview ? '⚠️ THẨM ĐỊNH 71%' : `● ${room.confidence}% TIN CẬY`}
@@ -551,8 +622,8 @@ export const DrawingCanvas: React.FC<DrawingCanvasProps> = ({
                 <g key={door.id} transform={`translate(${door.x}, ${door.y})`}>
                   <path
                     d="M 0 0 A 32 32 0 0 1 32 32 L 0 32 Z"
-                    fill="rgba(96, 165, 250, 0.25)"
-                    stroke="#60a5fa"
+                    fill={isLight ? 'rgba(194, 94, 62, 0.18)' : 'rgba(96, 165, 250, 0.25)'}
+                    stroke={isLight ? '#C25E3E' : '#60a5fa'}
                     strokeWidth="1.5"
                   />
                   <rect
@@ -561,15 +632,15 @@ export const DrawingCanvas: React.FC<DrawingCanvasProps> = ({
                     width="36"
                     height="16"
                     rx="3"
-                    fill="#0f172a"
-                    stroke="#3b82f6"
+                    fill={isLight ? '#FFFFFF' : '#0f172a'}
+                    stroke={isLight ? '#E8C2B3' : '#3b82f6'}
                     strokeWidth="1"
                   />
                   <text
                     x="0"
                     y="-7"
                     textAnchor="middle"
-                    fill="#93c5fd"
+                    fill={isLight ? '#A3482B' : '#93c5fd'}
                     className="font-mono text-[9px] font-bold"
                   >
                     {door.code}
@@ -583,7 +654,7 @@ export const DrawingCanvas: React.FC<DrawingCanvasProps> = ({
                 cx={measurePointA.x}
                 cy={measurePointA.y}
                 r="5"
-                fill="#facc15"
+                fill={isLight ? '#C25E3E' : '#facc15'}
                 stroke="#000"
                 strokeWidth="1"
               />
@@ -595,7 +666,7 @@ export const DrawingCanvas: React.FC<DrawingCanvasProps> = ({
                   y1={measurePointA.y}
                   x2={measurePointB.x}
                   y2={measurePointB.y}
-                  stroke="#facc15"
+                  stroke={isLight ? '#C25E3E' : '#facc15'}
                   strokeWidth="2"
                   strokeDasharray="4 4"
                 />
@@ -603,7 +674,7 @@ export const DrawingCanvas: React.FC<DrawingCanvasProps> = ({
                   cx={measurePointB.x}
                   cy={measurePointB.y}
                   r="5"
-                  fill="#facc15"
+                  fill={isLight ? '#C25E3E' : '#facc15'}
                   stroke="#000"
                   strokeWidth="1"
                 />
@@ -613,15 +684,15 @@ export const DrawingCanvas: React.FC<DrawingCanvasProps> = ({
                   width="60"
                   height="20"
                   rx="4"
-                  fill="#0f172a"
-                  stroke="#facc15"
+                  fill={isLight ? '#FFFFFF' : '#0f172a'}
+                  stroke={isLight ? '#C25E3E' : '#facc15'}
                   strokeWidth="1"
                 />
                 <text
                   x={(measurePointA.x + measurePointB.x) / 2}
                   y={(measurePointA.y + measurePointB.y) / 2 - 4}
                   textAnchor="middle"
-                  fill="#facc15"
+                  fill={isLight ? '#C25E3E' : '#facc15'}
                   className="font-mono text-[10px] font-bold"
                 >
                   {measureDistance} m
@@ -635,27 +706,35 @@ export const DrawingCanvas: React.FC<DrawingCanvasProps> = ({
       {/* ─────────────────────────────────────────────────────────────
           THANH TRẠNG THÁI HUD DƯỚI ĐÁY
       ───────────────────────────────────────────────────────────── */}
-      <div className="h-9 px-4 bg-[#0e1015] border-t border-white/10 flex items-center justify-between text-[11px] font-mono text-white/50 z-10 shrink-0">
+      <div className={`h-9 px-4 border-t flex items-center justify-between text-[11px] font-mono z-10 shrink-0 transition-colors ${
+        isLight 
+          ? 'bg-[#FAF7F2] border-[#E8E1D5] text-[#5C5248]' 
+          : 'bg-[#0e1015] border-white/10 text-white/50'
+      }`}>
         <div className="flex items-center gap-4">
-          <span className="flex items-center gap-1.5 text-white/70">
-            <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
+          <span className={`flex items-center gap-1.5 font-semibold ${isLight ? 'text-[#231B15]' : 'text-white/70'}`}>
+            <span className={`w-2 h-2 rounded-full ${isLight ? 'bg-[#C25E3E]' : 'bg-emerald-400'} animate-pulse`} />
             <span>BỘ XỬ LÝ CAD: AC1032</span>
           </span>
-          <span className="text-white/20">|</span>
-          <span className="text-white/60">THỰC THỂ: 18,492</span>
-          <span className="text-white/20">|</span>
-          <span className="text-emerald-400 font-semibold">
+          <span className={isLight ? 'text-[#DDD5C7]' : 'text-white/20'}>|</span>
+          <span className={isLight ? 'text-[#796E64]' : 'text-white/60'}>THỰC THỂ: 18,492</span>
+          <span className={isLight ? 'text-[#DDD5C7]' : 'text-white/20'}>|</span>
+          <span className="text-emerald-600 dark:text-emerald-400 font-semibold">
             {rooms.filter((r) => r.status === 'Confirmed').length} / {rooms.length} Đã duyệt
           </span>
         </div>
 
         <div className="flex items-center gap-3">
           {activeTool === 'measure' && (
-            <span className="text-[#ffc474] hidden sm:inline">
+            <span className={`hidden sm:inline ${isLight ? 'text-[#C25E3E] font-medium' : 'text-[#ffc474]'}`}>
               Thước đo: Nhấp 2 điểm trên bản vẽ để tính khoảng cách CAD
             </span>
           )}
-          <div className="px-2.5 py-0.5 rounded-md bg-[#161822] border border-white/10 text-[#ffc474] font-mono font-bold text-[10px]">
+          <div className={`px-2.5 py-0.5 rounded-md border font-mono font-bold text-[10px] ${
+            isLight 
+              ? 'bg-white border-[#E8E1D5] text-[#C25E3E]' 
+              : 'bg-[#161822] border-white/10 text-[#ffc474]'
+          }`}>
             X: {mouseCoord.x.toFixed(2)}m &nbsp; Y: {mouseCoord.y.toFixed(2)}m
           </div>
         </div>
@@ -663,3 +742,4 @@ export const DrawingCanvas: React.FC<DrawingCanvasProps> = ({
     </div>
   );
 };
+

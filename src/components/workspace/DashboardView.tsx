@@ -46,7 +46,11 @@ const CadThumbnail: React.FC<{ index: number }> = ({ index }) => {
   const wallStroke = themeConfig.cadOuterWall;
 
   return (
-    <div className={`w-12 h-9 rounded-lg bg-[#080d18] border ${themeConfig.accentBorder} p-1 flex items-center justify-center shrink-0 overflow-hidden relative group-hover:border-sky-400/50 transition-colors`}>
+    <div className={`w-12 h-9 rounded-lg border p-1 flex items-center justify-center shrink-0 overflow-hidden relative transition-colors ${
+      themeConfig.isLight 
+        ? 'bg-[#FAF8F5] border-[#E8E1D5] group-hover:border-[#C25E3E]/50' 
+        : `bg-[#080d18] ${themeConfig.accentBorder} group-hover:border-sky-400/50`
+    }`}>
       <svg viewBox="0 0 52 40" className="w-full h-full fill-none" stroke={wallStroke} strokeWidth="1">
         {index % 3 === 0 && (
           <>
@@ -98,18 +102,27 @@ const CadCardBanner: React.FC<{ index: number; status: ProjectInfo['status']; pr
 }) => {
   const { themeConfig } = useWorkspaceTheme();
   const strokeColor = status === 'Review Required' 
-    ? '#f87171' 
+    ? '#e11d48' 
     : status === 'Completed' || status === 'Approved' 
-      ? '#38bdf8' 
-      : '#0ea5e9';
+      ? (themeConfig.isLight ? '#059669' : '#38bdf8') 
+      : themeConfig.cadOuterWall;
+
+  const textColor = themeConfig.isLight ? '#231B15' : '#ffffff';
+  const subtextColor = themeConfig.isLight ? '#C25E3E' : '#38bdf8';
 
   return (
-    <div className="relative w-full h-32 bg-[#060b14] overflow-hidden rounded-t-2xl border-b border-white/10 group-hover:border-sky-500/30 transition-colors">
+    <div className={`relative w-full h-32 overflow-hidden rounded-t-2xl border-b transition-colors ${
+      themeConfig.isLight 
+        ? 'bg-[#FAF8F5] border-[#E8E1D5] group-hover:border-[#C25E3E]/40' 
+        : 'bg-[#060b14] border-white/10 group-hover:border-sky-500/30'
+    }`}>
       {/* Blueprint Grid Lines Background */}
       <div 
         className="absolute inset-0 opacity-25"
         style={{
-          backgroundImage: 'linear-gradient(to right, #0284c7 1px, transparent 1px), linear-gradient(to bottom, #0284c7 1px, transparent 1px)',
+          backgroundImage: themeConfig.isLight 
+            ? 'linear-gradient(to right, rgba(194, 94, 62, 0.15) 1px, transparent 1px), linear-gradient(to bottom, rgba(194, 94, 62, 0.15) 1px, transparent 1px)'
+            : 'linear-gradient(to right, #0284c7 1px, transparent 1px), linear-gradient(to bottom, #0284c7 1px, transparent 1px)',
           backgroundSize: '16px 16px'
         }}
       />
@@ -121,54 +134,54 @@ const CadCardBanner: React.FC<{ index: number; status: ProjectInfo['status']; pr
         preserveAspectRatio="xMidYMid slice"
       >
         {/* Dimension ticks */}
-        <g stroke="#38bdf8" strokeWidth="0.6" strokeOpacity="0.4">
+        <g stroke={subtextColor} strokeWidth="0.6" strokeOpacity="0.5">
           <line x1="20" y1="14" x2="280" y2="14" />
           <line x1="20" y1="10" x2="20" y2="18" />
           <line x1="140" y1="10" x2="140" y2="18" />
           <line x1="280" y1="10" x2="280" y2="18" />
-          <text x="75" y="11" fill="#38bdf8" fontSize="7" fontFamily="monospace" opacity="0.7">14.50 m</text>
-          <text x="205" y="11" fill="#38bdf8" fontSize="7" fontFamily="monospace" opacity="0.7">12.80 m</text>
+          <text x="75" y="11" fill={subtextColor} fontSize="7" fontFamily="monospace" opacity="0.8">14.50 m</text>
+          <text x="205" y="11" fill={subtextColor} fontSize="7" fontFamily="monospace" opacity="0.8">12.80 m</text>
         </g>
 
         {index % 3 === 0 && (
           <g transform="translate(20, 22)">
             {/* Outer Walls */}
-            <rect x="0" y="0" width="260" height="92" stroke={strokeColor} strokeWidth="1.8" opacity="0.85" />
-            <rect x="2" y="2" width="256" height="88" stroke={strokeColor} strokeWidth="0.8" strokeDasharray="3,2" opacity="0.3" />
+            <rect x="0" y="0" width="260" height="92" stroke={strokeColor} strokeWidth="1.8" opacity="0.9" />
+            <rect x="2" y="2" width="256" height="88" stroke={strokeColor} strokeWidth="0.8" strokeDasharray="3,2" opacity="0.35" />
             
             {/* Interior partitions */}
-            <line x1="0" y1="46" x2="260" y2="46" stroke={strokeColor} strokeWidth="1.2" opacity="0.7" />
-            <line x1="90" y1="0" x2="90" y2="92" stroke={strokeColor} strokeWidth="1.2" opacity="0.7" />
-            <line x1="180" y1="46" x2="180" y2="92" stroke={strokeColor} strokeWidth="1.2" opacity="0.7" />
+            <line x1="0" y1="46" x2="260" y2="46" stroke={strokeColor} strokeWidth="1.2" opacity="0.75" />
+            <line x1="90" y1="0" x2="90" y2="92" stroke={strokeColor} strokeWidth="1.2" opacity="0.75" />
+            <line x1="180" y1="46" x2="180" y2="92" stroke={strokeColor} strokeWidth="1.2" opacity="0.75" />
             
             {/* Door swing arcs */}
             <path d="M 90 28 A 14 14 0 0 1 104 42" stroke={strokeColor} strokeWidth="0.8" opacity="0.6" />
             <path d="M 180 62 A 12 12 0 0 1 192 74" stroke={strokeColor} strokeWidth="0.8" opacity="0.6" />
             
             {/* Room identification labels */}
-            <text x="35" y="26" fill="#ffffff" fontSize="8" fontFamily="sans-serif" fontWeight="600" opacity="0.75">P. KHÁCH</text>
-            <text x="35" y="36" fill="#38bdf8" fontSize="7" fontFamily="monospace" opacity="0.7">38.5 m²</text>
+            <text x="35" y="26" fill={textColor} fontSize="8" fontFamily="sans-serif" fontWeight="700" opacity="0.85">P. KHÁCH</text>
+            <text x="35" y="36" fill={subtextColor} fontSize="7" fontFamily="monospace" opacity="0.85">38.5 m²</text>
 
-            <text x="125" y="26" fill="#ffffff" fontSize="8" fontFamily="sans-serif" fontWeight="600" opacity="0.75">P. NGỦ MASTER</text>
-            <text x="125" y="36" fill="#38bdf8" fontSize="7" fontFamily="monospace" opacity="0.7">24.2 m²</text>
+            <text x="125" y="26" fill={textColor} fontSize="8" fontFamily="sans-serif" fontWeight="700" opacity="0.85">P. NGỦ MASTER</text>
+            <text x="125" y="36" fill={subtextColor} fontSize="7" fontFamily="monospace" opacity="0.85">24.2 m²</text>
 
-            <text x="35" y="70" fill="#ffffff" fontSize="8" fontFamily="sans-serif" fontWeight="600" opacity="0.75">KHÔNG GIAN BẾP</text>
-            <text x="35" y="80" fill="#38bdf8" fontSize="7" fontFamily="monospace" opacity="0.7">18.0 m²</text>
+            <text x="35" y="70" fill={textColor} fontSize="8" fontFamily="sans-serif" fontWeight="700" opacity="0.85">KHÔNG GIAN BẾP</text>
+            <text x="35" y="80" fill={subtextColor} fontSize="7" fontFamily="monospace" opacity="0.85">18.0 m²</text>
 
-            <text x="210" y="70" fill="#ffffff" fontSize="8" fontFamily="sans-serif" fontWeight="600" opacity="0.75">WC / TẮM</text>
-            <text x="210" y="80" fill="#38bdf8" fontSize="7" fontFamily="monospace" opacity="0.7">6.8 m²</text>
+            <text x="210" y="70" fill={textColor} fontSize="8" fontFamily="sans-serif" fontWeight="700" opacity="0.85">WC / TẮM</text>
+            <text x="210" y="80" fill={subtextColor} fontSize="7" fontFamily="monospace" opacity="0.85">6.8 m²</text>
           </g>
         )}
 
         {index % 3 === 1 && (
           <g transform="translate(20, 22)">
             {/* Duplex / Office Suite layout */}
-            <polygon points="0,0 260,0 260,92 80,92 80,60 0,60" stroke={strokeColor} strokeWidth="1.8" opacity="0.85" />
-            <line x1="120" y1="0" x2="120" y2="60" stroke={strokeColor} strokeWidth="1.2" opacity="0.7" />
-            <line x1="190" y1="0" x2="190" y2="92" stroke={strokeColor} strokeWidth="1.2" opacity="0.7" />
+            <polygon points="0,0 260,0 260,92 80,92 80,60 0,60" stroke={strokeColor} strokeWidth="1.8" opacity="0.9" />
+            <line x1="120" y1="0" x2="120" y2="60" stroke={strokeColor} strokeWidth="1.2" opacity="0.75" />
+            <line x1="190" y1="0" x2="190" y2="92" stroke={strokeColor} strokeWidth="1.2" opacity="0.75" />
             
             {/* Stairwell hatch */}
-            <g stroke="#38bdf8" strokeWidth="0.6" opacity="0.4">
+            <g stroke={subtextColor} strokeWidth="0.6" opacity="0.45">
               <line x1="130" y1="10" x2="180" y2="10" />
               <line x1="130" y1="16" x2="180" y2="16" />
               <line x1="130" y1="22" x2="180" y2="22" />
@@ -176,55 +189,59 @@ const CadCardBanner: React.FC<{ index: number; status: ProjectInfo['status']; pr
               <line x1="130" y1="34" x2="180" y2="34" />
             </g>
 
-            <text x="40" y="32" fill="#ffffff" fontSize="8" fontFamily="sans-serif" fontWeight="600" opacity="0.75">VĂN PHÒNG MỞ</text>
-            <text x="40" y="42" fill="#38bdf8" fontSize="7" fontFamily="monospace" opacity="0.7">54.0 m²</text>
+            <text x="40" y="32" fill={textColor} fontSize="8" fontFamily="sans-serif" fontWeight="700" opacity="0.85">VĂN PHÒNG MỞ</text>
+            <text x="40" y="42" fill={subtextColor} fontSize="7" fontFamily="monospace" opacity="0.85">54.0 m²</text>
 
-            <text x="215" y="48" fill="#ffffff" fontSize="8" fontFamily="sans-serif" fontWeight="600" opacity="0.75">HỘI NGHỊ</text>
-            <text x="215" y="58" fill="#38bdf8" fontSize="7" fontFamily="monospace" opacity="0.7">22.4 m²</text>
+            <text x="215" y="48" fill={textColor} fontSize="8" fontFamily="sans-serif" fontWeight="700" opacity="0.85">HỘI NGHỊ</text>
+            <text x="215" y="58" fill={subtextColor} fontSize="7" fontFamily="monospace" opacity="0.85">22.4 m²</text>
           </g>
         )}
 
         {index % 3 === 2 && (
           <g transform="translate(20, 22)">
             {/* Penthouse / Villa complex layout */}
-            <rect x="0" y="10" width="260" height="82" stroke={strokeColor} strokeWidth="1.8" opacity="0.85" />
-            <line x1="75" y1="10" x2="75" y2="92" stroke={strokeColor} strokeWidth="1.2" opacity="0.7" />
-            <line x1="185" y1="10" x2="185" y2="92" stroke={strokeColor} strokeWidth="1.2" opacity="0.7" />
+            <rect x="0" y="10" width="260" height="82" stroke={strokeColor} strokeWidth="1.8" opacity="0.9" />
+            <line x1="75" y1="10" x2="75" y2="92" stroke={strokeColor} strokeWidth="1.2" opacity="0.75" />
+            <line x1="185" y1="10" x2="185" y2="92" stroke={strokeColor} strokeWidth="1.2" opacity="0.75" />
             <circle cx="130" cy="50" r="18" stroke={strokeColor} strokeWidth="0.8" strokeDasharray="2,2" opacity="0.5" />
             
-            <text x="25" y="48" fill="#ffffff" fontSize="8" fontFamily="sans-serif" fontWeight="600" opacity="0.75">SUITE TÂY</text>
-            <text x="25" y="58" fill="#38bdf8" fontSize="7" fontFamily="monospace" opacity="0.7">31.0 m²</text>
+            <text x="25" y="48" fill={textColor} fontSize="8" fontFamily="sans-serif" fontWeight="700" opacity="0.85">SUITE TÂY</text>
+            <text x="25" y="58" fill={subtextColor} fontSize="7" fontFamily="monospace" opacity="0.85">31.0 m²</text>
 
-            <text x="110" y="48" fill="#ffffff" fontSize="8" fontFamily="sans-serif" fontWeight="600" opacity="0.75">SANH CHÍNH</text>
-            <text x="115" y="58" fill="#38bdf8" fontSize="7" fontFamily="monospace" opacity="0.7">42.8 m²</text>
+            <text x="110" y="48" fill={textColor} fontSize="8" fontFamily="sans-serif" fontWeight="700" opacity="0.85">SANH CHÍNH</text>
+            <text x="115" y="58" fill={subtextColor} fontSize="7" fontFamily="monospace" opacity="0.85">42.8 m²</text>
 
-            <text x="210" y="48" fill="#ffffff" fontSize="8" fontFamily="sans-serif" fontWeight="600" opacity="0.75">SUITE ĐÔNG</text>
-            <text x="210" y="58" fill="#38bdf8" fontSize="7" fontFamily="monospace" opacity="0.7">33.5 m²</text>
+            <text x="210" y="48" fill={textColor} fontSize="8" fontFamily="sans-serif" fontWeight="700" opacity="0.85">SUITE ĐÔNG</text>
+            <text x="210" y="58" fill={subtextColor} fontSize="7" fontFamily="monospace" opacity="0.85">33.5 m²</text>
           </g>
         )}
       </svg>
 
       {/* Top Left Tag: Drawing format badge */}
-      <div className="absolute top-2.5 left-2.5 px-2 py-0.5 rounded-md bg-[#080d18]/90 border border-white/10 text-[9px] font-mono text-white/70 backdrop-blur-md flex items-center gap-1.5">
-        <span className="w-1.5 h-1.5 rounded-full bg-sky-400" />
+      <div className={`absolute top-2.5 left-2.5 px-2 py-0.5 rounded-md border text-[9px] font-mono backdrop-blur-md flex items-center gap-1.5 ${
+        themeConfig.isLight 
+          ? 'bg-white/95 border-[#E8E1D5] text-[#5C5248] shadow-2xs' 
+          : 'bg-[#080d18]/90 border-white/10 text-white/70'
+      }`}>
+        <span className={`w-1.5 h-1.5 rounded-full ${themeConfig.activeIndicator}`} />
         <span>VECTOR CAD · DWG</span>
       </div>
 
       {/* Top Right Status Badge */}
       <div className="absolute top-2.5 right-2.5">
         {status === 'Completed' || status === 'Approved' ? (
-          <span className="px-2 py-0.5 rounded-md bg-emerald-950/80 border border-emerald-500/40 text-[10px] font-mono font-medium text-emerald-300 flex items-center gap-1 backdrop-blur-md">
-            <span className="w-1.5 h-1.5 rounded-full bg-emerald-400" />
+          <span className="px-2 py-0.5 rounded-md bg-emerald-500/15 border border-emerald-500/40 text-[10px] font-mono font-bold text-emerald-600 flex items-center gap-1 backdrop-blur-md">
+            <span className="w-1.5 h-1.5 rounded-full bg-emerald-500" />
             Đã hoàn thành
           </span>
         ) : status === 'Review Required' ? (
-          <span className="px-2 py-0.5 rounded-md bg-rose-950/80 border border-rose-500/40 text-[10px] font-mono font-medium text-rose-300 flex items-center gap-1 backdrop-blur-md">
-            <span className="w-1.5 h-1.5 rounded-full bg-rose-400" />
+          <span className="px-2 py-0.5 rounded-md bg-rose-500/15 border border-rose-500/40 text-[10px] font-mono font-bold text-rose-600 flex items-center gap-1 backdrop-blur-md">
+            <span className="w-1.5 h-1.5 rounded-full bg-rose-500" />
             Cần kiểm tra
           </span>
         ) : (
-          <span className="px-2 py-0.5 rounded-md bg-sky-950/80 border border-sky-500/40 text-[10px] font-mono font-medium text-sky-300 flex items-center gap-1 backdrop-blur-md">
-            <span className="w-1.5 h-1.5 rounded-full bg-sky-400 animate-pulse" />
+          <span className={`px-2 py-0.5 rounded-md border text-[10px] font-mono font-bold flex items-center gap-1 backdrop-blur-md ${themeConfig.accentBadgeBg}`}>
+            <span className={`w-1.5 h-1.5 rounded-full ${themeConfig.activeIndicator} animate-pulse`} />
             Đang xử lý {progress}%
           </span>
         )}
@@ -232,8 +249,13 @@ const CadCardBanner: React.FC<{ index: number; status: ProjectInfo['status']; pr
 
       {/* Subtle Scanline Animation */}
       <div 
-        className="absolute inset-y-0 w-8 bg-gradient-to-r from-transparent via-sky-400/10 to-transparent pointer-events-none animate-pulse"
-        style={{ left: `${(progress * 2.6) % 260}px` }}
+        className="absolute inset-y-0 w-8 pointer-events-none animate-pulse"
+        style={{ 
+          left: `${(progress * 2.6) % 260}px`,
+          background: themeConfig.isLight 
+            ? 'linear-gradient(to right, transparent, rgba(194, 94, 62, 0.15), transparent)' 
+            : 'linear-gradient(to right, transparent, rgba(56, 189, 248, 0.15), transparent)' 
+        }}
       />
     </div>
   );
@@ -329,50 +351,66 @@ export const DashboardView: React.FC<DashboardViewProps> = ({
 
   return (
     <div 
-      className="min-h-full p-4 sm:p-6 lg:p-8 space-y-7 text-white font-sans selection:bg-sky-500 selection:text-white"
+      className={`min-h-full p-4 sm:p-6 lg:p-8 space-y-7 font-sans transition-colors duration-200 ${
+        themeConfig.isLight 
+          ? 'text-[#231B15] selection:bg-[#C25E3E] selection:text-white' 
+          : 'text-white selection:bg-sky-500 selection:text-white'
+      }`}
       style={{
         backgroundImage: `
           linear-gradient(to right, ${gridColor} 1px, transparent 1px),
           linear-gradient(to bottom, ${gridColor} 1px, transparent 1px)
         `,
         backgroundSize: '48px 48px',
-        backgroundColor: '#080d18'
+        backgroundColor: themeConfig.bgCanvas
       }}
     >
       {/* ─────────────────────────────────────────────────────────────
           1. PROFESSIONAL CONSTRUCTION MANAGEMENT CONSOLE HEADER
       ───────────────────────────────────────────────────────────── */}
-      <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 pb-1 border-b border-white/5">
+      <div className={`flex flex-col md:flex-row md:items-center justify-between gap-4 pb-1 border-b ${
+        themeConfig.isLight ? 'border-[#E8E1D5]' : 'border-white/5'
+      }`}>
         <div>
           {/* Technical Kicker / System Telemetry */}
-          <div className="flex items-center gap-2 text-[11px] font-mono text-sky-400 font-semibold tracking-wider uppercase mb-1">
-            <span className="inline-block w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
+          <div className={`flex items-center gap-2 text-[11px] font-mono font-semibold tracking-wider uppercase mb-1 ${
+            themeConfig.accentText
+          }`}>
+            <span className={`inline-block w-2 h-2 rounded-full ${themeConfig.isLight ? 'bg-[#C25E3E]' : 'bg-emerald-400'} animate-pulse`} />
             <span>HỆ THỐNG QUẢN LÝ DỰ ÁN & BÓC TÁCH KHỐI LƯỢNG CAD</span>
-            <span className="text-white/30">|</span>
-            <span className="text-white/50 lowercase">v2.4.1 online</span>
+            <span className="opacity-30">|</span>
+            <span className="opacity-60 lowercase">v2.4.1 online</span>
           </div>
 
-          <h1 className="text-2xl sm:text-3xl font-extrabold text-white tracking-tight flex items-center gap-2.5">
+          <h1 className={`text-2xl sm:text-3xl font-extrabold tracking-tight flex items-center gap-2.5 ${
+            themeConfig.isLight ? 'text-[#231B15]' : 'text-white'
+          }`}>
             <span>Không gian làm việc Kỹ sư</span>
-            <span className="text-xs font-mono font-normal px-2 py-0.5 rounded bg-sky-500/10 border border-sky-500/20 text-sky-300">
+            <span className={`text-xs font-mono font-normal px-2 py-0.5 rounded ${themeConfig.accentBadgeBg}`}>
               Phát Đức (Lead QS)
             </span>
           </h1>
-          <p className="text-sm text-white/60 mt-1 font-sans">
+          <p className={`text-sm mt-1 font-sans ${
+            themeConfig.isLight ? 'text-[#5C5248]' : 'text-white/60'
+          }`}>
             Theo dõi tiến độ bóc tách diện tích tường, cửa, trần và dự toán định mức sơn công trình.
           </p>
         </div>
 
         {/* Quick Console Stats / System Clock */}
         <div className="flex items-center gap-3">
-          <div className="hidden lg:flex flex-col text-right pr-4 border-r border-white/10">
-            <span className="text-[10px] font-mono uppercase text-white/40 tracking-wider">Trạng thái công cụ</span>
-            <span className="text-xs font-mono font-semibold text-emerald-400">AI CAD Engine 98.4% Acc.</span>
+          <div className={`hidden lg:flex flex-col text-right pr-4 border-r ${
+            themeConfig.isLight ? 'border-[#E8E1D5]' : 'border-white/10'
+          }`}>
+            <span className={`text-[10px] font-mono uppercase tracking-wider ${
+              themeConfig.isLight ? 'text-[#8C827A]' : 'text-white/40'
+            }`}>Trạng thái công cụ</span>
+            <span className="text-xs font-mono font-semibold text-emerald-600">AI CAD Engine 98.4% Acc.</span>
           </div>
 
           <button
             onClick={onCreateProject}
-            className={`inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl ${themeConfig.primaryBtn} hover:brightness-110 active:scale-98 text-xs sm:text-sm font-extrabold text-white shadow-[0_4px_16px_rgba(14,165,233,0.35)] transition-all cursor-pointer`}
+            className={`inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl ${themeConfig.primaryBtn} hover:brightness-110 active:scale-98 text-xs sm:text-sm font-extrabold text-white transition-all cursor-pointer`}
           >
             <Plus className="w-4 h-4 stroke-[3]" />
             <span>Tạo dự án mới</span>
@@ -386,18 +424,20 @@ export const DashboardView: React.FC<DashboardViewProps> = ({
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-3.5">
         
         {/* Metric 1: Tổng số dự án */}
-        <div className="p-4 rounded-2xl bg-[#0c1424] border border-white/10 flex flex-col justify-between hover:border-sky-500/30 transition-all shadow-sm">
+        <div className={`p-4 rounded-2xl border flex flex-col justify-between transition-all shadow-xs ${
+          themeConfig.isLight ? 'bg-white border-[#E8E1D5] hover:border-[#C25E3E]/40' : 'bg-[#0c1424] border-white/10 hover:border-sky-500/30'
+        }`}>
           <div className="flex items-center justify-between">
-            <span className="text-[11px] font-mono uppercase tracking-wider text-white/50">TỔNG SỐ DỰ ÁN</span>
+            <span className={`text-[11px] font-mono uppercase tracking-wider ${themeConfig.isLight ? 'text-[#796E64]' : 'text-white/50'}`}>TỔNG SỐ DỰ ÁN</span>
             <div className={`w-8 h-8 rounded-lg ${themeConfig.badgeBg} ${themeConfig.accentText} flex items-center justify-center border ${themeConfig.accentBorder}`}>
               <Folder className="w-4 h-4" />
             </div>
           </div>
           <div className="mt-3">
-            <div className="text-3xl font-black text-white font-mono tabular-nums">
+            <div className={`text-3xl font-black font-mono tabular-nums ${themeConfig.isLight ? 'text-[#231B15]' : 'text-white'}`}>
               {totalCount}
             </div>
-            <div className="flex items-center gap-1 text-[11px] font-medium text-emerald-400 mt-1 font-mono">
+            <div className="flex items-center gap-1 text-[11px] font-medium text-emerald-600 mt-1 font-mono">
               <ArrowUp className="w-3 h-3" />
               <span>+2 bản vẽ tháng này</span>
             </div>
@@ -405,54 +445,60 @@ export const DashboardView: React.FC<DashboardViewProps> = ({
         </div>
 
         {/* Metric 2: Đã hoàn thành */}
-        <div className="p-4 rounded-2xl bg-[#0c1424] border border-white/10 flex flex-col justify-between hover:border-emerald-500/30 transition-all shadow-sm">
+        <div className={`p-4 rounded-2xl border flex flex-col justify-between transition-all shadow-xs ${
+          themeConfig.isLight ? 'bg-white border-[#E8E1D5] hover:border-emerald-500/40' : 'bg-[#0c1424] border-white/10 hover:border-emerald-500/30'
+        }`}>
           <div className="flex items-center justify-between">
-            <span className="text-[11px] font-mono uppercase tracking-wider text-white/50">ĐÃ HOÀN TẤT</span>
-            <div className="w-8 h-8 rounded-lg bg-emerald-950/60 text-emerald-400 flex items-center justify-center border border-emerald-500/30">
+            <span className={`text-[11px] font-mono uppercase tracking-wider ${themeConfig.isLight ? 'text-[#796E64]' : 'text-white/50'}`}>ĐÃ HOÀN TẤT</span>
+            <div className="w-8 h-8 rounded-lg bg-emerald-500/15 text-emerald-600 flex items-center justify-center border border-emerald-500/30">
               <CheckCircle2 className="w-4 h-4" />
             </div>
           </div>
           <div className="mt-3">
-            <div className="text-3xl font-black text-white font-mono tabular-nums">
+            <div className={`text-3xl font-black font-mono tabular-nums ${themeConfig.isLight ? 'text-[#231B15]' : 'text-white'}`}>
               {completedCount}
             </div>
-            <div className="text-[11px] text-white/50 mt-1 font-mono">
+            <div className={`text-[11px] mt-1 font-mono ${themeConfig.isLight ? 'text-[#796E64]' : 'text-white/50'}`}>
               Tỷ lệ hoàn thành: {totalCount > 0 ? Math.round((completedCount / totalCount) * 100) : 0}%
             </div>
           </div>
         </div>
 
         {/* Metric 3: Đang xử lý */}
-        <div className="p-4 rounded-2xl bg-[#0c1424] border border-white/10 flex flex-col justify-between hover:border-sky-500/30 transition-all shadow-sm">
+        <div className={`p-4 rounded-2xl border flex flex-col justify-between transition-all shadow-xs ${
+          themeConfig.isLight ? 'bg-white border-[#E8E1D5] hover:border-[#C25E3E]/40' : 'bg-[#0c1424] border-white/10 hover:border-sky-500/30'
+        }`}>
           <div className="flex items-center justify-between">
-            <span className="text-[11px] font-mono uppercase tracking-wider text-white/50">ĐANG XỬ LÝ</span>
-            <div className="w-8 h-8 rounded-lg bg-sky-950/60 text-sky-400 flex items-center justify-center border border-sky-500/30">
+            <span className={`text-[11px] font-mono uppercase tracking-wider ${themeConfig.isLight ? 'text-[#796E64]' : 'text-white/50'}`}>ĐANG XỬ LÝ</span>
+            <div className={`w-8 h-8 rounded-lg ${themeConfig.accentIconBg} flex items-center justify-center`}>
               <Clock className="w-4 h-4" />
             </div>
           </div>
           <div className="mt-3">
-            <div className="text-3xl font-black text-white font-mono tabular-nums">
+            <div className={`text-3xl font-black font-mono tabular-nums ${themeConfig.isLight ? 'text-[#231B15]' : 'text-white'}`}>
               {processingCount}
             </div>
-            <div className="text-[11px] text-sky-400/80 mt-1 font-mono">
+            <div className={`text-[11px] mt-1 font-mono ${themeConfig.accentText}`}>
               Đang phân tích vector CAD
             </div>
           </div>
         </div>
 
         {/* Metric 4: Cần kiểm tra */}
-        <div className="p-4 rounded-2xl bg-[#0c1424] border border-white/10 flex flex-col justify-between hover:border-rose-500/30 transition-all shadow-sm">
+        <div className={`p-4 rounded-2xl border flex flex-col justify-between transition-all shadow-xs ${
+          themeConfig.isLight ? 'bg-white border-[#E8E1D5] hover:border-rose-500/40' : 'bg-[#0c1424] border-white/10 hover:border-rose-500/30'
+        }`}>
           <div className="flex items-center justify-between">
-            <span className="text-[11px] font-mono uppercase tracking-wider text-white/50">CẦN KIỂM TRA</span>
-            <div className="w-8 h-8 rounded-lg bg-rose-950/60 text-rose-400 flex items-center justify-center border border-rose-500/30">
+            <span className={`text-[11px] font-mono uppercase tracking-wider ${themeConfig.isLight ? 'text-[#796E64]' : 'text-white/50'}`}>CẦN KIỂM TRA</span>
+            <div className="w-8 h-8 rounded-lg bg-rose-500/15 text-rose-600 flex items-center justify-center border border-rose-500/30">
               <AlertTriangle className="w-4 h-4" />
             </div>
           </div>
           <div className="mt-3">
-            <div className="text-3xl font-black text-white font-mono tabular-nums">
+            <div className={`text-3xl font-black font-mono tabular-nums ${themeConfig.isLight ? 'text-[#231B15]' : 'text-white'}`}>
               {reviewCount}
             </div>
-            <div className="text-[11px] text-rose-400/80 mt-1 font-mono">
+            <div className="text-[11px] text-rose-600 mt-1 font-mono font-medium">
               Cần xác nhận đường bao
             </div>
           </div>
@@ -461,10 +507,10 @@ export const DashboardView: React.FC<DashboardViewProps> = ({
         {/* Metric 5: Action CTA Box */}
         <div
           onClick={onCreateProject}
-          className={`p-4 rounded-2xl ${themeConfig.primaryBtn} hover:brightness-110 active:scale-98 flex flex-col justify-between shadow-lg transition-all cursor-pointer group`}
+          className={`p-4 rounded-2xl ${themeConfig.primaryBtn} hover:brightness-110 active:scale-98 flex flex-col justify-between shadow-xs transition-all cursor-pointer group`}
         >
           <div className="flex items-center justify-between">
-            <span className="text-[11px] font-mono uppercase tracking-wider text-white/80 font-bold">KHỞI TẠO NHANH</span>
+            <span className="text-[11px] font-mono uppercase tracking-wider text-white/90 font-bold">KHỞI TẠO NHANH</span>
             <div className="w-8 h-8 rounded-lg bg-black/20 flex items-center justify-center text-white group-hover:rotate-90 transition-transform">
               <Plus className="w-4 h-4 stroke-[3]" />
             </div>
@@ -474,7 +520,7 @@ export const DashboardView: React.FC<DashboardViewProps> = ({
               <span>Tải bản vẽ CAD</span>
               <ArrowRight className="w-4 h-4 stroke-[2.5] group-hover:translate-x-1 transition-transform" />
             </div>
-            <div className="text-[11px] text-white/80 mt-1 font-medium leading-tight">
+            <div className="text-[11px] text-white/90 mt-1 font-medium leading-tight">
               Hỗ trợ PDF, DWG, DXF đa tầng
             </div>
           </div>
@@ -487,30 +533,42 @@ export const DashboardView: React.FC<DashboardViewProps> = ({
       ───────────────────────────────────────────────────────────── */}
       <div>
         <div className="flex items-center justify-between mb-3">
-          <h2 className="text-xs font-mono uppercase tracking-wider text-white/60 font-semibold flex items-center gap-2">
+          <h2 className={`text-xs font-mono uppercase tracking-wider font-semibold flex items-center gap-2 ${
+            themeConfig.isLight ? 'text-[#5C5248]' : 'text-white/60'
+          }`}>
             <span>QUY TRÌNH BÓC TÁCH KHỐI LƯỢNG CHUẨN</span>
-            <span className="h-px w-12 bg-white/10" />
+            <span className={`h-px w-12 ${themeConfig.isLight ? 'bg-[#E8E1D5]' : 'bg-white/10'}`} />
           </h2>
-          <span className="text-[11px] text-white/40 font-mono">4 Bước tự động hóa</span>
+          <span className={`text-[11px] font-mono ${themeConfig.isLight ? 'text-[#8C827A]' : 'text-white/40'}`}>4 Bước tự động hóa</span>
         </div>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
           {/* Step 1 */}
           <div 
             onClick={onCreateProject}
-            className="p-3.5 rounded-xl bg-[#0c1424] border border-white/10 hover:border-sky-500/40 transition-all flex items-center gap-3.5 cursor-pointer group shadow-sm"
+            className={`p-3.5 rounded-xl border transition-all flex items-center gap-3.5 cursor-pointer group shadow-xs ${
+              themeConfig.isLight 
+                ? 'bg-white border-[#E8E1D5] hover:border-[#C25E3E]/40' 
+                : 'bg-[#0c1424] border-white/10 hover:border-sky-500/40'
+            }`}
           >
-            <span className="w-7 h-7 rounded-lg bg-white/5 border border-white/10 text-white/60 font-mono font-bold text-xs flex items-center justify-center shrink-0 group-hover:text-sky-400 group-hover:border-sky-500/30">
+            <span className={`w-7 h-7 rounded-lg border font-mono font-bold text-xs flex items-center justify-center shrink-0 ${
+              themeConfig.isLight 
+                ? 'bg-[#FAF7F2] border-[#E8E1D5] text-[#796E64] group-hover:text-[#C25E3E]' 
+                : 'bg-white/5 border-white/10 text-white/60 group-hover:text-sky-400'
+            }`}>
               01
             </span>
-            <div className="w-9 h-9 rounded-xl bg-sky-500/10 text-sky-400 border border-sky-500/20 flex items-center justify-center shrink-0 group-hover:scale-105 transition-transform">
+            <div className={`w-9 h-9 rounded-xl flex items-center justify-center shrink-0 group-hover:scale-105 transition-transform ${themeConfig.accentIconBg}`}>
               <UploadCloud className="w-4 h-4" />
             </div>
             <div className="truncate">
-              <div className="font-bold text-xs text-white group-hover:text-sky-400 transition-colors">
+              <div className={`font-bold text-xs transition-colors ${
+                themeConfig.isLight ? 'text-[#231B15] group-hover:text-[#C25E3E]' : 'text-white group-hover:text-sky-400'
+              }`}>
                 Tải lên bản vẽ
               </div>
-              <div className="text-[11px] text-white/45 truncate font-mono">
+              <div className={`text-[11px] truncate font-mono ${themeConfig.isLight ? 'text-[#796E64]' : 'text-white/45'}`}>
                 DWG, DXF hoặc PDF
               </div>
             </div>
@@ -519,19 +577,29 @@ export const DashboardView: React.FC<DashboardViewProps> = ({
           {/* Step 2 */}
           <div 
             onClick={onCreateProject}
-            className="p-3.5 rounded-xl bg-[#0c1424] border border-white/10 hover:border-sky-500/40 transition-all flex items-center gap-3.5 cursor-pointer group shadow-sm"
+            className={`p-3.5 rounded-xl border transition-all flex items-center gap-3.5 cursor-pointer group shadow-xs ${
+              themeConfig.isLight 
+                ? 'bg-white border-[#E8E1D5] hover:border-[#C25E3E]/40' 
+                : 'bg-[#0c1424] border-white/10 hover:border-sky-500/40'
+            }`}
           >
-            <span className="w-7 h-7 rounded-lg bg-white/5 border border-white/10 text-white/60 font-mono font-bold text-xs flex items-center justify-center shrink-0 group-hover:text-sky-400 group-hover:border-sky-500/30">
+            <span className={`w-7 h-7 rounded-lg border font-mono font-bold text-xs flex items-center justify-center shrink-0 ${
+              themeConfig.isLight 
+                ? 'bg-[#FAF7F2] border-[#E8E1D5] text-[#796E64] group-hover:text-[#C25E3E]' 
+                : 'bg-white/5 border-white/10 text-white/60 group-hover:text-sky-400'
+            }`}>
               02
             </span>
-            <div className="w-9 h-9 rounded-xl bg-sky-500/10 text-sky-400 border border-sky-500/20 flex items-center justify-center shrink-0 group-hover:scale-105 transition-transform">
+            <div className={`w-9 h-9 rounded-xl flex items-center justify-center shrink-0 group-hover:scale-105 transition-transform ${themeConfig.accentIconBg}`}>
               <Sliders className="w-4 h-4" />
             </div>
             <div className="truncate">
-              <div className="font-bold text-xs text-white group-hover:text-sky-400 transition-colors">
+              <div className={`font-bold text-xs transition-colors ${
+                themeConfig.isLight ? 'text-[#231B15] group-hover:text-[#C25E3E]' : 'text-white group-hover:text-sky-400'
+              }`}>
                 Thiết lập thông số
               </div>
-              <div className="text-[11px] text-white/45 truncate font-mono">
+              <div className={`text-[11px] truncate font-mono ${themeConfig.isLight ? 'text-[#796E64]' : 'text-white/45'}`}>
                 Tầng, định mức, cao độ tường
               </div>
             </div>
@@ -540,19 +608,29 @@ export const DashboardView: React.FC<DashboardViewProps> = ({
           {/* Step 3 */}
           <div 
             onClick={() => projects.length > 0 && onSelectProject(projects[0])}
-            className="p-3.5 rounded-xl bg-[#0c1424] border border-white/10 hover:border-sky-500/40 transition-all flex items-center gap-3.5 cursor-pointer group shadow-sm"
+            className={`p-3.5 rounded-xl border transition-all flex items-center gap-3.5 cursor-pointer group shadow-xs ${
+              themeConfig.isLight 
+                ? 'bg-white border-[#E8E1D5] hover:border-[#C25E3E]/40' 
+                : 'bg-[#0c1424] border-white/10 hover:border-sky-500/40'
+            }`}
           >
-            <span className="w-7 h-7 rounded-lg bg-white/5 border border-white/10 text-white/60 font-mono font-bold text-xs flex items-center justify-center shrink-0 group-hover:text-sky-400 group-hover:border-sky-500/30">
+            <span className={`w-7 h-7 rounded-lg border font-mono font-bold text-xs flex items-center justify-center shrink-0 ${
+              themeConfig.isLight 
+                ? 'bg-[#FAF7F2] border-[#E8E1D5] text-[#796E64] group-hover:text-[#C25E3E]' 
+                : 'bg-white/5 border-white/10 text-white/60 group-hover:text-sky-400'
+            }`}>
               03
             </span>
-            <div className="w-9 h-9 rounded-xl bg-sky-500/10 text-sky-400 border border-sky-500/20 flex items-center justify-center shrink-0 group-hover:scale-105 transition-transform">
+            <div className={`w-9 h-9 rounded-xl flex items-center justify-center shrink-0 group-hover:scale-105 transition-transform ${themeConfig.accentIconBg}`}>
               <Cpu className="w-4 h-4" />
             </div>
             <div className="truncate">
-              <div className="font-bold text-xs text-white group-hover:text-sky-400 transition-colors">
+              <div className={`font-bold text-xs transition-colors ${
+                themeConfig.isLight ? 'text-[#231B15] group-hover:text-[#C25E3E]' : 'text-white group-hover:text-sky-400'
+              }`}>
                 AI bóc tách tự động
               </div>
-              <div className="text-[11px] text-white/45 truncate font-mono">
+              <div className={`text-[11px] truncate font-mono ${themeConfig.isLight ? 'text-[#796E64]' : 'text-white/45'}`}>
                 Quét phòng, trừ cửa sổ & cửa đi
               </div>
             </div>
@@ -561,19 +639,29 @@ export const DashboardView: React.FC<DashboardViewProps> = ({
           {/* Step 4 */}
           <div 
             onClick={() => projects.length > 0 && onOpenDrawingReview(projects[0])}
-            className="p-3.5 rounded-xl bg-[#0c1424] border border-white/10 hover:border-sky-500/40 transition-all flex items-center gap-3.5 cursor-pointer group shadow-sm"
+            className={`p-3.5 rounded-xl border transition-all flex items-center gap-3.5 cursor-pointer group shadow-xs ${
+              themeConfig.isLight 
+                ? 'bg-white border-[#E8E1D5] hover:border-[#C25E3E]/40' 
+                : 'bg-[#0c1424] border-white/10 hover:border-sky-500/40'
+            }`}
           >
-            <span className="w-7 h-7 rounded-lg bg-white/5 border border-white/10 text-white/60 font-mono font-bold text-xs flex items-center justify-center shrink-0 group-hover:text-sky-400 group-hover:border-sky-500/30">
+            <span className={`w-7 h-7 rounded-lg border font-mono font-bold text-xs flex items-center justify-center shrink-0 ${
+              themeConfig.isLight 
+                ? 'bg-[#FAF7F2] border-[#E8E1D5] text-[#796E64] group-hover:text-[#C25E3E]' 
+                : 'bg-white/5 border-white/10 text-white/60 group-hover:text-sky-400'
+            }`}>
               04
             </span>
-            <div className="w-9 h-9 rounded-xl bg-sky-500/10 text-sky-400 border border-sky-500/20 flex items-center justify-center shrink-0 group-hover:scale-105 transition-transform">
+            <div className={`w-9 h-9 rounded-xl flex items-center justify-center shrink-0 group-hover:scale-105 transition-transform ${themeConfig.accentIconBg}`}>
               <BarChart3 className="w-4 h-4" />
             </div>
             <div className="truncate">
-              <div className="font-bold text-xs text-white group-hover:text-sky-400 transition-colors">
+              <div className={`font-bold text-xs transition-colors ${
+                themeConfig.isLight ? 'text-[#231B15] group-hover:text-[#C25E3E]' : 'text-white group-hover:text-sky-400'
+              }`}>
                 Kiểm định & Xuất Excel
               </div>
-              <div className="text-[11px] text-white/45 truncate font-mono">
+              <div className={`text-[11px] truncate font-mono ${themeConfig.isLight ? 'text-[#796E64]' : 'text-white/45'}`}>
                 Bảng BOQ sơn sẵn sàng duyệt
               </div>
             </div>
@@ -584,26 +672,34 @@ export const DashboardView: React.FC<DashboardViewProps> = ({
       {/* ─────────────────────────────────────────────────────────────
           4. MAIN PROJECT CONSOLE (RESPONSIVE GRID & TABLE)
       ───────────────────────────────────────────────────────────── */}
-      <div className="rounded-2xl bg-[#0c1424] border border-white/10 p-4 sm:p-5 space-y-4 shadow-xl">
+      <div className={`rounded-2xl border p-4 sm:p-5 space-y-4 ${
+        themeConfig.isLight 
+          ? 'bg-white border-[#E8E1D5] shadow-xs text-[#231B15]' 
+          : 'bg-[#0c1424] border-white/10 shadow-xl text-white'
+      }`}>
         
         {/* Header: Title + Filters + Search + View Mode Toggle */}
-        <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-4 pb-3 border-b border-white/10">
+        <div className={`flex flex-col lg:flex-row lg:items-center justify-between gap-4 pb-3 border-b ${
+          themeConfig.isLight ? 'border-[#E8E1D5]' : 'border-white/10'
+        }`}>
           
           {/* Left: Section Title + Status Filter Tabs */}
           <div className="flex flex-wrap items-center gap-2 sm:gap-2.5">
             <div className="flex items-center gap-2 mr-2">
-              <Building className="w-4 h-4 text-sky-400" />
-              <h2 className="text-sm font-bold text-white uppercase tracking-wider font-mono">
+              <Building className={`w-4 h-4 ${themeConfig.accentText}`} />
+              <h2 className={`text-sm font-bold uppercase tracking-wider font-mono ${
+                themeConfig.isLight ? 'text-[#231B15]' : 'text-white'
+              }`}>
                 DANH MỤC DỰ ÁN
               </h2>
             </div>
 
             <button
               onClick={() => { setActiveFilter('all'); setCurrentPage(1); }}
-              className={`px-3 py-1.5 rounded-lg text-xs font-mono font-medium transition-all cursor-pointer ${
+              className={`px-3 py-1.5 rounded-lg text-xs font-mono font-semibold transition-all cursor-pointer ${
                 activeFilter === 'all'
-                  ? 'bg-sky-500/20 text-sky-300 border border-sky-400/40 shadow-sm'
-                  : 'bg-white/5 text-white/60 hover:text-white border border-transparent'
+                  ? (themeConfig.isLight ? 'bg-[#FDF3EF] text-[#C25E3E] border border-[#E8C2B3] shadow-xs' : 'bg-sky-500/20 text-sky-300 border border-sky-400/40 shadow-sm')
+                  : (themeConfig.isLight ? 'bg-[#FAF7F2] text-[#5C5248] hover:text-[#231B15] border border-[#E8E1D5]' : 'bg-white/5 text-white/60 hover:text-white border border-transparent')
               }`}
             >
               Tất cả ({totalCount})
@@ -611,10 +707,10 @@ export const DashboardView: React.FC<DashboardViewProps> = ({
 
             <button
               onClick={() => { setActiveFilter('processing'); setCurrentPage(1); }}
-              className={`px-3 py-1.5 rounded-lg text-xs font-mono font-medium transition-all cursor-pointer ${
+              className={`px-3 py-1.5 rounded-lg text-xs font-mono font-semibold transition-all cursor-pointer ${
                 activeFilter === 'processing'
-                  ? 'bg-sky-500/20 text-sky-300 border border-sky-400/40 shadow-sm'
-                  : 'bg-white/5 text-white/60 hover:text-white border border-transparent'
+                  ? (themeConfig.isLight ? 'bg-[#FDF3EF] text-[#C25E3E] border border-[#E8C2B3] shadow-xs' : 'bg-sky-500/20 text-sky-300 border border-sky-400/40 shadow-sm')
+                  : (themeConfig.isLight ? 'bg-[#FAF7F2] text-[#5C5248] hover:text-[#231B15] border border-[#E8E1D5]' : 'bg-white/5 text-white/60 hover:text-white border border-transparent')
               }`}
             >
               Đang xử lý ({processingCount})
@@ -622,10 +718,10 @@ export const DashboardView: React.FC<DashboardViewProps> = ({
 
             <button
               onClick={() => { setActiveFilter('completed'); setCurrentPage(1); }}
-              className={`px-3 py-1.5 rounded-lg text-xs font-mono font-medium transition-all cursor-pointer ${
+              className={`px-3 py-1.5 rounded-lg text-xs font-mono font-semibold transition-all cursor-pointer ${
                 activeFilter === 'completed'
-                  ? 'bg-emerald-500/20 text-emerald-300 border border-emerald-400/40 shadow-sm'
-                  : 'bg-white/5 text-white/60 hover:text-white border border-transparent'
+                  ? (themeConfig.isLight ? 'bg-emerald-50 text-emerald-800 border border-emerald-200 shadow-xs' : 'bg-emerald-500/20 text-emerald-300 border border-emerald-400/40 shadow-sm')
+                  : (themeConfig.isLight ? 'bg-[#FAF7F2] text-[#5C5248] hover:text-[#231B15] border border-[#E8E1D5]' : 'bg-white/5 text-white/60 hover:text-white border border-transparent')
               }`}
             >
               Hoàn thành ({completedCount})
@@ -633,10 +729,10 @@ export const DashboardView: React.FC<DashboardViewProps> = ({
 
             <button
               onClick={() => { setActiveFilter('review'); setCurrentPage(1); }}
-              className={`px-3 py-1.5 rounded-lg text-xs font-mono font-medium transition-all cursor-pointer ${
+              className={`px-3 py-1.5 rounded-lg text-xs font-mono font-semibold transition-all cursor-pointer ${
                 activeFilter === 'review'
-                  ? 'bg-rose-500/20 text-rose-300 border border-rose-400/40 shadow-sm'
-                  : 'bg-white/5 text-white/60 hover:text-white border border-transparent'
+                  ? (themeConfig.isLight ? 'bg-rose-50 text-rose-800 border border-rose-200 shadow-xs' : 'bg-rose-500/20 text-rose-300 border border-rose-400/40 shadow-sm')
+                  : (themeConfig.isLight ? 'bg-[#FAF7F2] text-[#5C5248] hover:text-[#231B15] border border-[#E8E1D5]' : 'bg-white/5 text-white/60 hover:text-white border border-transparent')
               }`}
             >
               Cần kiểm tra ({reviewCount})
@@ -646,25 +742,33 @@ export const DashboardView: React.FC<DashboardViewProps> = ({
           {/* Right Controls: Sort + View Toggle + Search */}
           <div className="flex flex-wrap items-center gap-2.5">
             {/* Sort Selector */}
-            <div className="flex items-center gap-1.5 text-xs text-white/60 bg-[#080d18] border border-white/10 rounded-xl px-2.5 py-1.5">
-              <span className="text-[11px] font-mono text-white/40">Sắp xếp:</span>
+            <div className={`flex items-center gap-1.5 text-xs rounded-xl px-2.5 py-1.5 border ${
+              themeConfig.isLight ? 'text-[#5C5248] bg-[#FAF7F2] border-[#E8E1D5]' : 'text-white/60 bg-[#080d18] border-white/10'
+            }`}>
+              <span className={`text-[11px] font-mono ${themeConfig.isLight ? 'text-[#8C827A]' : 'text-white/40'}`}>Sắp xếp:</span>
               <select 
                 value={sortBy} 
                 onChange={(e) => setSortBy(e.target.value as any)}
-                className="bg-transparent text-sky-300 text-xs font-medium focus:outline-none cursor-pointer"
+                className={`bg-transparent text-xs font-medium focus:outline-none cursor-pointer ${
+                  themeConfig.isLight ? 'text-[#C25E3E] font-bold' : 'text-sky-300'
+                }`}
               >
-                <option value="recent" className="bg-[#0c1424] text-white">Mới cập nhật</option>
-                <option value="name" className="bg-[#0c1424] text-white">Tên công trình</option>
-                <option value="progress" className="bg-[#0c1424] text-white">Tiến độ %</option>
+                <option value="recent" className={themeConfig.isLight ? 'bg-white text-[#231B15]' : 'bg-[#0c1424] text-white'}>Mới cập nhật</option>
+                <option value="name" className={themeConfig.isLight ? 'bg-white text-[#231B15]' : 'bg-[#0c1424] text-white'}>Tên công trình</option>
+                <option value="progress" className={themeConfig.isLight ? 'bg-white text-[#231B15]' : 'bg-[#0c1424] text-white'}>Tiến độ %</option>
               </select>
             </div>
 
             {/* View Mode Toggle: Grid vs List */}
-            <div className="flex items-center bg-[#080d18] border border-white/10 rounded-xl p-0.5">
+            <div className={`flex items-center border rounded-xl p-0.5 ${
+              themeConfig.isLight ? 'bg-[#FAF7F2] border-[#E8E1D5]' : 'bg-[#080d18] border-white/10'
+            }`}>
               <button
                 onClick={() => { setViewMode('grid'); setCurrentPage(1); }}
                 className={`p-1.5 rounded-lg transition-colors cursor-pointer flex items-center gap-1 text-xs ${
-                  viewMode === 'grid' ? 'bg-sky-500/20 text-sky-300 font-medium' : 'text-white/40 hover:text-white'
+                  viewMode === 'grid' 
+                    ? (themeConfig.isLight ? 'bg-white text-[#C25E3E] font-bold shadow-2xs' : 'bg-sky-500/20 text-sky-300 font-medium')
+                    : (themeConfig.isLight ? 'text-[#796E64] hover:text-[#231B15]' : 'text-white/40 hover:text-white')
                 }`}
                 title="Dạng lưới thẻ (Grid Console)"
               >
@@ -674,7 +778,9 @@ export const DashboardView: React.FC<DashboardViewProps> = ({
               <button
                 onClick={() => { setViewMode('list'); setCurrentPage(1); }}
                 className={`p-1.5 rounded-lg transition-colors cursor-pointer flex items-center gap-1 text-xs ${
-                  viewMode === 'list' ? 'bg-sky-500/20 text-sky-300 font-medium' : 'text-white/40 hover:text-white'
+                  viewMode === 'list' 
+                    ? (themeConfig.isLight ? 'bg-white text-[#C25E3E] font-bold shadow-2xs' : 'bg-sky-500/20 text-sky-300 font-medium')
+                    : (themeConfig.isLight ? 'text-[#796E64] hover:text-[#231B15]' : 'text-white/40 hover:text-white')
                 }`}
                 title="Dạng bảng (List Table)"
               >
@@ -685,13 +791,19 @@ export const DashboardView: React.FC<DashboardViewProps> = ({
 
             {/* Filter Search Input */}
             <div className="relative">
-              <Search className="w-3.5 h-3.5 text-white/40 absolute left-3 top-1/2 -translate-y-1/2" />
+              <Search className={`w-3.5 h-3.5 absolute left-3 top-1/2 -translate-y-1/2 ${
+                themeConfig.isLight ? 'text-[#8C827A]' : 'text-white/40'
+              }`} />
               <input
                 type="text"
                 placeholder="Tìm tên, file, tòa nhà..."
                 value={searchQuery}
                 onChange={(e) => { setSearchQuery(e.target.value); setCurrentPage(1); }}
-                className="w-40 sm:w-48 bg-[#080d18] border border-white/10 rounded-xl pl-8 pr-3 py-1.5 text-xs text-white placeholder-white/40 focus:outline-none focus:border-sky-400 transition-colors font-sans"
+                className={`w-40 sm:w-48 border rounded-xl pl-8 pr-3 py-1.5 text-xs transition-colors font-sans focus:outline-none ${
+                  themeConfig.isLight
+                    ? 'bg-[#FAF7F2] border-[#E8E1D5] text-[#231B15] placeholder-[#8C827A] focus:border-[#C25E3E] focus:bg-white'
+                    : 'bg-[#080d18] border-white/10 text-white placeholder-white/40 focus:border-sky-400'
+                }`}
               />
             </div>
           </div>
@@ -704,18 +816,26 @@ export const DashboardView: React.FC<DashboardViewProps> = ({
 
         {/* CASE 1: EMPTY STATE - NO PROJECTS OR FILTER MISMATCH */}
         {filteredProjects.length === 0 ? (
-          <div className="py-16 px-4 text-center rounded-xl bg-[#080d18]/60 border border-dashed border-white/10 flex flex-col items-center justify-center">
+          <div className={`py-16 px-4 text-center rounded-xl border border-dashed flex flex-col items-center justify-center ${
+            themeConfig.isLight 
+              ? 'bg-[#FAF7F2] border-[#E8E1D5]' 
+              : 'bg-[#080d18]/60 border-white/10'
+          }`}>
             {totalCount === 0 ? (
               // Scenario A: Completely empty project repository
               <div className="max-w-md mx-auto space-y-4">
-                <div className="w-16 h-16 rounded-2xl bg-sky-500/10 border border-sky-400/30 flex items-center justify-center text-sky-400 mx-auto shadow-[0_0_30px_rgba(14,165,233,0.15)]">
+                <div className={`w-16 h-16 rounded-2xl flex items-center justify-center mx-auto shadow-sm ${
+                  themeConfig.isLight 
+                    ? 'bg-[#FDF3EF] border border-[#E8C2B3] text-[#C25E3E]' 
+                    : 'bg-sky-500/10 border border-sky-400/30 text-sky-400 shadow-[0_0_30px_rgba(14,165,233,0.15)]'
+                }`}>
                   <Compass className="w-8 h-8 stroke-[1.8]" />
                 </div>
                 <div>
-                  <h3 className="text-base font-bold text-white tracking-tight">
+                  <h3 className={`text-base font-bold tracking-tight ${themeConfig.isLight ? 'text-[#231B15]' : 'text-white'}`}>
                     Chưa có dự án nào trong không gian làm việc
                   </h3>
-                  <p className="text-xs text-white/60 mt-1.5 leading-relaxed">
+                  <p className={`text-xs mt-1.5 leading-relaxed ${themeConfig.isLight ? 'text-[#796E64]' : 'text-white/60'}`}>
                     Tải lên bản vẽ mặt bằng kiến trúc đầu tiên (định dạng PDF, DWG hoặc DXF). Hệ thống AI sẽ tự động phân tách đường bao và bóc tách diện tích sơn.
                   </p>
                 </div>
@@ -732,23 +852,31 @@ export const DashboardView: React.FC<DashboardViewProps> = ({
             ) : (
               // Scenario B: Search query or filter yielded 0 matches
               <div className="max-w-md mx-auto space-y-3">
-                <div className="w-14 h-14 rounded-2xl bg-white/5 border border-white/10 flex items-center justify-center text-white/40 mx-auto">
+                <div className={`w-14 h-14 rounded-2xl flex items-center justify-center mx-auto ${
+                  themeConfig.isLight 
+                    ? 'bg-[#FAF7F2] border border-[#E8E1D5] text-[#8C827A]' 
+                    : 'bg-white/5 border border-white/10 text-white/40'
+                }`}>
                   <Search className="w-6 h-6" />
                 </div>
                 <div>
-                  <h3 className="text-sm font-bold text-white">
+                  <h3 className={`text-sm font-bold ${themeConfig.isLight ? 'text-[#231B15]' : 'text-white'}`}>
                     Không tìm thấy dự án phù hợp
                   </h3>
-                  <p className="text-xs text-white/50 mt-1">
-                    Không có kết quả nào khớp với bộ lọc <span className="text-sky-300 font-mono">"{searchQuery || activeFilter}"</span>. Hãy thử tìm kiếm bằng từ khóa khác hoặc thiết lập lại.
+                  <p className={`text-xs mt-1 ${themeConfig.isLight ? 'text-[#796E64]' : 'text-white/50'}`}>
+                    Không có kết quả nào khớp với bộ lọc <span className={`font-mono font-semibold ${themeConfig.isLight ? 'text-[#C25E3E]' : 'text-sky-300'}`}>"{searchQuery || activeFilter}"</span>. Hãy thử tìm kiếm bằng từ khóa khác hoặc thiết lập lại.
                   </p>
                 </div>
                 <div className="pt-2">
                   <button
                     onClick={handleResetFilters}
-                    className="inline-flex items-center gap-1.5 px-4 py-2 rounded-xl bg-white/5 hover:bg-white/10 border border-white/15 text-xs text-white font-medium cursor-pointer transition-colors"
+                    className={`inline-flex items-center gap-1.5 px-4 py-2 rounded-xl text-xs font-medium cursor-pointer transition-colors ${
+                      themeConfig.isLight 
+                        ? 'bg-white hover:bg-[#FAF7F2] border border-[#E8E1D5] text-[#231B15]' 
+                        : 'bg-white/5 hover:bg-white/10 border border-white/15 text-white'
+                    }`}
                   >
-                    <RotateCcw className="w-3.5 h-3.5 text-sky-400" />
+                    <RotateCcw className={`w-3.5 h-3.5 ${themeConfig.isLight ? 'text-[#C25E3E]' : 'text-sky-400'}`} />
                     <span>Xóa bộ lọc tìm kiếm</span>
                   </button>
                 </div>
@@ -770,7 +898,11 @@ export const DashboardView: React.FC<DashboardViewProps> = ({
               return (
                 <div
                   key={proj.id}
-                  className="rounded-2xl bg-[#080d18] border border-white/10 hover:border-sky-500/40 hover:shadow-[0_8px_30px_rgba(0,0,0,0.6)] transition-all flex flex-col justify-between group overflow-hidden"
+                  className={`rounded-2xl border transition-all flex flex-col justify-between group overflow-hidden ${
+                    themeConfig.isLight 
+                      ? 'bg-white border-[#E8E1D5] hover:border-[#C25E3E]/60 hover:shadow-md' 
+                      : 'bg-[#080d18] border-white/10 hover:border-sky-500/40 hover:shadow-[0_8px_30px_rgba(0,0,0,0.6)]'
+                  }`}
                 >
                   {/* Card Top: CAD Blueprint Banner */}
                   <CadCardBanner 
@@ -787,13 +919,19 @@ export const DashboardView: React.FC<DashboardViewProps> = ({
                         <div>
                           <h3 
                             onClick={() => onSelectProject(proj)}
-                            className="font-bold text-sm text-white group-hover:text-sky-300 transition-colors cursor-pointer line-clamp-1"
+                            className={`font-bold text-sm transition-colors cursor-pointer line-clamp-1 ${
+                              themeConfig.isLight 
+                                ? 'text-[#231B15] group-hover:text-[#C25E3E]' 
+                                : 'text-white group-hover:text-sky-300'
+                            }`}
                             title={proj.name}
                           >
                             {proj.name}
                           </h3>
-                          <div className="flex items-center gap-2 mt-1 text-[11px] font-mono text-white/50">
-                            <span className="text-sky-400">{proj.building}</span>
+                          <div className={`flex items-center gap-2 mt-1 text-[11px] font-mono ${
+                            themeConfig.isLight ? 'text-[#796E64]' : 'text-white/50'
+                          }`}>
+                            <span className={themeConfig.isLight ? 'text-[#C25E3E] font-medium' : 'text-sky-400'}>{proj.building}</span>
                             <span>·</span>
                             <span className="truncate max-w-[140px]" title={proj.fileName}>{proj.fileName}</span>
                           </div>
@@ -801,7 +939,9 @@ export const DashboardView: React.FC<DashboardViewProps> = ({
 
                         <button
                           onClick={() => onSelectProject(proj)}
-                          className="p-1 rounded-lg text-white/40 hover:text-white hover:bg-white/10 transition-colors shrink-0"
+                          className={`p-1 rounded-lg transition-colors shrink-0 ${
+                            themeConfig.isLight ? 'text-[#8C827A] hover:text-[#231B15] hover:bg-[#FAF7F2]' : 'text-white/40 hover:text-white hover:bg-white/10'
+                          }`}
                           title="Tùy chọn khác"
                         >
                           <MoreHorizontal className="w-4 h-4" />
@@ -809,34 +949,38 @@ export const DashboardView: React.FC<DashboardViewProps> = ({
                       </div>
 
                       {/* Technical Specs Metric Matrix */}
-                      <div className="grid grid-cols-2 gap-2 mt-3 p-2.5 rounded-xl bg-[#0c1424] border border-white/5 font-mono">
+                      <div className={`grid grid-cols-2 gap-2 mt-3 p-2.5 rounded-xl font-mono ${
+                        themeConfig.isLight ? 'bg-[#FAF7F2] border border-[#E8E1D5]' : 'bg-[#0c1424] border border-white/5'
+                      }`}>
                         <div>
-                          <div className="text-[10px] uppercase text-white/40">Diện tích sơn</div>
-                          <div className="text-xs font-bold text-white mt-0.5 tabular-nums">
+                          <div className={`text-[10px] uppercase ${themeConfig.isLight ? 'text-[#8C827A]' : 'text-white/40'}`}>Diện tích sơn</div>
+                          <div className={`text-xs font-bold mt-0.5 tabular-nums ${themeConfig.isLight ? 'text-[#231B15]' : 'text-white'}`}>
                             {proj.totalArea ? `${proj.totalArea.toLocaleString('vi-VN')} m²` : 'Đang tính...'}
                           </div>
                         </div>
 
                         <div>
-                          <div className="text-[10px] uppercase text-white/40">Quy mô tầng</div>
-                          <div className="text-xs font-bold text-white mt-0.5 tabular-nums">
+                          <div className={`text-[10px] uppercase ${themeConfig.isLight ? 'text-[#8C827A]' : 'text-white/40'}`}>Quy mô tầng</div>
+                          <div className={`text-xs font-bold mt-0.5 tabular-nums ${themeConfig.isLight ? 'text-[#231B15]' : 'text-white'}`}>
                             {proj.floorsCount} tầng ({proj.drawingsCount || 4} bản vẽ)
                           </div>
                         </div>
 
                         <div>
-                          <div className="text-[10px] uppercase text-white/40">Dự toán sơ bộ</div>
-                          <div className="text-xs font-bold text-emerald-400 mt-0.5 tabular-nums">
+                          <div className={`text-[10px] uppercase ${themeConfig.isLight ? 'text-[#8C827A]' : 'text-white/40'}`}>Dự toán sơ bộ</div>
+                          <div className={`text-xs font-bold mt-0.5 tabular-nums ${themeConfig.isLight ? 'text-emerald-700' : 'text-emerald-400'}`}>
                             {proj.totalCost ? `${(proj.totalCost / 1_000_000).toFixed(1)}M VNĐ` : '--'}
                           </div>
                         </div>
 
                         <div>
-                          <div className="text-[10px] uppercase text-white/40">Độ tin cậy AI</div>
-                          <div className="text-xs font-bold text-sky-400 mt-0.5 tabular-nums flex items-center gap-1">
+                          <div className={`text-[10px] uppercase ${themeConfig.isLight ? 'text-[#8C827A]' : 'text-white/40'}`}>Độ tin cậy AI</div>
+                          <div className={`text-xs font-bold mt-0.5 tabular-nums flex items-center gap-1 ${
+                            themeConfig.isLight ? 'text-[#C25E3E]' : 'text-sky-400'
+                          }`}>
                             <span>{proj.avgConfidence}%</span>
                             {proj.issuesCount > 0 && (
-                              <span className="text-[10px] text-rose-400">({proj.issuesCount} lỗi)</span>
+                              <span className={`text-[10px] ${themeConfig.isLight ? 'text-rose-600' : 'text-rose-400'}`}>({proj.issuesCount} lỗi)</span>
                             )}
                           </div>
                         </div>
@@ -845,18 +989,22 @@ export const DashboardView: React.FC<DashboardViewProps> = ({
 
                     {/* Progress Bar & Milestone */}
                     <div className="space-y-1.5 pt-1">
-                      <div className="flex items-center justify-between text-[11px] font-mono">
-                        <span className="text-white/50">Tiến độ bóc tách</span>
-                        <span className="text-white font-bold tabular-nums">{progress}%</span>
+                      <div className={`flex items-center justify-between text-[11px] font-mono ${
+                        themeConfig.isLight ? 'text-[#796E64]' : 'text-white/50'
+                      }`}>
+                        <span>Tiến độ bóc tách</span>
+                        <span className={`font-bold tabular-nums ${themeConfig.isLight ? 'text-[#231B15]' : 'text-white'}`}>{progress}%</span>
                       </div>
-                      <div className="h-1.5 rounded-full bg-white/10 overflow-hidden">
+                      <div className={`h-1.5 rounded-full overflow-hidden ${themeConfig.isLight ? 'bg-[#E8E1D5]' : 'bg-white/10'}`}>
                         <div 
                           className={`h-full ${
                             isReview 
                               ? 'bg-rose-500' 
                               : isCompleted 
-                                ? 'bg-gradient-to-r from-emerald-500 to-teal-400' 
-                                : 'bg-gradient-to-r from-sky-500 to-cyan-400'
+                                ? 'bg-gradient-to-r from-emerald-600 to-teal-500' 
+                                : themeConfig.isLight 
+                                  ? 'bg-gradient-to-r from-[#C25E3E] to-[#E07A5F]' 
+                                  : 'bg-gradient-to-r from-sky-500 to-cyan-400'
                           } rounded-full transition-all duration-500`}
                           style={{ width: `${progress}%` }}
                         />
@@ -864,8 +1012,10 @@ export const DashboardView: React.FC<DashboardViewProps> = ({
                     </div>
 
                     {/* Footer Actions: Last modified date + Action Button */}
-                    <div className="pt-2 border-t border-white/5 flex items-center justify-between gap-2">
-                      <div className="text-[10px] font-mono text-white/40 truncate">
+                    <div className={`pt-2 border-t flex items-center justify-between gap-2 ${
+                      themeConfig.isLight ? 'border-[#E8E1D5]' : 'border-white/5'
+                    }`}>
+                      <div className={`text-[10px] font-mono truncate ${themeConfig.isLight ? 'text-[#8C827A]' : 'text-white/40'}`}>
                         {proj.lastModified}
                       </div>
 
@@ -873,7 +1023,11 @@ export const DashboardView: React.FC<DashboardViewProps> = ({
                         {isCompleted && (
                           <button
                             onClick={() => onOpenDrawingReview(proj)}
-                            className="px-3 py-1.5 rounded-lg text-xs font-bold text-emerald-300 bg-emerald-950/60 hover:bg-emerald-900/80 border border-emerald-500/40 transition-all cursor-pointer flex items-center gap-1"
+                            className={`px-3 py-1.5 rounded-lg text-xs font-bold transition-all cursor-pointer flex items-center gap-1 ${
+                              themeConfig.isLight 
+                                ? 'text-emerald-800 bg-emerald-50 hover:bg-emerald-100 border border-emerald-200' 
+                                : 'text-emerald-300 bg-emerald-950/60 hover:bg-emerald-900/80 border border-emerald-500/40'
+                            }`}
                           >
                             <span>Xem kết quả</span>
                             <ArrowRight className="w-3 h-3" />
@@ -882,7 +1036,11 @@ export const DashboardView: React.FC<DashboardViewProps> = ({
                         {isProcessing && (
                           <button
                             onClick={() => onOpenDrawingReview(proj)}
-                            className="px-3 py-1.5 rounded-lg text-xs font-bold text-sky-300 bg-sky-950/60 hover:bg-sky-900/80 border border-sky-500/40 transition-all cursor-pointer flex items-center gap-1"
+                            className={`px-3 py-1.5 rounded-lg text-xs font-bold transition-all cursor-pointer flex items-center gap-1 ${
+                              themeConfig.isLight 
+                                ? 'text-[#C25E3E] bg-[#FDF3EF] hover:bg-[#FBE9E2] border border-[#E8C2B3]' 
+                                : 'text-sky-300 bg-sky-950/60 hover:bg-sky-900/80 border border-sky-500/40'
+                            }`}
                           >
                             <span>Tiếp tục</span>
                             <ArrowRight className="w-3 h-3" />
@@ -891,7 +1049,11 @@ export const DashboardView: React.FC<DashboardViewProps> = ({
                         {isReview && (
                           <button
                             onClick={() => onOpenDrawingReview(proj)}
-                            className="px-3 py-1.5 rounded-lg text-xs font-bold text-rose-300 bg-rose-950/60 hover:bg-rose-900/80 border border-rose-500/40 transition-all cursor-pointer flex items-center gap-1"
+                            className={`px-3 py-1.5 rounded-lg text-xs font-bold transition-all cursor-pointer flex items-center gap-1 ${
+                              themeConfig.isLight 
+                                ? 'text-rose-800 bg-rose-50 hover:bg-rose-100 border border-rose-200' 
+                                : 'text-rose-300 bg-rose-950/60 hover:bg-rose-900/80 border border-rose-500/40'
+                            }`}
                           >
                             <span>Xem vấn đề</span>
                             <AlertTriangle className="w-3 h-3" />
@@ -914,13 +1076,21 @@ export const DashboardView: React.FC<DashboardViewProps> = ({
           <div className="overflow-x-auto">
             <table className="w-full text-left border-collapse min-w-[780px]">
               <thead>
-                <tr className="border-b border-white/10 text-[11px] font-mono uppercase tracking-wider text-white/40">
+                <tr className={`border-b text-[11px] font-mono uppercase tracking-wider ${
+                  themeConfig.isLight 
+                    ? 'border-[#E8E1D5] text-[#8C827A] bg-[#FAF7F2]/60' 
+                    : 'border-white/10 text-white/40'
+                }`}>
                   <th className="py-2.5 px-3 w-8">
                     <input
                       type="checkbox"
                       checked={selectedProjectIds.length === paginatedProjects.length && paginatedProjects.length > 0}
                       onChange={handleToggleSelectAll}
-                      className="rounded bg-[#080d18] border-white/20 text-sky-500 focus:ring-0 cursor-pointer accent-sky-500"
+                      className={`rounded cursor-pointer ${
+                        themeConfig.isLight 
+                          ? 'border-[#E8E1D5] accent-[#C25E3E]' 
+                          : 'bg-[#080d18] border-white/20 text-sky-500 accent-sky-500'
+                      }`}
                     />
                   </th>
                   <th className="py-2.5 px-3">Tên dự án / Bản vẽ CAD</th>
@@ -931,7 +1101,9 @@ export const DashboardView: React.FC<DashboardViewProps> = ({
                   <th className="py-2.5 px-3 text-right">Thao tác</th>
                 </tr>
               </thead>
-              <tbody className="divide-y divide-white/5 text-xs font-sans">
+              <tbody className={`divide-y text-xs font-sans ${
+                themeConfig.isLight ? 'divide-[#E8E1D5]' : 'divide-white/5'
+              }`}>
                 {paginatedProjects.map((proj, idx) => {
                   const isSelected = selectedProjectIds.includes(proj.id);
                   const isCompleted = proj.status === 'Completed' || proj.status === 'Approved';
@@ -942,8 +1114,10 @@ export const DashboardView: React.FC<DashboardViewProps> = ({
                   return (
                     <tr 
                       key={proj.id}
-                      className={`hover:bg-sky-500/5 transition-colors group ${
-                        isSelected ? 'bg-sky-500/10' : ''
+                      className={`transition-colors group ${
+                        themeConfig.isLight
+                          ? (isSelected ? 'bg-[#FDF3EF]' : 'hover:bg-[#FAF7F2]')
+                          : (isSelected ? 'bg-sky-500/10' : 'hover:bg-sky-500/5')
                       }`}
                     >
                       {/* Checkbox */}
@@ -952,7 +1126,11 @@ export const DashboardView: React.FC<DashboardViewProps> = ({
                           type="checkbox"
                           checked={isSelected}
                           onChange={() => handleToggleSelectOne(proj.id)}
-                          className="rounded bg-[#080d18] border-white/20 text-sky-500 focus:ring-0 cursor-pointer accent-sky-500"
+                          className={`rounded cursor-pointer ${
+                            themeConfig.isLight 
+                              ? 'border-[#E8E1D5] accent-[#C25E3E]' 
+                              : 'bg-[#080d18] border-white/20 text-sky-500 accent-sky-500'
+                          }`}
                         />
                       </td>
 
@@ -963,11 +1141,15 @@ export const DashboardView: React.FC<DashboardViewProps> = ({
                           <div>
                             <div 
                               onClick={() => onSelectProject(proj)}
-                              className="font-bold text-white group-hover:text-sky-300 transition-colors cursor-pointer"
+                              className={`font-bold transition-colors cursor-pointer ${
+                                themeConfig.isLight 
+                                  ? 'text-[#231B15] group-hover:text-[#C25E3E]' 
+                                  : 'text-white group-hover:text-sky-300'
+                              }`}
                             >
                               {proj.name}
                             </div>
-                            <div className="text-[11px] font-mono text-white/40">
+                            <div className={`text-[11px] font-mono ${themeConfig.isLight ? 'text-[#796E64]' : 'text-white/40'}`}>
                               {proj.fileName} · {proj.building}
                             </div>
                           </div>
@@ -975,11 +1157,11 @@ export const DashboardView: React.FC<DashboardViewProps> = ({
                       </td>
 
                       {/* Thông tin */}
-                      <td className="py-3 px-3 text-white/70 font-mono text-xs">
+                      <td className={`py-3 px-3 font-mono text-xs ${themeConfig.isLight ? 'text-[#5C5248]' : 'text-white/70'}`}>
                         <div>
                           {proj.floorsInfo ? proj.floorsInfo.split(' / ')[0] : `${proj.floorsCount} tầng`}
                         </div>
-                        <div className="text-[11px] text-white/40">
+                        <div className={`text-[11px] ${themeConfig.isLight ? 'text-[#8C827A]' : 'text-white/40'}`}>
                           {proj.floorsInfo ? proj.floorsInfo.split(' / ')[1] : `${proj.drawingsCount || 4} bản vẽ`}
                         </div>
                       </td>
@@ -987,20 +1169,28 @@ export const DashboardView: React.FC<DashboardViewProps> = ({
                       {/* Trạng thái */}
                       <td className="py-3 px-3 font-mono">
                         {isCompleted && (
-                          <div className="inline-flex items-center gap-1.5 text-xs text-emerald-400">
-                            <span className="w-1.5 h-1.5 rounded-full bg-emerald-400" />
+                          <div className={`inline-flex items-center gap-1.5 text-xs ${
+                            themeConfig.isLight ? 'text-emerald-700' : 'text-emerald-400'
+                          }`}>
+                            <span className="w-1.5 h-1.5 rounded-full bg-emerald-500" />
                             <span>Đã hoàn thành</span>
                           </div>
                         )}
                         {isProcessing && (
-                          <div className="inline-flex items-center gap-1.5 text-xs text-sky-400">
-                            <span className="w-1.5 h-1.5 rounded-full bg-sky-400 animate-pulse" />
+                          <div className={`inline-flex items-center gap-1.5 text-xs ${
+                            themeConfig.isLight ? 'text-[#C25E3E]' : 'text-sky-400'
+                          }`}>
+                            <span className={`w-1.5 h-1.5 rounded-full animate-pulse ${
+                              themeConfig.isLight ? 'bg-[#C25E3E]' : 'bg-sky-400'
+                            }`} />
                             <span>Đang xử lý</span>
                           </div>
                         )}
                         {isReview && (
-                          <div className="inline-flex items-center gap-1.5 text-xs text-rose-400">
-                            <span className="w-1.5 h-1.5 rounded-full bg-rose-400" />
+                          <div className={`inline-flex items-center gap-1.5 text-xs ${
+                            themeConfig.isLight ? 'text-rose-700' : 'text-rose-400'
+                          }`}>
+                            <span className="w-1.5 h-1.5 rounded-full bg-rose-500" />
                             <span>Cần kiểm tra</span>
                           </div>
                         )}
@@ -1009,25 +1199,37 @@ export const DashboardView: React.FC<DashboardViewProps> = ({
                       {/* Tiến độ Bar */}
                       <td className="py-3 px-3">
                         <div className="flex items-center gap-2 font-mono">
-                          <div className="flex-1 h-1.5 rounded-full bg-[#080d18] overflow-hidden">
+                          <div className={`flex-1 h-1.5 rounded-full overflow-hidden ${
+                            themeConfig.isLight ? 'bg-[#E8E1D5]' : 'bg-[#080d18]'
+                          }`}>
                             <div 
                               className={`h-full ${
-                                isReview ? 'bg-rose-500' : isCompleted ? 'bg-emerald-500' : 'bg-sky-500'
+                                isReview 
+                                  ? 'bg-rose-500' 
+                                  : isCompleted 
+                                    ? 'bg-emerald-500' 
+                                    : themeConfig.isLight 
+                                      ? 'bg-[#C25E3E]' 
+                                      : 'bg-sky-500'
                               } rounded-full transition-all duration-500`} 
                               style={{ width: `${progress}%` }}
                             />
                           </div>
-                          <span className="text-[11px] text-white/60 w-8 text-right tabular-nums">
+                          <span className={`text-[11px] w-8 text-right tabular-nums ${
+                            themeConfig.isLight ? 'text-[#796E64]' : 'text-white/60'
+                          }`}>
                             {progress}%
                           </span>
                         </div>
                       </td>
 
                       {/* Cập nhật gần nhất */}
-                      <td className="py-3 px-3 text-white/60 font-mono text-[11px]">
+                      <td className={`py-3 px-3 font-mono text-[11px] ${
+                        themeConfig.isLight ? 'text-[#796E64]' : 'text-white/60'
+                      }`}>
                         <div>{proj.lastModified.includes(' ') ? proj.lastModified.split(' ')[0] : proj.lastModified}</div>
                         {proj.lastModified.includes(' ') && (
-                          <div className="text-white/40">{proj.lastModified.split(' ')[1]}</div>
+                          <div className={themeConfig.isLight ? 'text-[#8C827A]' : 'text-white/40'}>{proj.lastModified.split(' ')[1]}</div>
                         )}
                       </td>
 
@@ -1037,7 +1239,11 @@ export const DashboardView: React.FC<DashboardViewProps> = ({
                           {isCompleted && (
                             <button
                               onClick={() => onOpenDrawingReview(proj)}
-                              className="px-3 py-1 rounded-lg text-xs font-semibold text-sky-300 bg-sky-950/60 border border-sky-500/30 hover:bg-sky-900/80 transition-all cursor-pointer"
+                              className={`px-3 py-1 rounded-lg text-xs font-semibold transition-all cursor-pointer ${
+                                themeConfig.isLight 
+                                  ? 'text-emerald-800 bg-emerald-50 border border-emerald-200 hover:bg-emerald-100' 
+                                  : 'text-sky-300 bg-sky-950/60 border border-sky-500/30 hover:bg-sky-900/80'
+                              }`}
                             >
                               Xem kết quả
                             </button>
@@ -1045,7 +1251,11 @@ export const DashboardView: React.FC<DashboardViewProps> = ({
                           {isProcessing && (
                             <button
                               onClick={() => onOpenDrawingReview(proj)}
-                              className="px-3 py-1 rounded-lg text-xs font-semibold text-sky-300 bg-sky-950/60 border border-sky-500/30 hover:bg-sky-900/80 transition-all cursor-pointer"
+                              className={`px-3 py-1 rounded-lg text-xs font-semibold transition-all cursor-pointer ${
+                                themeConfig.isLight 
+                                  ? 'text-[#C25E3E] bg-[#FDF3EF] border border-[#E8C2B3] hover:bg-[#FBE9E2]' 
+                                  : 'text-sky-300 bg-sky-950/60 border border-sky-500/30 hover:bg-sky-900/80'
+                              }`}
                             >
                               Tiếp tục
                             </button>
@@ -1053,7 +1263,11 @@ export const DashboardView: React.FC<DashboardViewProps> = ({
                           {isReview && (
                             <button
                               onClick={() => onOpenDrawingReview(proj)}
-                              className="px-3 py-1 rounded-lg text-xs font-semibold text-rose-300 bg-rose-950/60 border border-rose-500/30 hover:bg-rose-900/80 transition-all cursor-pointer"
+                              className={`px-3 py-1 rounded-lg text-xs font-semibold transition-all cursor-pointer ${
+                                themeConfig.isLight 
+                                  ? 'text-rose-800 bg-rose-50 border border-rose-200 hover:bg-rose-100' 
+                                  : 'text-rose-300 bg-rose-950/60 border border-rose-500/30 hover:bg-rose-900/80'
+                              }`}
                             >
                               Xem lỗi
                             </button>
@@ -1061,7 +1275,9 @@ export const DashboardView: React.FC<DashboardViewProps> = ({
 
                           <button 
                             onClick={() => onSelectProject(proj)}
-                            className="p-1.5 rounded-lg text-white/40 hover:text-white hover:bg-white/10 transition-colors cursor-pointer"
+                            className={`p-1.5 rounded-lg transition-colors cursor-pointer ${
+                              themeConfig.isLight ? 'text-[#8C827A] hover:text-[#231B15] hover:bg-[#FAF7F2]' : 'text-white/40 hover:text-white hover:bg-white/10'
+                            }`}
                             title="Tùy chọn khác"
                           >
                             <MoreHorizontal className="w-4 h-4" />
@@ -1080,7 +1296,9 @@ export const DashboardView: React.FC<DashboardViewProps> = ({
             PAGINATION & ITEM COUNTER
         ───────────────────────────────────────────────────────────── */}
         {filteredProjects.length > 0 && (
-          <div className="flex flex-col sm:flex-row items-center justify-between gap-3 pt-3 border-t border-white/10 text-xs text-white/50 font-mono">
+          <div className={`flex flex-col sm:flex-row items-center justify-between gap-3 pt-3 border-t text-xs font-mono ${
+            themeConfig.isLight ? 'border-[#E8E1D5] text-[#796E64]' : 'border-white/10 text-white/50'
+          }`}>
             <div>
               Hiển thị 1 - {paginatedProjects.length} trong tổng số {filteredProjects.length} dự án
             </div>
@@ -1089,7 +1307,11 @@ export const DashboardView: React.FC<DashboardViewProps> = ({
               <button
                 onClick={() => setCurrentPage(p => Math.max(1, p - 1))}
                 disabled={currentPage === 1}
-                className="p-1.5 rounded-lg border border-white/10 text-white/60 hover:text-white hover:bg-white/5 disabled:opacity-30 disabled:cursor-not-allowed cursor-pointer"
+                className={`p-1.5 rounded-lg border disabled:opacity-30 disabled:cursor-not-allowed cursor-pointer ${
+                  themeConfig.isLight 
+                    ? 'border-[#E8E1D5] text-[#5C5248] hover:text-[#231B15] hover:bg-[#FAF7F2]' 
+                    : 'border-white/10 text-white/60 hover:text-white hover:bg-white/5'
+                }`}
               >
                 <ChevronLeft className="w-3.5 h-3.5" />
               </button>
@@ -1103,8 +1325,8 @@ export const DashboardView: React.FC<DashboardViewProps> = ({
                     onClick={() => setCurrentPage(pageNum)}
                     className={`w-7 h-7 rounded-lg text-xs font-semibold transition-colors cursor-pointer ${
                       isActive
-                        ? 'bg-sky-500 text-white font-bold shadow-xs'
-                        : 'border border-white/10 text-white/60 hover:text-white hover:bg-white/5'
+                        ? (themeConfig.isLight ? 'bg-[#C25E3E] text-white font-bold shadow-xs' : 'bg-sky-500 text-white font-bold shadow-xs')
+                        : (themeConfig.isLight ? 'border border-[#E8E1D5] text-[#5C5248] hover:text-[#231B15] hover:bg-[#FAF7F2]' : 'border border-white/10 text-white/60 hover:text-white hover:bg-white/5')
                     }`}
                   >
                     {pageNum}
@@ -1115,7 +1337,11 @@ export const DashboardView: React.FC<DashboardViewProps> = ({
               <button
                 onClick={() => setCurrentPage(p => Math.min(totalPages, p + 1))}
                 disabled={currentPage === totalPages}
-                className="p-1.5 rounded-lg border border-white/10 text-white/60 hover:text-white hover:bg-white/5 disabled:opacity-30 disabled:cursor-not-allowed cursor-pointer"
+                className={`p-1.5 rounded-lg border disabled:opacity-30 disabled:cursor-not-allowed cursor-pointer ${
+                  themeConfig.isLight 
+                    ? 'border-[#E8E1D5] text-[#5C5248] hover:text-[#231B15] hover:bg-[#FAF7F2]' 
+                    : 'border-white/10 text-white/60 hover:text-white hover:bg-white/5'
+                }`}
               >
                 <ChevronRight className="w-3.5 h-3.5" />
               </button>
@@ -1131,17 +1357,23 @@ export const DashboardView: React.FC<DashboardViewProps> = ({
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-3.5">
         
         {/* Left Card: Mẹo chuẩn hóa CAD */}
-        <div className="lg:col-span-8 p-4 sm:p-5 rounded-2xl bg-[#0c1424] border border-white/10 flex flex-col sm:flex-row sm:items-center justify-between gap-4 shadow-sm">
+        <div className={`lg:col-span-8 p-4 sm:p-5 rounded-2xl border flex flex-col sm:flex-row sm:items-center justify-between gap-4 shadow-xs ${
+          themeConfig.isLight ? 'bg-white border-[#E8E1D5]' : 'bg-[#0c1424] border-white/10'
+        }`}>
           <div className="flex items-start gap-3.5">
-            <div className="w-10 h-10 rounded-xl bg-sky-500/10 border border-sky-500/20 text-sky-400 flex items-center justify-center shrink-0">
+            <div className={`w-10 h-10 rounded-xl flex items-center justify-center shrink-0 ${
+              themeConfig.isLight 
+                ? 'bg-[#FDF3EF] border border-[#E8C2B3] text-[#C25E3E]' 
+                : 'bg-sky-500/10 border border-sky-500/20 text-sky-400'
+            }`}>
               <Lightbulb className="w-5 h-5" />
             </div>
             <div>
-              <h3 className="font-bold text-sm text-white flex items-center gap-2">
+              <h3 className={`font-bold text-sm flex items-center gap-2 ${themeConfig.isLight ? 'text-[#231B15]' : 'text-white'}`}>
                 <span>Tiêu chuẩn bản vẽ tối ưu</span>
-                <span className="text-[10px] font-mono text-sky-400 font-normal">CAD Recommendation</span>
+                <span className={`text-[10px] font-mono font-normal ${themeConfig.isLight ? 'text-[#C25E3E]' : 'text-sky-400'}`}>CAD Recommendation</span>
               </h3>
-              <p className="text-xs text-white/60 mt-1 max-w-xl leading-relaxed">
+              <p className={`text-xs mt-1 max-w-xl leading-relaxed ${themeConfig.isLight ? 'text-[#796E64]' : 'text-white/60'}`}>
                 Để kết quả nhận diện tự động đạt độ chính xác &gt; 98%, hãy sử dụng layer tường riêng biệt (`A-WALL`, `WALL`) và khép kín đường bao polyline trước khi xuất PDF/DWG.
               </p>
             </div>
@@ -1149,7 +1381,11 @@ export const DashboardView: React.FC<DashboardViewProps> = ({
 
           <button
             onClick={() => projects.length > 0 && onSelectProject(projects[0])}
-            className="px-3.5 py-2 rounded-xl text-xs font-semibold text-sky-300 bg-sky-500/10 border border-sky-500/25 hover:bg-sky-500/20 transition-all whitespace-nowrap self-start sm:self-auto cursor-pointer flex items-center gap-1.5"
+            className={`px-3.5 py-2 rounded-xl text-xs font-semibold transition-all whitespace-nowrap self-start sm:self-auto cursor-pointer flex items-center gap-1.5 ${
+              themeConfig.isLight 
+                ? 'text-[#C25E3E] bg-[#FDF3EF] border border-[#E8C2B3] hover:bg-[#FBE9E2]' 
+                : 'text-sky-300 bg-sky-500/10 border border-sky-500/25 hover:bg-sky-500/20'
+            }`}
           >
             <span>Tài liệu quy chuẩn</span>
             <ArrowRight className="w-3.5 h-3.5" />
@@ -1157,30 +1393,46 @@ export const DashboardView: React.FC<DashboardViewProps> = ({
         </div>
 
         {/* Right Card: Lưu trữ & Hạn mức tính toán */}
-        <div className="lg:col-span-4 p-4 sm:p-5 rounded-2xl bg-[#0c1424] border border-white/10 flex items-center justify-between gap-4 shadow-sm">
+        <div className={`lg:col-span-4 p-4 sm:p-5 rounded-2xl border flex items-center justify-between gap-4 shadow-xs ${
+          themeConfig.isLight ? 'bg-white border-[#E8E1D5]' : 'bg-[#0c1424] border-white/10'
+        }`}>
           <div className="flex items-center gap-3.5 flex-1 min-w-0">
-            <div className="w-10 h-10 rounded-xl bg-sky-500/10 border border-sky-500/20 text-sky-400 flex items-center justify-center shrink-0">
+            <div className={`w-10 h-10 rounded-xl flex items-center justify-center shrink-0 ${
+              themeConfig.isLight 
+                ? 'bg-[#FDF3EF] border border-[#E8C2B3] text-[#C25E3E]' 
+                : 'bg-sky-500/10 border border-sky-500/20 text-sky-400'
+            }`}>
               <Database className="w-5 h-5" />
             </div>
             <div className="flex-1 min-w-0">
-              <div className="font-bold text-xs text-white">
+              <div className={`font-bold text-xs ${themeConfig.isLight ? 'text-[#231B15]' : 'text-white'}`}>
                 Bộ nhớ bản vẽ đám mây
               </div>
               <div className="mt-2 flex items-center gap-2">
-                <div className="flex-1 h-1.5 rounded-full bg-[#080d18] overflow-hidden">
-                  <div className="h-full bg-gradient-to-r from-sky-500 to-cyan-400 rounded-full w-[24%]" />
+                <div className={`flex-1 h-1.5 rounded-full overflow-hidden ${
+                  themeConfig.isLight ? 'bg-[#E8E1D5]' : 'bg-[#080d18]'
+                }`}>
+                  <div className={`h-full rounded-full w-[24%] ${
+                    themeConfig.isLight 
+                      ? 'bg-gradient-to-r from-[#C25E3E] to-[#E07A5F]' 
+                      : 'bg-gradient-to-r from-sky-500 to-cyan-400'
+                  }`} />
                 </div>
               </div>
-              <div className="flex items-center justify-between text-[11px] font-mono text-white/50 mt-1">
+              <div className={`flex items-center justify-between text-[11px] font-mono mt-1 ${
+                themeConfig.isLight ? 'text-[#796E64]' : 'text-white/50'
+              }`}>
                 <span>2.4 GB / 10 GB</span>
-                <span className="text-sky-400 font-bold">24%</span>
+                <span className={`font-bold ${themeConfig.isLight ? 'text-[#C25E3E]' : 'text-sky-400'}`}>24%</span>
               </div>
             </div>
           </div>
 
           <button
             onClick={() => alert('Gói hiện tại: Kỹ sư Pro (10 GB CAD Cloud). Liên hệ quản trị viên để mở rộng hạn mức.')}
-            className="px-3.5 py-2 rounded-xl text-xs font-extrabold bg-gradient-to-r from-sky-500 to-cyan-400 text-white hover:brightness-110 transition-all whitespace-nowrap cursor-pointer shrink-0 shadow-sm"
+            className={`px-3.5 py-2 rounded-xl text-xs font-extrabold text-white transition-all whitespace-nowrap cursor-pointer shrink-0 shadow-sm hover:brightness-110 ${
+              themeConfig.primaryBtn
+            }`}
           >
             Mở rộng
           </button>

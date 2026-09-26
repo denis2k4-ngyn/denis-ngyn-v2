@@ -517,7 +517,9 @@ export const AIVerificationCenterView: React.FC<AIVerificationCenterViewProps> =
   };
 
   return (
-    <div className={`flex-1 flex flex-col h-full overflow-y-auto ${themeConfig.bgCanvas} text-white select-none`}>
+    <div className={`flex-1 flex flex-col h-full overflow-y-auto select-none ${
+      themeConfig.isLight ? 'bg-[#F9F6F0] text-[#231B15]' : `${themeConfig.bgCanvas} text-white`
+    }`}>
       
       {/* ─────────────────────────────────────────────────────────────
           NOTIFICATION BANNER (IF ANY)
@@ -528,12 +530,12 @@ export const AIVerificationCenterView: React.FC<AIVerificationCenterViewProps> =
           style={{ backgroundColor: `${themeConfig.iconColor}15` }}
         >
           <div className="flex items-center gap-2">
-            <Check className="w-4 h-4 text-emerald-400" />
+            <Check className="w-4 h-4 text-emerald-500" />
             <span>{notificationBanner}</span>
           </div>
           <button
             onClick={() => setNotificationBanner(null)}
-            className="text-white/60 hover:text-white cursor-pointer"
+            className={`cursor-pointer ${themeConfig.isLight ? 'text-[#8C827A] hover:text-[#231B15]' : 'text-white/60 hover:text-white'}`}
           >
             <X className="w-3.5 h-3.5" />
           </button>
@@ -543,7 +545,9 @@ export const AIVerificationCenterView: React.FC<AIVerificationCenterViewProps> =
       {/* ─────────────────────────────────────────────────────────────
           SECTION: HEADER (TITLE & 5 STAT BADGES)
       ───────────────────────────────────────────────────────────── */}
-      <div className={`px-5 pt-4 pb-3 flex flex-wrap items-center justify-between gap-4 border-b border-white/10 shrink-0 ${themeConfig.bgCanvas}`}>
+      <div className={`px-5 pt-4 pb-3 flex flex-wrap items-center justify-between gap-4 border-b shrink-0 ${
+        themeConfig.isLight ? 'border-[#E8E1D5] bg-transparent' : `border-white/10 ${themeConfig.bgCanvas}`
+      }`}>
         
         {/* Title and subtitle with shield badge */}
         <div className="flex items-center gap-3.5">
@@ -552,14 +556,14 @@ export const AIVerificationCenterView: React.FC<AIVerificationCenterViewProps> =
           </div>
           <div>
             <div className="flex items-center gap-2">
-              <h1 className="text-lg font-bold text-white tracking-tight">
+              <h1 className={`text-lg font-bold tracking-tight ${themeConfig.isLight ? 'text-[#231B15]' : 'text-white'}`}>
                 AI Verification Center
               </h1>
               <span className={`px-2 py-0.5 rounded-full text-[10px] font-bold ${themeConfig.accentBadgeBg}`}>
                 Bước 2: Thẩm tra AI
               </span>
             </div>
-            <p className="text-xs text-white/60 mt-0.5">
+            <p className={`text-xs mt-0.5 ${themeConfig.isLight ? 'text-[#796E64]' : 'text-white/60'}`}>
               Kiểm tra, xác nhận và bổ sung dữ liệu hình học CAD trước khi lập bảng khối lượng.
             </p>
           </div>
@@ -572,77 +576,89 @@ export const AIVerificationCenterView: React.FC<AIVerificationCenterViewProps> =
           {!isAllFixed ? (
             <button
               onClick={handleFixAllIssues}
-              className={`flex items-center gap-2 px-3.5 py-1.5 rounded-xl ${themeConfig.primaryBtn} text-xs font-bold shadow-sm transition-all cursor-pointer`}
+              className={`flex items-center gap-2 px-3.5 py-1.5 rounded-xl ${themeConfig.primaryBtn} text-xs font-bold shadow-sm transition-all cursor-pointer text-white`}
               title="AI tự động vá góc hở Room 03, chuẩn hóa quy cách 8 cửa & gán H=3.0m"
             >
               <Sparkles className="w-3.5 h-3.5" />
               <span>⚡ Tự động sửa tất cả 13 lỗi</span>
             </button>
           ) : (
-            <div className="flex items-center gap-2 px-3 py-1.5 rounded-xl bg-emerald-500/15 border border-emerald-500/40 text-emerald-400 text-xs font-bold shadow-sm">
-              <CheckCircle2 className="w-3.5 h-3.5" />
+            <div className={`flex items-center gap-2 px-3 py-1.5 rounded-xl text-xs font-bold shadow-xs ${
+              themeConfig.isLight ? 'bg-emerald-50 border border-emerald-200 text-emerald-800' : 'bg-emerald-500/15 border border-emerald-500/40 text-emerald-400'
+            }`}>
+              <CheckCircle2 className="w-3.5 h-3.5 text-emerald-600" />
               <span>Đã chuẩn hóa 100% đối tượng</span>
             </div>
           )}
 
           {/* 1. Tổng đối tượng */}
-          <div className={`flex items-center gap-2.5 px-3 py-1.5 rounded-xl ${themeConfig.cardBg} border border-white/10 shadow-sm`}>
+          <div className={`flex items-center gap-2.5 px-3 py-1.5 rounded-xl border shadow-xs ${
+            themeConfig.isLight ? 'bg-white border-[#E8E1D5]' : `${themeConfig.cardBg} border-white/10`
+          }`}>
             <div className={`w-6 h-6 rounded-lg ${themeConfig.accentBadgeBg} flex items-center justify-center`}>
               <Layers className="w-3.5 h-3.5" />
             </div>
             <div className="text-left">
-              <div className="text-[10px] text-white/50 leading-none">Tổng đối tượng</div>
-              <div className="text-sm font-bold text-white font-mono leading-tight mt-0.5">156</div>
+              <div className={`text-[10px] leading-none ${themeConfig.isLight ? 'text-[#8C827A]' : 'text-white/50'}`}>Tổng đối tượng</div>
+              <div className={`text-sm font-bold font-mono leading-tight mt-0.5 ${themeConfig.isLight ? 'text-[#231B15]' : 'text-white'}`}>156</div>
             </div>
           </div>
 
           {/* 2. Đã xác minh */}
-          <div className={`flex items-center gap-2.5 px-3 py-1.5 rounded-xl ${themeConfig.cardBg} border border-emerald-500/30 shadow-sm`}>
-            <div className="w-6 h-6 rounded-lg bg-emerald-500/15 text-emerald-400 flex items-center justify-center">
+          <div className={`flex items-center gap-2.5 px-3 py-1.5 rounded-xl border shadow-xs ${
+            themeConfig.isLight ? 'bg-white border-emerald-200' : `${themeConfig.cardBg} border-emerald-500/30`
+          }`}>
+            <div className="w-6 h-6 rounded-lg bg-emerald-500/15 text-emerald-600 flex items-center justify-center">
               <CheckCircle2 className="w-3.5 h-3.5" />
             </div>
             <div className="text-left">
-              <div className="text-[10px] text-white/50 leading-none">Đã xác minh</div>
-              <div className="text-sm font-bold text-emerald-400 font-mono leading-tight mt-0.5">
+              <div className={`text-[10px] leading-none ${themeConfig.isLight ? 'text-[#8C827A]' : 'text-white/50'}`}>Đã xác minh</div>
+              <div className="text-sm font-bold text-emerald-700 font-mono leading-tight mt-0.5">
                 {isAllFixed ? '156' : '142'}
               </div>
             </div>
           </div>
 
           {/* 3. Cần kiểm tra */}
-          <div className={`flex items-center gap-2.5 px-3 py-1.5 rounded-xl ${themeConfig.cardBg} border border-amber-500/30 shadow-sm`}>
-            <div className="w-6 h-6 rounded-lg bg-amber-500/15 text-[#fbbf24] flex items-center justify-center">
+          <div className={`flex items-center gap-2.5 px-3 py-1.5 rounded-xl border shadow-xs ${
+            themeConfig.isLight ? 'bg-white border-amber-200' : `${themeConfig.cardBg} border-amber-500/30`
+          }`}>
+            <div className="w-6 h-6 rounded-lg bg-amber-500/15 text-amber-600 flex items-center justify-center">
               <AlertTriangle className="w-3.5 h-3.5" />
             </div>
             <div className="text-left">
-              <div className="text-[10px] text-white/50 leading-none">Cần kiểm tra</div>
-              <div className="text-sm font-bold text-[#fbbf24] font-mono leading-tight mt-0.5">
+              <div className={`text-[10px] leading-none ${themeConfig.isLight ? 'text-[#8C827A]' : 'text-white/50'}`}>Cần kiểm tra</div>
+              <div className="text-sm font-bold text-amber-600 font-mono leading-tight mt-0.5">
                 {isAllFixed ? '0' : '9'}
               </div>
             </div>
           </div>
 
           {/* 4. Thiếu thông tin */}
-          <div className={`flex items-center gap-2.5 px-3 py-1.5 rounded-xl ${themeConfig.cardBg} border border-rose-500/30 shadow-sm`}>
-            <div className="w-6 h-6 rounded-lg bg-rose-500/15 text-rose-400 flex items-center justify-center">
+          <div className={`flex items-center gap-2.5 px-3 py-1.5 rounded-xl border shadow-xs ${
+            themeConfig.isLight ? 'bg-white border-rose-200' : `${themeConfig.cardBg} border-rose-500/30`
+          }`}>
+            <div className="w-6 h-6 rounded-lg bg-rose-500/15 text-rose-600 flex items-center justify-center">
               <AlertCircle className="w-3.5 h-3.5" />
             </div>
             <div className="text-left">
-              <div className="text-[10px] text-white/50 leading-none">Thiếu thông tin</div>
-              <div className="text-sm font-bold text-rose-400 font-mono leading-tight mt-0.5">
+              <div className={`text-[10px] leading-none ${themeConfig.isLight ? 'text-[#8C827A]' : 'text-white/50'}`}>Thiếu thông tin</div>
+              <div className="text-sm font-bold text-rose-600 font-mono leading-tight mt-0.5">
                 {isAllFixed ? '0' : '4'}
               </div>
             </div>
           </div>
 
           {/* 5. Loại trừ */}
-          <div className={`flex items-center gap-2.5 px-3 py-1.5 rounded-xl ${themeConfig.cardBg} border border-white/10 shadow-sm`}>
-            <div className="w-6 h-6 rounded-lg bg-white/5 text-slate-400 flex items-center justify-center">
+          <div className={`flex items-center gap-2.5 px-3 py-1.5 rounded-xl border shadow-xs ${
+            themeConfig.isLight ? 'bg-white border-[#E8E1D5]' : `${themeConfig.cardBg} border-white/10`
+          }`}>
+            <div className={`w-6 h-6 rounded-lg flex items-center justify-center ${themeConfig.isLight ? 'bg-[#FAF7F2] text-[#8C827A]' : 'bg-white/5 text-slate-400'}`}>
               <Slash className="w-3.5 h-3.5" />
             </div>
             <div className="text-left">
-              <div className="text-[10px] text-white/50 leading-none">Loại trừ</div>
-              <div className="text-sm font-bold text-white/80 font-mono leading-tight mt-0.5">
+              <div className={`text-[10px] leading-none ${themeConfig.isLight ? 'text-[#8C827A]' : 'text-white/50'}`}>Loại trừ</div>
+              <div className={`text-sm font-bold font-mono leading-tight mt-0.5 ${themeConfig.isLight ? 'text-[#5C5248]' : 'text-white/80'}`}>
                 {isAllFixed ? '0' : '1'}
               </div>
             </div>
@@ -656,15 +672,23 @@ export const AIVerificationCenterView: React.FC<AIVerificationCenterViewProps> =
       ───────────────────────────────────────────────────────────── */}
       <div className="px-5 pt-3 pb-3 flex flex-col lg:flex-row gap-4 shrink-0" style={{ minHeight: '440px' }}>
         
-        {/* LEFT: DARK CAD BLUEPRINT CANVAS */}
-        <div className="flex-1 rounded-2xl bg-[#080d18] border border-white/10 flex flex-col relative overflow-hidden shadow-xl min-h-[420px]">
+        {/* LEFT: CAD BLUEPRINT CANVAS */}
+        <div className={`flex-1 rounded-2xl border flex flex-col relative overflow-hidden shadow-sm min-h-[420px] ${
+          themeConfig.isLight ? 'bg-white border-[#E8E1D5]' : 'bg-[#080d18] border-white/10 shadow-xl'
+        }`}>
           
           {/* Top CAD Viewer Toolbar */}
-          <div className="h-11 px-3 bg-[#0c1322] border-b border-white/10 flex items-center justify-between gap-3 shrink-0 z-10">
+          <div className={`h-11 px-3 border-b flex items-center justify-between gap-3 shrink-0 z-10 ${
+            themeConfig.isLight ? 'bg-[#FAF7F2] border-[#E8E1D5]' : 'bg-[#0c1322] border-white/10'
+          }`}>
             <div className="flex items-center gap-2">
-              <div className="px-2.5 py-1 rounded-lg bg-[#080d18] border border-white/10 text-xs font-mono text-white/90 flex items-center gap-2">
+              <div className={`px-2.5 py-1 rounded-lg border text-xs font-mono flex items-center gap-2 ${
+                themeConfig.isLight ? 'bg-white border-[#E8E1D5] text-[#231B15]' : 'bg-[#080d18] border-white/10 text-white/90'
+              }`}>
                 <span>Floor 01.dxf</span>
-                <span className="text-[10px] px-1.5 py-0.2 rounded bg-emerald-500/20 text-emerald-400 font-medium flex items-center gap-1 border border-emerald-500/30">
+                <span className={`text-[10px] px-1.5 py-0.2 rounded font-medium flex items-center gap-1 border ${
+                  themeConfig.isLight ? 'bg-emerald-50 text-emerald-700 border-emerald-200' : 'bg-emerald-500/20 text-emerald-400 border-emerald-500/30'
+                }`}>
                   <Check className="w-2.5 h-2.5" /> Đã phân tích
                 </span>
               </div>
@@ -673,10 +697,12 @@ export const AIVerificationCenterView: React.FC<AIVerificationCenterViewProps> =
               <div className="relative">
                 <button 
                   onClick={() => setSelectedFloor(selectedFloor === 'Tầng 01' ? 'Tầng 02' : 'Tầng 01')}
-                  className="px-2.5 py-1 rounded-lg bg-[#080d18] hover:bg-[#121c32] border border-white/10 text-xs text-white/90 flex items-center gap-1.5 cursor-pointer transition-colors"
+                  className={`px-2.5 py-1 rounded-lg border text-xs flex items-center gap-1.5 cursor-pointer transition-colors ${
+                    themeConfig.isLight ? 'bg-white hover:bg-[#FAF7F2] border-[#E8E1D5] text-[#231B15]' : 'bg-[#080d18] hover:bg-[#121c32] border-white/10 text-white/90'
+                  }`}
                 >
                   <span>{selectedFloor}</span>
-                  <ChevronDown className="w-3.5 h-3.5 text-white/50" />
+                  <ChevronDown className={`w-3.5 h-3.5 ${themeConfig.isLight ? 'text-[#8C827A]' : 'text-white/50'}`} />
                 </button>
               </div>
             </div>
@@ -687,8 +713,8 @@ export const AIVerificationCenterView: React.FC<AIVerificationCenterViewProps> =
                 onClick={() => setActiveTool('pointer')}
                 className={`p-1.5 rounded-lg text-xs transition-colors cursor-pointer ${
                   activeTool === 'pointer'
-                    ? `${themeConfig.primaryBtn} shadow-sm`
-                    : 'text-white/60 hover:text-white hover:bg-white/5'
+                    ? `${themeConfig.primaryBtn} shadow-sm text-white`
+                    : themeConfig.isLight ? 'text-[#5C5248] hover:text-[#231B15] hover:bg-white' : 'text-white/60 hover:text-white hover:bg-white/5'
                 }`}
                 title="Con trỏ chọn"
               >
@@ -699,19 +725,21 @@ export const AIVerificationCenterView: React.FC<AIVerificationCenterViewProps> =
                 onClick={() => setActiveTool('hand')}
                 className={`p-1.5 rounded-lg text-xs transition-colors cursor-pointer ${
                   activeTool === 'hand'
-                    ? `${themeConfig.primaryBtn} shadow-sm`
-                    : 'text-white/60 hover:text-white hover:bg-white/5'
+                    ? `${themeConfig.primaryBtn} shadow-sm text-white`
+                    : themeConfig.isLight ? 'text-[#5C5248] hover:text-[#231B15] hover:bg-white' : 'text-white/60 hover:text-white hover:bg-white/5'
                 }`}
                 title="Kéo rê bản vẽ (Pan)"
               >
                 <Hand className="w-3.5 h-3.5" />
               </button>
 
-              <div className="w-px h-4 bg-white/10 mx-1" />
+              <div className={`w-px h-4 mx-1 ${themeConfig.isLight ? 'bg-[#E8E1D5]' : 'bg-white/10'}`} />
 
               <button
                 onClick={() => setZoomLevel((prev) => Math.min(prev + 15, 250))}
-                className="p-1.5 rounded-lg text-white/60 hover:text-white hover:bg-white/5 transition-colors cursor-pointer"
+                className={`p-1.5 rounded-lg transition-colors cursor-pointer ${
+                  themeConfig.isLight ? 'text-[#5C5248] hover:text-[#231B15] hover:bg-white' : 'text-white/60 hover:text-white hover:bg-white/5'
+                }`}
                 title="Phóng to"
               >
                 <ZoomIn className="w-3.5 h-3.5" />
@@ -719,7 +747,9 @@ export const AIVerificationCenterView: React.FC<AIVerificationCenterViewProps> =
 
               <button
                 onClick={() => setZoomLevel((prev) => Math.max(prev - 15, 40))}
-                className="p-1.5 rounded-lg text-white/60 hover:text-white hover:bg-white/5 transition-colors cursor-pointer"
+                className={`p-1.5 rounded-lg transition-colors cursor-pointer ${
+                  themeConfig.isLight ? 'text-[#5C5248] hover:text-[#231B15] hover:bg-white' : 'text-white/60 hover:text-white hover:bg-white/5'
+                }`}
                 title="Thu nhỏ"
               >
                 <ZoomOut className="w-3.5 h-3.5" />
@@ -727,7 +757,9 @@ export const AIVerificationCenterView: React.FC<AIVerificationCenterViewProps> =
 
               <button
                 onClick={() => setZoomLevel(100)}
-                className="p-1.5 rounded-lg text-white/60 hover:text-white hover:bg-white/5 transition-colors cursor-pointer"
+                className={`p-1.5 rounded-lg transition-colors cursor-pointer ${
+                  themeConfig.isLight ? 'text-[#5C5248] hover:text-[#231B15] hover:bg-white' : 'text-white/60 hover:text-white hover:bg-white/5'
+                }`}
                 title="Căn vừa màn hình"
               >
                 <Maximize2 className="w-3.5 h-3.5" />
@@ -737,30 +769,38 @@ export const AIVerificationCenterView: React.FC<AIVerificationCenterViewProps> =
               <div className="relative">
                 <button
                   onClick={() => setShowDisplayMenu(!showDisplayMenu)}
-                  className="px-2.5 py-1 rounded-lg bg-[#080d18] hover:bg-[#121c32] border border-white/10 text-xs text-white/90 flex items-center gap-1.5 cursor-pointer ml-1 transition-colors"
+                  className={`px-2.5 py-1 rounded-lg border text-xs flex items-center gap-1.5 cursor-pointer ml-1 transition-colors ${
+                    themeConfig.isLight ? 'bg-white hover:bg-[#FAF7F2] border-[#E8E1D5] text-[#231B15]' : 'bg-[#080d18] hover:bg-[#121c32] border-white/10 text-white/90'
+                  }`}
                 >
                   <span>Hiển thị</span>
-                  <ChevronDown className="w-3 h-3 text-white/50" />
+                  <ChevronDown className={`w-3 h-3 ${themeConfig.isLight ? 'text-[#8C827A]' : 'text-white/50'}`} />
                 </button>
 
                 {showDisplayMenu && (
-                  <div className="absolute right-0 mt-1 w-44 rounded-xl bg-[#0c1322] border border-amber-500/20 shadow-2xl p-2 z-50 text-xs animate-in fade-in">
+                  <div className={`absolute right-0 mt-1 w-44 rounded-xl border shadow-xl p-2 z-50 text-xs animate-in fade-in ${
+                    themeConfig.isLight ? 'bg-white border-[#E8E1D5] text-[#231B15]' : 'bg-[#0c1322] border-amber-500/20 text-white'
+                  }`}>
                     <button
                       onClick={() => {
                         setShowLayerPanel(!showLayerPanel);
                         setShowDisplayMenu(false);
                       }}
-                      className="w-full text-left px-2.5 py-1.5 rounded-lg hover:bg-white/10 text-white flex items-center justify-between"
+                      className={`w-full text-left px-2.5 py-1.5 rounded-lg flex items-center justify-between ${
+                        themeConfig.isLight ? 'hover:bg-[#FAF7F2] text-[#231B15]' : 'hover:bg-white/10 text-white'
+                      }`}
                     >
                       <span>Bảng Lớp hiển thị</span>
-                      <span className="text-[10px] text-[#fbbf24]">{showLayerPanel ? 'Bật' : 'Tắt'}</span>
+                      <span className={`text-[10px] ${themeConfig.isLight ? 'text-[#C25E3E] font-bold' : 'text-[#fbbf24]'}`}>{showLayerPanel ? 'Bật' : 'Tắt'}</span>
                     </button>
                     <button
                       onClick={() => setShowDisplayMenu(false)}
-                      className="w-full text-left px-2.5 py-1.5 rounded-lg hover:bg-white/10 text-white flex items-center justify-between"
+                      className={`w-full text-left px-2.5 py-1.5 rounded-lg flex items-center justify-between ${
+                        themeConfig.isLight ? 'hover:bg-[#FAF7F2] text-[#231B15]' : 'hover:bg-white/10 text-white'
+                      }`}
                     >
                       <span>Lưới tọa độ CAD</span>
-                      <span className="text-[10px] text-emerald-400">Bật</span>
+                      <span className="text-[10px] text-emerald-600 font-bold">Bật</span>
                     </button>
                   </div>
                 )}
@@ -770,7 +810,9 @@ export const AIVerificationCenterView: React.FC<AIVerificationCenterViewProps> =
 
           {/* Interactive Blueprint Viewport */}
           <div 
-            className="flex-1 relative overflow-hidden bg-[#050811] cursor-crosshair"
+            className={`flex-1 relative overflow-hidden cursor-crosshair ${
+              themeConfig.isLight ? 'bg-[#FAF7F2]' : 'bg-[#050811]'
+            }`}
             onMouseMove={(e) => {
               const rect = e.currentTarget.getBoundingClientRect();
               const xVal = Math.round(10000 + (e.clientX - rect.left) * 12);
@@ -794,15 +836,17 @@ export const AIVerificationCenterView: React.FC<AIVerificationCenterViewProps> =
 
             {/* FLOATING OVERLAY: LỚP HIỂN THỊ (TOP-LEFT) */}
             {showLayerPanel && (
-              <div className={`absolute top-3 left-3 w-52 rounded-xl bg-[#0c1322]/95 border ${themeConfig.accentBorder} backdrop-blur-md p-3 z-30 shadow-2xl animate-in fade-in`}>
-                <div className="flex items-center justify-between pb-2 border-b border-white/10">
-                  <div className="text-xs font-bold text-white flex items-center gap-1.5">
+              <div className={`absolute top-3 left-3 w-52 rounded-xl border backdrop-blur-md p-3 z-30 shadow-xl animate-in fade-in ${
+                themeConfig.isLight ? 'bg-white/95 border-[#E8E1D5] text-[#231B15]' : `bg-[#0c1322]/95 border ${themeConfig.accentBorder} text-white`
+              }`}>
+                <div className={`flex items-center justify-between pb-2 border-b ${themeConfig.isLight ? 'border-[#E8E1D5]' : 'border-white/10'}`}>
+                  <div className={`text-xs font-bold flex items-center gap-1.5 ${themeConfig.isLight ? 'text-[#231B15]' : 'text-white'}`}>
                     <Layers className={`w-3.5 h-3.5 ${themeConfig.accentText}`} />
                     <span>Lớp hiển thị</span>
                   </div>
                   <button
                     onClick={() => setShowLayerPanel(false)}
-                    className="p-1 rounded text-white/40 hover:text-white hover:bg-white/10"
+                    className={`p-1 rounded ${themeConfig.isLight ? 'text-[#8C827A] hover:text-[#231B15] hover:bg-[#FAF7F2]' : 'text-white/40 hover:text-white hover:bg-white/10'}`}
                   >
                     <X className="w-3 h-3" />
                   </button>
@@ -1249,17 +1293,21 @@ export const AIVerificationCenterView: React.FC<AIVerificationCenterViewProps> =
         </div>
 
         {/* RIGHT: INSPECTOR PANEL (DANH SÁCH VẤN ĐỀ) */}
-        <div className="w-full lg:w-96 rounded-2xl bg-[#0c1322] border border-white/10 flex flex-col shrink-0 shadow-xl overflow-hidden">
+        <div className={`w-full lg:w-96 rounded-2xl border flex flex-col shrink-0 overflow-hidden ${
+          themeConfig.isLight ? 'bg-white border-[#E8E1D5] shadow-xs' : 'bg-[#0c1322] border-white/10 shadow-xl'
+        }`}>
           
           {/* Top Tabs in Sidebar */}
-          <div className="px-3 pt-3 pb-0 bg-[#080d18] border-b border-white/10 flex items-center justify-between shrink-0">
+          <div className={`px-3 pt-3 pb-0 border-b flex items-center justify-between shrink-0 ${
+            themeConfig.isLight ? 'bg-[#FAF7F2] border-[#E8E1D5]' : 'bg-[#080d18] border-white/10'
+          }`}>
             <div className="flex items-center gap-1">
               <button
                 onClick={() => setInspectorTab('issues')}
                 className={`px-3 py-2 text-xs font-bold transition-all relative cursor-pointer ${
                   inspectorTab === 'issues'
                     ? themeConfig.accentText
-                    : 'text-white/60 hover:text-white'
+                    : themeConfig.isLight ? 'text-[#796E64] hover:text-[#231B15]' : 'text-white/60 hover:text-white'
                 }`}
               >
                 <span>Danh sách vấn đề ({issues.length})</span>
@@ -1273,7 +1321,7 @@ export const AIVerificationCenterView: React.FC<AIVerificationCenterViewProps> =
                 className={`px-3 py-2 text-xs font-semibold transition-all relative cursor-pointer ${
                   inspectorTab === 'object_info'
                     ? themeConfig.accentText
-                    : 'text-white/60 hover:text-white'
+                    : themeConfig.isLight ? 'text-[#796E64] hover:text-[#231B15]' : 'text-white/60 hover:text-white'
                 }`}
               >
                 <span>Thông tin đối tượng</span>
@@ -1287,7 +1335,7 @@ export const AIVerificationCenterView: React.FC<AIVerificationCenterViewProps> =
                 className={`px-2 py-2 text-xs font-semibold transition-all relative cursor-pointer ${
                   inspectorTab === 'notes'
                     ? themeConfig.accentText
-                    : 'text-white/60 hover:text-white'
+                    : themeConfig.isLight ? 'text-[#796E64] hover:text-[#231B15]' : 'text-white/60 hover:text-white'
                 }`}
               >
                 <span>Ghi chú (0)</span>
@@ -1303,13 +1351,17 @@ export const AIVerificationCenterView: React.FC<AIVerificationCenterViewProps> =
             <div className="flex-1 flex flex-col overflow-hidden">
               
               {/* Filter Pills matching screenshot */}
-              <div className="p-3 border-b border-white/10 flex items-center gap-1.5 flex-wrap bg-[#0c1322]">
+              <div className={`p-3 border-b flex items-center gap-1.5 flex-wrap ${
+                themeConfig.isLight ? 'bg-white border-[#E8E1D5]' : 'bg-[#0c1322] border-white/10'
+              }`}>
                 <button
                   onClick={() => setIssueFilter('all')}
                   className={`px-2.5 py-1 rounded-lg text-xs font-semibold transition-colors cursor-pointer ${
                     issueFilter === 'all'
-                      ? `${themeConfig.primaryBtn} shadow-sm`
-                      : 'bg-[#080d18] border border-white/10 text-white/70 hover:text-white'
+                      ? `${themeConfig.primaryBtn} shadow-sm text-white`
+                      : themeConfig.isLight 
+                        ? 'bg-[#FAF7F2] border border-[#E8E1D5] text-[#5C5248] hover:text-[#231B15]' 
+                        : 'bg-[#080d18] border border-white/10 text-white/70 hover:text-white'
                   }`}
                 >
                   Tất cả ({issues.length})
@@ -1319,8 +1371,10 @@ export const AIVerificationCenterView: React.FC<AIVerificationCenterViewProps> =
                   onClick={() => setIssueFilter('need_check')}
                   className={`px-2.5 py-1 rounded-lg text-xs font-semibold transition-colors cursor-pointer ${
                     issueFilter === 'need_check'
-                      ? `${themeConfig.primaryBtn} shadow-sm`
-                      : 'bg-[#080d18] border border-white/10 text-white/70 hover:text-white'
+                      ? `${themeConfig.primaryBtn} shadow-sm text-white`
+                      : themeConfig.isLight 
+                        ? 'bg-[#FAF7F2] border border-[#E8E1D5] text-[#5C5248] hover:text-[#231B15]' 
+                        : 'bg-[#080d18] border border-white/10 text-white/70 hover:text-white'
                   }`}
                 >
                   Cần kiểm tra (9)
@@ -1330,8 +1384,10 @@ export const AIVerificationCenterView: React.FC<AIVerificationCenterViewProps> =
                   onClick={() => setIssueFilter('missing_info')}
                   className={`px-2.5 py-1 rounded-lg text-xs font-semibold transition-colors cursor-pointer ${
                     issueFilter === 'missing_info'
-                      ? `${themeConfig.primaryBtn} shadow-sm`
-                      : 'bg-[#080d18] border border-white/10 text-white/70 hover:text-white'
+                      ? `${themeConfig.primaryBtn} shadow-sm text-white`
+                      : themeConfig.isLight 
+                        ? 'bg-[#FAF7F2] border border-[#E8E1D5] text-[#5C5248] hover:text-[#231B15]' 
+                        : 'bg-[#080d18] border border-white/10 text-white/70 hover:text-white'
                   }`}
                 >
                   Thiếu thông tin (4)
@@ -1341,8 +1397,10 @@ export const AIVerificationCenterView: React.FC<AIVerificationCenterViewProps> =
                   onClick={() => setIssueFilter('excluded')}
                   className={`px-2.5 py-1 rounded-lg text-xs font-semibold transition-colors cursor-pointer ${
                     issueFilter === 'excluded'
-                      ? `${themeConfig.primaryBtn} shadow-sm`
-                      : 'bg-[#080d18] border border-white/10 text-white/70 hover:text-white'
+                      ? `${themeConfig.primaryBtn} shadow-sm text-white`
+                      : themeConfig.isLight 
+                        ? 'bg-[#FAF7F2] border border-[#E8E1D5] text-[#5C5248] hover:text-[#231B15]' 
+                        : 'bg-[#080d18] border border-white/10 text-white/70 hover:text-white'
                   }`}
                 >
                   Loại trừ (1)
@@ -1361,9 +1419,13 @@ export const AIVerificationCenterView: React.FC<AIVerificationCenterViewProps> =
                         setShowTooltip(issue.objectId === 'R03');
                       }}
                       className={`p-3 rounded-xl border transition-all cursor-pointer group relative ${
-                        isSelected
-                          ? `${themeConfig.navActive} border ${themeConfig.accentBorder} shadow-md`
-                          : 'bg-[#080d18] border-white/10 hover:border-white/20 hover:bg-[#101726]'
+                        themeConfig.isLight
+                          ? isSelected
+                            ? 'bg-[#FDF3EF] border-[#C25E3E] shadow-xs'
+                            : 'bg-[#FAF7F2]/50 border-[#E8E1D5] hover:border-[#C25E3E]/40 hover:bg-[#FAF7F2]'
+                          : isSelected
+                            ? `${themeConfig.navActive} border ${themeConfig.accentBorder} shadow-md`
+                            : 'bg-[#080d18] border-white/10 hover:border-white/20 hover:bg-[#101726]'
                       }`}
                     >
                       <div className="flex items-start justify-between gap-2">
@@ -1373,20 +1435,24 @@ export const AIVerificationCenterView: React.FC<AIVerificationCenterViewProps> =
                               <AlertTriangle className="w-3.5 h-3.5" />
                             </div>
                           ) : issue.status === 'missing_info' ? (
-                            <div className="w-5 h-5 rounded-md bg-rose-500/20 text-rose-400 border border-rose-500/30 flex items-center justify-center shrink-0 mt-0.5">
+                            <div className="w-5 h-5 rounded-md bg-rose-500/20 text-rose-500 border border-rose-500/30 flex items-center justify-center shrink-0 mt-0.5">
                               <AlertCircle className="w-3.5 h-3.5" />
                             </div>
                           ) : (
-                            <div className="w-5 h-5 rounded-md bg-slate-500/20 text-slate-400 border border-slate-500/30 flex items-center justify-center shrink-0 mt-0.5">
+                            <div className={`w-5 h-5 rounded-md flex items-center justify-center shrink-0 mt-0.5 ${
+                              themeConfig.isLight ? 'bg-[#FAF7F2] text-[#8C827A] border border-[#E8E1D5]' : 'bg-slate-500/20 text-slate-400 border border-slate-500/30'
+                            }`}>
                               <Slash className="w-3.5 h-3.5" />
                             </div>
                           )}
 
                           <div>
-                            <h4 className={`text-xs font-bold text-white group-hover:${themeConfig.accentText} transition-colors leading-tight`}>
+                            <h4 className={`text-xs font-bold leading-tight transition-colors ${
+                              themeConfig.isLight ? 'text-[#231B15] group-hover:text-[#C25E3E]' : `text-white group-hover:${themeConfig.accentText}`
+                            }`}>
                               {issue.title}
                             </h4>
-                            <p className="text-[11px] text-white/60 mt-0.5 leading-snug">
+                            <p className={`text-[11px] mt-0.5 leading-snug ${themeConfig.isLight ? 'text-[#796E64]' : 'text-white/60'}`}>
                               {issue.description}
                             </p>
                           </div>
@@ -1399,21 +1465,27 @@ export const AIVerificationCenterView: React.FC<AIVerificationCenterViewProps> =
                               Cần kiểm tra
                             </span>
                           ) : issue.status === 'missing_info' ? (
-                            <span className="px-2 py-0.5 rounded-md bg-rose-500/20 text-rose-300 border border-rose-500/30 text-[10px] font-semibold">
+                            <span className="px-2 py-0.5 rounded-md bg-rose-50 text-rose-700 border border-rose-200 text-[10px] font-semibold">
                               Thiếu thông tin
                             </span>
                           ) : (
-                            <span className="px-2 py-0.5 rounded-md bg-slate-500/20 text-slate-300 border border-slate-500/30 text-[10px] font-semibold">
+                            <span className={`px-2 py-0.5 rounded-md text-[10px] font-semibold border ${
+                              themeConfig.isLight ? 'bg-[#FAF7F2] text-[#5C5248] border-[#E8E1D5]' : 'bg-slate-500/20 text-slate-300 border border-slate-500/30'
+                            }`}>
                               Loại trừ
                             </span>
                           )}
-                          <span className="text-[10px] text-white/40 mt-1">{issue.tag}</span>
+                          <span className={`text-[10px] mt-1 ${themeConfig.isLight ? 'text-[#8C827A]' : 'text-white/40'}`}>{issue.tag}</span>
                         </div>
                       </div>
 
-                      <div className="mt-2 flex items-center justify-between pt-2 border-t border-white/5 text-[11px]">
-                        <span className="text-white/40 text-[10px]">Nhấp để xem trên bản vẽ</span>
-                        <ChevronRight className="w-3.5 h-3.5 text-white/40 group-hover:text-white group-hover:translate-x-0.5 transition-all" />
+                      <div className={`mt-2 flex items-center justify-between pt-2 border-t text-[11px] ${
+                        themeConfig.isLight ? 'border-[#E8E1D5]' : 'border-white/5'
+                      }`}>
+                        <span className={`text-[10px] ${themeConfig.isLight ? 'text-[#8C827A]' : 'text-white/40'}`}>Nhấp để xem trên bản vẽ</span>
+                        <ChevronRight className={`w-3.5 h-3.5 group-hover:translate-x-0.5 transition-all ${
+                          themeConfig.isLight ? 'text-[#8C827A] group-hover:text-[#C25E3E]' : 'text-white/40 group-hover:text-white'
+                        }`} />
                       </div>
                     </div>
                   );
@@ -1424,28 +1496,30 @@ export const AIVerificationCenterView: React.FC<AIVerificationCenterViewProps> =
 
           {/* If Tab is OBJECT INFO: show deep details & resolution actions */}
           {inspectorTab === 'object_info' && (
-            <div className="flex-1 p-4 space-y-4 overflow-y-auto bg-[#0c1322]">
+            <div className={`flex-1 p-4 space-y-4 overflow-y-auto ${themeConfig.isLight ? 'bg-white' : 'bg-[#0c1322]'}`}>
               <div className="flex items-center justify-between">
                 <div>
                   <span className={`text-[10px] font-mono ${themeConfig.accentText} uppercase tracking-wider`}>
                     {selectedIssue.tag}
                   </span>
-                  <h3 className="text-sm font-bold text-white mt-0.5">{selectedIssue.title}</h3>
+                  <h3 className={`text-sm font-bold mt-0.5 ${themeConfig.isLight ? 'text-[#231B15]' : 'text-white'}`}>{selectedIssue.title}</h3>
                 </div>
                 <span className={`px-2 py-0.5 rounded-md ${themeConfig.badgeBg} ${themeConfig.accentText} border ${themeConfig.accentBorder} text-[10px] font-semibold`}>
                   {selectedIssue.status === 'need_check' ? 'Cần kiểm tra' : 'Thiếu thông tin'}
                 </span>
               </div>
 
-              <div className="p-3 rounded-xl bg-[#080d18] border border-white/10 space-y-2 text-xs">
-                <div className="text-white/50 text-[11px] font-semibold">Chi tiết bất thường:</div>
-                <div className="text-white/90">{selectedIssue.details?.currentVal}</div>
+              <div className={`p-3 rounded-xl border space-y-2 text-xs ${
+                themeConfig.isLight ? 'bg-[#FAF7F2] border-[#E8E1D5]' : 'bg-[#080d18] border-white/10'
+              }`}>
+                <div className={`text-[11px] font-semibold ${themeConfig.isLight ? 'text-[#796E64]' : 'text-white/50'}`}>Chi tiết bất thường:</div>
+                <div className={themeConfig.isLight ? 'text-[#231B15]' : 'text-white/90'}>{selectedIssue.details?.currentVal}</div>
 
-                <div className="text-white/50 text-[11px] font-semibold pt-1">Tiêu chuẩn kỹ thuật:</div>
+                <div className={`text-[11px] font-semibold pt-1 ${themeConfig.isLight ? 'text-[#796E64]' : 'text-white/50'}`}>Tiêu chuẩn kỹ thuật:</div>
                 <div className={themeConfig.accentText}>{selectedIssue.details?.expectedVal}</div>
 
-                <div className="text-white/50 text-[11px] font-semibold pt-1">Đề xuất AI:</div>
-                <div className="text-white/90 flex items-start gap-1.5">
+                <div className={`text-[11px] font-semibold pt-1 ${themeConfig.isLight ? 'text-[#796E64]' : 'text-white/50'}`}>Đề xuất AI:</div>
+                <div className={`flex items-start gap-1.5 ${themeConfig.isLight ? 'text-[#231B15]' : 'text-white/90'}`}>
                   <Sparkles className={`w-3.5 h-3.5 shrink-0 mt-0.5 ${themeConfig.accentText}`} />
                   <span>{selectedIssue.details?.suggestion}</span>
                 </div>
@@ -1455,7 +1529,7 @@ export const AIVerificationCenterView: React.FC<AIVerificationCenterViewProps> =
               <div className="space-y-2 pt-2">
                 <button
                   onClick={() => handleFixIssue(selectedIssue.objectId)}
-                  className={`w-full py-2.5 px-3 rounded-xl ${themeConfig.primaryBtn} text-xs font-bold flex items-center justify-center gap-2 cursor-pointer shadow-lg transition-all`}
+                  className={`w-full py-2.5 px-3 rounded-xl ${themeConfig.primaryBtn} text-xs font-bold flex items-center justify-center gap-2 cursor-pointer shadow-md transition-all text-white`}
                 >
                   <Check className="w-3.5 h-3.5" />
                   <span>Chấp nhận giải pháp AI & Xác minh</span>
@@ -1463,7 +1537,11 @@ export const AIVerificationCenterView: React.FC<AIVerificationCenterViewProps> =
 
                 <button
                   onClick={() => handleFixIssue(selectedIssue.objectId)}
-                  className="w-full py-2 px-3 rounded-xl bg-[#080d18] hover:bg-[#121c32] border border-white/10 text-white/80 text-xs font-semibold flex items-center justify-center gap-2 cursor-pointer transition-all"
+                  className={`w-full py-2 px-3 rounded-xl border text-xs font-semibold flex items-center justify-center gap-2 cursor-pointer transition-all ${
+                    themeConfig.isLight 
+                      ? 'bg-white hover:bg-[#FAF7F2] border-[#E8E1D5] text-[#231B15]' 
+                      : 'bg-[#080d18] hover:bg-[#121c32] border-white/10 text-white/80'
+                  }`}
                 >
                   <Edit3 className="w-3.5 h-3.5" />
                   <span>Chỉnh sửa thủ công</span>
@@ -1474,10 +1552,12 @@ export const AIVerificationCenterView: React.FC<AIVerificationCenterViewProps> =
 
           {/* If Tab is NOTES */}
           {inspectorTab === 'notes' && (
-            <div className="flex-1 p-4 flex flex-col items-center justify-center text-center text-white/40 space-y-2 bg-[#0c1322]">
-              <Info className="w-8 h-8 text-white/20" />
-              <div className="text-xs font-semibold text-white/60">Chưa có ghi chú nào</div>
-              <p className="text-[11px] max-w-xs">
+            <div className={`flex-1 p-4 flex flex-col items-center justify-center text-center space-y-2 ${
+              themeConfig.isLight ? 'bg-white text-[#8C827A]' : 'bg-[#0c1322] text-white/40'
+            }`}>
+              <Info className={`w-8 h-8 ${themeConfig.isLight ? 'text-[#C25E3E]/40' : 'text-white/20'}`} />
+              <div className={`text-xs font-semibold ${themeConfig.isLight ? 'text-[#231B15]' : 'text-white/60'}`}>Chưa có ghi chú nào</div>
+              <p className={`text-[11px] max-w-xs ${themeConfig.isLight ? 'text-[#796E64]' : ''}`}>
                 Bạn có thể thêm ghi chú trực tiếp cho từng phòng hoặc tường để trao đổi cùng kỹ sư dự toán.
               </p>
             </div>
@@ -1490,10 +1570,16 @@ export const AIVerificationCenterView: React.FC<AIVerificationCenterViewProps> =
           SECTION: BOTTOM TABLE (DANH SÁCH ĐỐI TƯỢNG)
       ───────────────────────────────────────────────────────────── */}
       <div className="px-5 pb-4 shrink-0">
-        <div className="rounded-2xl bg-[#0c1322] border border-white/10 overflow-hidden shadow-xl">
+        <div className={`rounded-2xl border overflow-hidden transition-all ${
+          themeConfig.isLight 
+            ? 'bg-white border-[#E8E1D5] shadow-xs' 
+            : 'bg-[#0c1322] border-white/10 shadow-xl'
+        }`}>
           
           {/* Table Toolbar: Tabs on Left, Search + Filter + Export on Right */}
-          <div className="px-4 py-2.5 bg-[#080d18] border-b border-white/10 flex flex-wrap items-center justify-between gap-3">
+          <div className={`px-4 py-2.5 border-b flex flex-wrap items-center justify-between gap-3 ${
+            themeConfig.isLight ? 'bg-[#FAF7F2] border-[#E8E1D5]' : 'bg-[#080d18] border-white/10'
+          }`}>
             
             {/* Table Navigation Tabs */}
             <div className="flex items-center gap-2">
@@ -1502,7 +1588,7 @@ export const AIVerificationCenterView: React.FC<AIVerificationCenterViewProps> =
                 className={`px-3 py-1.5 rounded-lg text-xs font-bold transition-all cursor-pointer ${
                   tableTab === 'objects'
                     ? `${themeConfig.badgeBg} ${themeConfig.accentText} border ${themeConfig.accentBorder} shadow-xs`
-                    : 'text-white/60 hover:text-white'
+                    : themeConfig.isLight ? 'text-[#796E64] hover:text-[#231B15]' : 'text-white/60 hover:text-white'
                 }`}
               >
                 Danh sách đối tượng
@@ -1513,7 +1599,7 @@ export const AIVerificationCenterView: React.FC<AIVerificationCenterViewProps> =
                 className={`px-3 py-1.5 rounded-lg text-xs font-semibold transition-all cursor-pointer ${
                   tableTab === 'summary_room'
                     ? `${themeConfig.badgeBg} ${themeConfig.accentText} border ${themeConfig.accentBorder}`
-                    : 'text-white/60 hover:text-white'
+                    : themeConfig.isLight ? 'text-[#796E64] hover:text-[#231B15]' : 'text-white/60 hover:text-white'
                 }`}
               >
                 Tóm tắt theo phòng
@@ -1524,7 +1610,7 @@ export const AIVerificationCenterView: React.FC<AIVerificationCenterViewProps> =
                 className={`px-3 py-1.5 rounded-lg text-xs font-semibold transition-all cursor-pointer ${
                   tableTab === 'summary_type'
                     ? `${themeConfig.badgeBg} ${themeConfig.accentText} border ${themeConfig.accentBorder}`
-                    : 'text-white/60 hover:text-white'
+                    : themeConfig.isLight ? 'text-[#796E64] hover:text-[#231B15]' : 'text-white/60 hover:text-white'
                 }`}
               >
                 Tóm tắt theo loại
@@ -1535,7 +1621,7 @@ export const AIVerificationCenterView: React.FC<AIVerificationCenterViewProps> =
                 className={`px-3 py-1.5 rounded-lg text-xs font-semibold transition-all cursor-pointer ${
                   tableTab === 'audit_log'
                     ? `${themeConfig.badgeBg} ${themeConfig.accentText} border ${themeConfig.accentBorder}`
-                    : 'text-white/60 hover:text-white'
+                    : themeConfig.isLight ? 'text-[#796E64] hover:text-[#231B15]' : 'text-white/60 hover:text-white'
                 }`}
               >
                 Nhật ký xác minh
@@ -1545,21 +1631,31 @@ export const AIVerificationCenterView: React.FC<AIVerificationCenterViewProps> =
             {/* Search + Filter + Export Controls */}
             <div className="flex items-center gap-2">
               <div className="relative w-48 sm:w-60">
-                <Search className="w-3.5 h-3.5 text-white/40 absolute left-3 top-1/2 -translate-y-1/2" />
+                <Search className={`w-3.5 h-3.5 absolute left-3 top-1/2 -translate-y-1/2 ${
+                  themeConfig.isLight ? 'text-[#8C827A]' : 'text-white/40'
+                }`} />
                 <input
                   type="text"
                   value={searchTableQuery}
                   onChange={(e) => setSearchTableQuery(e.target.value)}
                   placeholder="Tìm đối tượng..."
-                  className={`w-full bg-[#080d18] border border-white/10 rounded-xl pl-8 pr-3 py-1.5 text-xs text-white placeholder-white/40 focus:outline-none focus:border-white/30 transition-colors`}
+                  className={`w-full rounded-xl pl-8 pr-3 py-1.5 text-xs transition-colors border focus:outline-none ${
+                    themeConfig.isLight 
+                      ? 'bg-white border-[#E8E1D5] text-[#231B15] placeholder-[#A89F91] focus:border-[#C25E3E]' 
+                      : 'bg-[#080d18] border-white/10 text-white placeholder-white/40 focus:border-white/30'
+                  }`}
                 />
               </div>
 
               <button
                 onClick={() => setSearchTableQuery('')}
-                className="px-3 py-1.5 rounded-xl bg-[#080d18] border border-white/10 hover:bg-[#121c32] text-white/80 text-xs font-semibold flex items-center gap-1.5 cursor-pointer transition-colors"
+                className={`px-3 py-1.5 rounded-xl border text-xs font-semibold flex items-center gap-1.5 cursor-pointer transition-colors ${
+                  themeConfig.isLight 
+                    ? 'bg-white border-[#E8E1D5] hover:bg-[#FAF7F2] text-[#4A3E36]' 
+                    : 'bg-[#080d18] border-white/10 hover:bg-[#121c32] text-white/80'
+                }`}
               >
-                <Filter className="w-3.5 h-3.5 text-white/50" />
+                <Filter className={`w-3.5 h-3.5 ${themeConfig.isLight ? 'text-[#8C827A]' : 'text-white/50'}`} />
                 <span>Lọc</span>
               </button>
 
@@ -1577,8 +1673,14 @@ export const AIVerificationCenterView: React.FC<AIVerificationCenterViewProps> =
 
           {/* Interactive Data Table */}
           <div className="overflow-x-auto">
-            <table className="w-full text-left text-xs text-white/80 border-collapse">
-              <thead className="bg-[#080d18] border-b border-white/10 text-white/50 font-semibold uppercase text-[10px] tracking-wider">
+            <table className={`w-full text-left text-xs border-collapse ${
+              themeConfig.isLight ? 'text-[#4A3E36]' : 'text-white/80'
+            }`}>
+              <thead className={`border-b font-semibold uppercase text-[10px] tracking-wider ${
+                themeConfig.isLight 
+                  ? 'bg-[#F2ECE1] border-[#E8E1D5] text-[#796E64]' 
+                  : 'bg-[#080d18] border-white/10 text-white/50'
+              }`}>
                 <tr>
                   <th className="py-2.5 px-4">ID</th>
                   <th className="py-2.5 px-3">Loại</th>
@@ -1590,7 +1692,11 @@ export const AIVerificationCenterView: React.FC<AIVerificationCenterViewProps> =
                   <th className="py-2.5 px-4 text-right">Hành động</th>
                 </tr>
               </thead>
-              <tbody className="divide-y divide-white/10 font-sans bg-[#0c1322]">
+              <tbody className={`divide-y font-sans ${
+                themeConfig.isLight 
+                  ? 'divide-[#E8E1D5] bg-white' 
+                  : 'divide-white/10 bg-[#0c1322]'
+              }`}>
                 {filteredRows.slice(0, 7).map((row) => {
                   const isRowSelected = selectedObjectId === row.id;
                   return (
@@ -1602,12 +1708,14 @@ export const AIVerificationCenterView: React.FC<AIVerificationCenterViewProps> =
                       }}
                       className={`transition-colors cursor-pointer ${
                         isRowSelected
-                          ? `${themeConfig.navActive} text-white font-medium`
-                          : 'hover:bg-white/5'
+                          ? (themeConfig.isLight ? 'bg-[#C25E3E]/10 text-[#231B15] font-medium' : `${themeConfig.navActive} text-white font-medium`)
+                          : (themeConfig.isLight ? 'hover:bg-[#FAF7F2]' : 'hover:bg-white/5')
                       }`}
                     >
                       {/* ID */}
-                      <td className={`py-2.5 px-4 font-mono font-bold ${themeConfig.accentText}`}>
+                      <td className={`py-2.5 px-4 font-mono font-bold ${
+                        themeConfig.isLight ? 'text-[#C25E3E]' : themeConfig.accentText
+                      }`}>
                         {row.id}
                       </td>
 
@@ -1615,55 +1723,69 @@ export const AIVerificationCenterView: React.FC<AIVerificationCenterViewProps> =
                       <td className="py-2.5 px-3">
                         <div className="flex items-center gap-1.5">
                           <span className={`w-2.5 h-2.5 rounded-xs ${row.typeColor}`} />
-                          <span className="text-white/90">{row.type}</span>
+                          <span className={themeConfig.isLight ? 'text-[#231B15] font-medium' : 'text-white/90'}>{row.type}</span>
                         </div>
                       </td>
 
                       {/* Tên */}
-                      <td className="py-2.5 px-4 font-semibold text-white">
+                      <td className={`py-2.5 px-4 font-semibold ${themeConfig.isLight ? 'text-[#231B15]' : 'text-white'}`}>
                         {row.name}
                       </td>
 
                       {/* Dimension */}
-                      <td className="py-2.5 px-4 font-mono text-white/70">
+                      <td className={`py-2.5 px-4 font-mono ${themeConfig.isLight ? 'text-[#796E64]' : 'text-white/70'}`}>
                         {row.dimension}
                       </td>
 
                       {/* Trạng thái */}
                       <td className="py-2.5 px-4">
                         {row.statusType === 'verified' && (
-                          <span className="inline-flex items-center gap-1.5 px-2 py-0.5 rounded-full bg-emerald-500/20 text-emerald-400 text-[11px] font-medium border border-emerald-500/30">
+                          <span className={`inline-flex items-center gap-1.5 px-2 py-0.5 rounded-full text-[11px] font-medium border ${
+                            themeConfig.isLight 
+                              ? 'bg-emerald-50 text-emerald-800 border-emerald-200' 
+                              : 'bg-emerald-500/20 text-emerald-400 border-emerald-500/30'
+                          }`}>
                             <CheckCircle2 className="w-3 h-3" /> Đã xác minh
                           </span>
                         )}
                         {row.statusType === 'need_check' && (
-                          <span className={`inline-flex items-center gap-1.5 px-2 py-0.5 rounded-full ${themeConfig.badgeBg} ${themeConfig.accentText} text-[11px] font-medium border ${themeConfig.accentBorder}`}>
+                          <span className={`inline-flex items-center gap-1.5 px-2 py-0.5 rounded-full text-[11px] font-medium border ${
+                            themeConfig.badgeBg
+                          } ${themeConfig.accentText} ${themeConfig.accentBorder}`}>
                             <AlertTriangle className="w-3 h-3" /> Cần kiểm tra
                           </span>
                         )}
                         {row.statusType === 'missing_info' && (
-                          <span className="inline-flex items-center gap-1.5 px-2 py-0.5 rounded-full bg-rose-500/20 text-rose-300 text-[11px] font-medium border border-rose-500/30">
+                          <span className={`inline-flex items-center gap-1.5 px-2 py-0.5 rounded-full text-[11px] font-medium border ${
+                            themeConfig.isLight 
+                              ? 'bg-rose-50 text-rose-800 border-rose-200' 
+                              : 'bg-rose-500/20 text-rose-300 border-rose-500/30'
+                          }`}>
                             <AlertCircle className="w-3 h-3" /> Thiếu thông tin
                           </span>
                         )}
                         {row.statusType === 'excluded' && (
-                          <span className="inline-flex items-center gap-1.5 px-2 py-0.5 rounded-full bg-slate-500/20 text-slate-300 text-[11px] font-medium border border-slate-500/30">
+                          <span className={`inline-flex items-center gap-1.5 px-2 py-0.5 rounded-full text-[11px] font-medium border ${
+                            themeConfig.isLight 
+                              ? 'bg-stone-100 text-stone-700 border-stone-300' 
+                              : 'bg-slate-500/20 text-slate-300 border-slate-500/30'
+                          }`}>
                             <Slash className="w-3 h-3" /> Loại trừ
                           </span>
                         )}
                       </td>
 
                       {/* Vấn đề */}
-                      <td className="py-2.5 px-4 text-white/80">
+                      <td className={`py-2.5 px-4 ${themeConfig.isLight ? 'text-[#4A3E36]' : 'text-white/80'}`}>
                         {row.issue !== '–' ? (
-                          <span className="text-white/90">{row.issue}</span>
+                          <span className={themeConfig.isLight ? 'text-[#231B15]' : 'text-white/90'}>{row.issue}</span>
                         ) : (
-                          <span className="text-white/30">–</span>
+                          <span className={themeConfig.isLight ? 'text-[#8C827A]' : 'text-white/30'}>–</span>
                         )}
                       </td>
 
                       {/* Ghi chú */}
-                      <td className="py-2.5 px-3 text-white/40">
+                      <td className={`py-2.5 px-3 ${themeConfig.isLight ? 'text-[#796E64]' : 'text-white/40'}`}>
                         {row.note}
                       </td>
 
@@ -1675,7 +1797,11 @@ export const AIVerificationCenterView: React.FC<AIVerificationCenterViewProps> =
                             setSelectedObjectId(row.id);
                             setShowTooltip(row.id === 'R03');
                           }}
-                          className={`px-2.5 py-1 rounded-lg bg-[#080d18] hover:bg-white/10 border ${themeConfig.accentBorder} ${themeConfig.accentText} text-[11px] font-semibold inline-flex items-center gap-1.5 cursor-pointer transition-colors`}
+                          className={`px-2.5 py-1 rounded-lg border text-[11px] font-semibold inline-flex items-center gap-1.5 cursor-pointer transition-colors ${
+                            themeConfig.isLight 
+                              ? 'bg-white hover:bg-[#FAF7F2] border-[#E8E1D5] text-[#C25E3E]' 
+                              : `bg-[#080d18] hover:bg-white/10 ${themeConfig.accentBorder} ${themeConfig.accentText}`
+                          }`}
                         >
                           <Eye className="w-3 h-3" />
                           <span>Xem trên bản vẽ</span>
@@ -1693,18 +1819,22 @@ export const AIVerificationCenterView: React.FC<AIVerificationCenterViewProps> =
       {/* ─────────────────────────────────────────────────────────────
           SECTION: BOTTOM STICKY ACTION BAR MATCHING SCREENSHOT
       ───────────────────────────────────────────────────────────── */}
-      <div className="mt-auto px-5 py-3.5 bg-[#080d18] border-t border-white/10 flex flex-wrap items-center justify-between gap-4 shrink-0 z-20">
+      <div className={`mt-auto px-5 py-3.5 border-t flex flex-wrap items-center justify-between gap-4 shrink-0 z-20 ${
+        themeConfig.isLight ? 'bg-white border-[#E8E1D5]' : 'bg-[#080d18] border-white/10'
+      }`}>
         
         {/* Left: Project Progress Bar */}
         <div className="flex items-center gap-4">
           <div className="flex flex-col">
             <div className="flex items-center justify-between text-xs mb-1">
-              <span className="text-white/60">Tiến độ xác minh</span>
+              <span className={themeConfig.isLight ? 'text-[#796E64]' : 'text-white/60'}>Tiến độ xác minh</span>
               <span className={`font-mono font-bold ${themeConfig.accentText} ml-2`}>
                 {isAllFixed ? '100%' : '80%'}
               </span>
             </div>
-            <div className="w-36 sm:w-44 h-1.5 rounded-full bg-white/10 overflow-hidden">
+            <div className={`w-36 sm:w-44 h-1.5 rounded-full overflow-hidden ${
+              themeConfig.isLight ? 'bg-[#E8E1D5]' : 'bg-white/10'
+            }`}>
               <div 
                 className={`h-full rounded-full transition-all duration-500 ${
                   isAllFixed 
@@ -1718,18 +1848,24 @@ export const AIVerificationCenterView: React.FC<AIVerificationCenterViewProps> =
 
           <button
             onClick={onBackToAnalysis}
-            className="text-xs text-white/50 hover:text-white hover:underline cursor-pointer"
+            className={`text-xs hover:underline cursor-pointer ${
+              themeConfig.isLight ? 'text-[#796E64] hover:text-[#231B15]' : 'text-white/50 hover:text-white'
+            }`}
           >
             ◄ Quay lại tải bản vẽ
           </button>
         </div>
 
         {/* Center: System Status Notice */}
-        <div className={`flex items-center gap-2.5 px-4 py-2 rounded-xl bg-[#0c1322] border ${themeConfig.accentBorder} text-xs`}>
-          <CheckCircle2 className={`w-4 h-4 shrink-0 ${isAllFixed ? 'text-emerald-400' : themeConfig.accentText}`} />
-          <div className="text-white/80">
+        <div className={`flex items-center gap-2.5 px-4 py-2 rounded-xl text-xs border ${
+          themeConfig.isLight 
+            ? 'bg-[#FAF7F2] border-[#E8E1D5]' 
+            : `bg-[#0c1322] ${themeConfig.accentBorder}`
+        }`}>
+          <CheckCircle2 className={`w-4 h-4 shrink-0 ${isAllFixed ? 'text-emerald-500' : themeConfig.accentText}`} />
+          <div className={themeConfig.isLight ? 'text-[#4A3E36]' : 'text-white/80'}>
             {isAllFixed ? (
-              <span className="text-emerald-400 font-semibold">
+              <span className={`font-semibold ${themeConfig.isLight ? 'text-emerald-700' : 'text-emerald-400'}`}>
                 ✓ Toàn bộ 156 đối tượng đã được chuẩn hóa và nghiệm thu. Sẵn sàng bóc tách khối lượng!
               </span>
             ) : (
@@ -1760,7 +1896,7 @@ export const AIVerificationCenterView: React.FC<AIVerificationCenterViewProps> =
 
           <button
             onClick={onNavigateToTakeoff}
-            className={`px-5 py-2.5 rounded-xl ${themeConfig.primaryBtn} text-xs font-bold flex items-center gap-2 transition-all cursor-pointer shadow-lg`}
+            className={`px-5 py-2.5 rounded-xl ${themeConfig.primaryBtn} text-xs font-bold flex items-center gap-2 transition-all cursor-pointer shadow-md`}
           >
             <span>Tiếp tục sang Bước 3: Bảng khối lượng</span>
             <ArrowRight className="w-4 h-4" />
